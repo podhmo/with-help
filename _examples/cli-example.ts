@@ -5,7 +5,7 @@ const flagsDefinition = {
     string: ["version", "item"],
     boolean: ["color", "help"],
     negatable: ["color"],
-    default: { color: true },
+    default: {},
     collect: ["item"],
 
     // more options

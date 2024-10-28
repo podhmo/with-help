@@ -50,6 +50,16 @@ export function parseArgs<
         options = { ...options, boolean: booleans }
     }
 
+    if (options.boolean !== undefined) {
+        const defaults = options.default || {};
+        const negatable = options.negatable || [];
+        options.boolean.forEach((name) => {
+            if (defaults[name] === undefined) {
+                defaults[name] = negatable.includes(name);
+            }
+        })
+    }
+
     const parsed = originalParseArgs(args, options)
 
     // show help
