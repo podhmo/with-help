@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "check": "deno check *.ts"
+  },
+  "imports": {
+    "@std/cli": "jsr:@std/cli@1"
+  }
+}
