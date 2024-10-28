@@ -1,10 +1,14 @@
 export type OriginalOptions = {
     boolean?: string[];
     string?: string[];
-    collectable?: string[];
+    collect?: string[];
     negatable?: string[];
-    aliases?: Record<string, string | string[]>;
-    defaults?: Record<string, unknown>;
+    default?: Record<string, unknown>;
+
+    // "--": TDoubleDash;
+    // stopEarly?: boolean;
+    // alias?: Record<string, string | string[]>;
+    // unknown?: (name: string) => void;
 }
 
 export type MoreOptions = {
@@ -31,9 +35,6 @@ export function buildHelp(options: Options): string {
         boolean,
         string,
         negatable,
-        // collectable,
-        // aliases,
-        // defaults,
         required,
         description
     } = options;
