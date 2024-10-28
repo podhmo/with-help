@@ -18,17 +18,26 @@ export type MoreOptions = {
 }
 
 type Options = OriginalOptions & MoreOptions;
+const _negatable_padding = 3;
 
-function formatBooleanOptions(booleans: string[], negatable: string[], required: string[]): string[] {
-    return booleans.map((name) =>
-        `${negatable.includes(name) ? `  --no-${name}` : `  --${name}`}${required.includes(name) ? " (required)" : ""}`
-    );
+function formatBooleanOptions(booleans: string[], negatable: string[], required: string[], maxLength: number): string[] {
+    return booleans.map((name) => {
+        if (negatable.includes(name)) {
+            const paddedName = name.padEnd(maxLength - _negatable_padding, " ");
+            return `  --no-${paddedName}${required.includes(name) ? " (required)" : ""} (default: ${name}=true)`;
+        } else {
+            const paddedName = name.padEnd(maxLength, " ");
+            return `  --${paddedName}${required.includes(name) ? " (required)" : ""} (default: ${name}=false)`;
+        }
+    });
 }
 
-function formatStringOptions(strings: string[], required: string[]): string[] {
-    return strings.map((name) =>
-        `  --${name} <string>${required.includes(name) ? " (required)" : ""}`
-    );
+function formatStringOptions(strings: string[], required: string[], maxLength: number): string[] {
+    return strings.map((name) => {
+        const paddedName = name.padEnd(maxLength, " ");
+        return `  --${paddedName} <string>${required.includes(name) ? " (required)" : ""}`;
+
+    });
 }
 
 function buildUsage({ name }: Options): string {
@@ -44,12 +53,17 @@ export function buildHelp(options: Options): string {
         description
     } = options;
 
+    const maxLength = Math.max(
+        ...(boolean || []).map((name) => name.length + ((negatable || []).includes(name) ? _negatable_padding : 0)),
+        ...(string || []).map((name) => name.length),
+    )+ 3;
+
     const help = [
         buildUsage(options),
         description || "",
         "Options:",
-        ...formatBooleanOptions(boolean || [], negatable || [], required || []),
-        ...formatStringOptions(string || [], required || []),
+        ...formatBooleanOptions(boolean || [], negatable || [], required || [], maxLength),
+        ...formatStringOptions(string || [], required || [], maxLength),
         // ...formatAliases(aliases),
         // ...formatDefaults(defaults),
     ];
