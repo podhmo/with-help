@@ -37,3 +37,8 @@ Deno.test("string,collect", () => {
 	const want = ["Usage: cli [options]", "", "Options:", "  --item    <string[]>"].join("\n")
 	assertEquals(got, want)
 })
+Deno.test("string,default", () => {
+	const got = buildHelp({ string: ["version"], default: {version: "0.0.0"} })
+	const want = ["Usage: cli [options]", "", "Options:", "  --version    <string> (default: version=\"0.0.0\")"].join("\n")
+	assertEquals(got, want)
+})

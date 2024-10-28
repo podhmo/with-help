@@ -32,11 +32,15 @@ function formatBooleanOptions(booleans: string[], negatable: string[], required:
     });
 }
 
-function formatStringOptions(strings: string[], collectable: string[], required: string[], maxLength: number): string[] {
+function formatStringOptions(strings: string[], collectable: string[], defaults: Record<string, unknown>, required: string[], maxLength: number): string[] {
     return strings.map((name) => {
         const paddedName = name.padEnd(maxLength, " ");
-        return `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""}`;
-
+        if (defaults[name] !== undefined) {
+            return `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""} (default: ${name}=${JSON.stringify(defaults[name])})`;
+        }
+        else {
+            return `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""}`;
+        }
     });
 }
 
@@ -50,6 +54,7 @@ export function buildHelp(options: Options): string {
         string,
         negatable,
         collect,
+        default: defaults,
         required,
         description
     } = options;
@@ -64,7 +69,7 @@ export function buildHelp(options: Options): string {
         description ? `\nDescription: ${description}\n` : "",
         "Options:",
         ...formatBooleanOptions(boolean || [], negatable || [], required || [], maxLength),
-        ...formatStringOptions(string || [], collect || [], required || [], maxLength),
+        ...formatStringOptions(string || [], collect || [], defaults || {}, required || [], maxLength),
         // ...formatAliases(aliases),
         // ...formatDefaults(defaults),
     ];
