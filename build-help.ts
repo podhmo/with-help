@@ -17,7 +17,7 @@ export type MoreOptions = {
     description?: string;
 }
 
-type Options = OriginalOptions & MoreOptions;
+export type Options = OriginalOptions & MoreOptions;
 const _negatable_padding = 3;
 
 function formatBooleanOptions(booleans: string[], negatable: string[], required: string[], maxLength: number): string[] {
