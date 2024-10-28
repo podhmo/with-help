@@ -1,23 +1,17 @@
 // import { parseArgs } from "jsr:podhmo/with-help"
-import { buildHelp, parseArgs } from "../mod.ts";
-import { Options } from "../build-help.ts";
+import { parseArgs } from "../mod.ts";
 
-const flagsDefinition: Options = {
+const flags = parseArgs(Deno.args, {
     string: ["version", "item"],
     boolean: ["color"],
     negatable: ["color"],
-    default: {},
     collect: ["item"],
 
     // more options
     name: "cli-example",
     description: "this is cli-example",
     required: ["version"],
-}
-
-console.log(buildHelp(flagsDefinition));
-
-const flags = parseArgs(Deno.args, flagsDefinition);
+});
 
 // deno run cli-example.ts --version=1.0.0
 // deno run cli-example.ts --no-color --version=1.0.0
