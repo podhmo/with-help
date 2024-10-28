@@ -7,6 +7,9 @@ const flagsDefinition = {
     negatable: ["color"],
     default: { color: true },
 
+    // more options
+    name: "cli-example",
+    description: "this is cli-example",
     required: ["version"],
 }
 

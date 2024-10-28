@@ -1,6 +1,16 @@
 import { assertEquals } from "@std/assert"
 import { buildHelp } from "./build-help.ts"
 
+Deno.test("empty", () => {
+	const got = buildHelp({})
+	const want = ["Usage: cli [options]", "", "Options:"].join("\n")
+	assertEquals(got, want)
+})
+Deno.test("name,description", () => {
+	const got = buildHelp({ name: "cli-example", description: "this is cli-example" })
+	const want = ["Usage: cli-example [options]", "", "Description: this is cli-example", "", "Options:"].join("\n")
+	assertEquals(got, want)
+})
 
 Deno.test("boolean", () => {
 	const got = buildHelp({ boolean: ["verbose"] })

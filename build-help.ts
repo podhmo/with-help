@@ -56,11 +56,11 @@ export function buildHelp(options: Options): string {
     const maxLength = Math.max(
         ...(boolean || []).map((name) => name.length + ((negatable || []).includes(name) ? _negatable_padding : 0)),
         ...(string || []).map((name) => name.length),
-    )+ 3;
+    ) + 3;
 
     const help = [
         buildUsage(options),
-        description || "",
+        description ? `\nDescription: ${description}\n` : "",
         "Options:",
         ...formatBooleanOptions(boolean || [], negatable || [], required || [], maxLength),
         ...formatStringOptions(string || [], required || [], maxLength),
