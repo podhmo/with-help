@@ -12,6 +12,7 @@ export type OriginalOptions = {
 }
 
 export type MoreOptions = {
+    name?: string;
     required?: string[];
     description?: string;
 }
@@ -30,6 +31,10 @@ function formatStringOptions(strings: string[], required: string[]): string[] {
     );
 }
 
+function buildUsage({ name }: Options): string {
+    return `Usage: ${name || "cli"} [options]`
+}
+
 export function buildHelp(options: Options): string {
     const {
         boolean,
@@ -40,8 +45,8 @@ export function buildHelp(options: Options): string {
     } = options;
 
     const help = [
-        description || "Usage: cli [options]",
-        "",
+        buildUsage(options),
+        description || "",
         "Options:",
         ...formatBooleanOptions(boolean || [], negatable || [], required || []),
         ...formatStringOptions(string || [], required || []),
