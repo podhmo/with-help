@@ -32,6 +32,14 @@ export function parseArgs<
         TDoubleDash
     > & { required?: string[] },
 ): Args<TArgs, TDoubleDash> {
+    if (options?.unknown === undefined) {
+        options = {
+            ...options, unknown: (name) => {
+                console.error(`Unknown option: ${name}`);
+                Deno.exit(1);
+            }
+        };
+    }
     return originalParseArgs(args, options) as Args<TArgs, TDoubleDash>;
 }
 
