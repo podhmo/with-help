@@ -2,10 +2,11 @@
 import { buildHelp, parseArgs } from "../mod.ts";
 
 const flagsDefinition = {
-    string: ["version"],
+    string: ["version", "item"],
     boolean: ["color", "help"],
     negatable: ["color"],
     default: { color: true },
+    collect: ["item"],
 
     // more options
     name: "cli-example",
