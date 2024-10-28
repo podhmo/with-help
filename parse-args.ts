@@ -40,7 +40,16 @@ export function parseArgs<
             }
         };
     }
-    return originalParseArgs(args, options) as Args<TArgs, TDoubleDash>;
+
+    const parsed = originalParseArgs(args, options)
+    options?.required?.forEach((name) => {
+        if (parsed[name] === undefined) {
+            console.error(`Missing required option: --${name}`);
+            Deno.exit(1);
+        }
+    })
+
+    return parsed as Args<TArgs, TDoubleDash>;
 }
 
 /** Combines recursively all intersection types and returns a new single type.
