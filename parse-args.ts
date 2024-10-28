@@ -33,6 +33,7 @@ export function parseArgs<
         TDoubleDash
     > & { required?: string[] },
 ): Args<TArgs, TDoubleDash> {
+    // add unknown option handler if not provided
     if (options?.unknown === undefined) {
         options = {
             ...options, unknown: (name) => {
@@ -42,6 +43,7 @@ export function parseArgs<
         };
     }
 
+    // add help flag
     if (options.boolean === undefined || !options.boolean.includes("help")) {
         const booleans = options.boolean || [];
         booleans.push("help")
@@ -49,11 +51,14 @@ export function parseArgs<
     }
 
     const parsed = originalParseArgs(args, options)
-    console.dir(parsed, null)
+
+    // show help
     if (parsed["help"]) {
         console.log(buildHelp(options));
         Deno.exit(1)
     }
+
+    // check required options
     options?.required?.forEach((name) => {
         if (parsed[name] === undefined) {
             console.error(`Missing required option: --${name}`);
