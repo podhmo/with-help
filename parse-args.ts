@@ -1,5 +1,6 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { type Args, type ParseOptions } from "@std/cli/parse-args";
+import { buildHelp } from "./build-help.ts";
 
 
 export function parseArgs<
@@ -41,14 +42,24 @@ export function parseArgs<
         };
     }
 
+    if (options.boolean === undefined || !options.boolean.includes("help")) {
+        const booleans = options.boolean || [];
+        booleans.push("help")
+        options = { ...options, boolean: booleans }
+    }
+
     const parsed = originalParseArgs(args, options)
+    console.dir(parsed, null)
+    if (parsed["help"]) {
+        console.log(buildHelp(options));
+        Deno.exit(1)
+    }
     options?.required?.forEach((name) => {
         if (parsed[name] === undefined) {
             console.error(`Missing required option: --${name}`);
             Deno.exit(1);
         }
     })
-
     return parsed as Args<TArgs, TDoubleDash>;
 }
 
