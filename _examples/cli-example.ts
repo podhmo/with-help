@@ -1,9 +1,10 @@
 // import { parseArgs } from "jsr:podhmo/with-help"
 import { buildHelp, parseArgs } from "../mod.ts";
+import { Options } from "../build-help.ts";
 
-const flagsDefinition = {
+const flagsDefinition: Options = {
     string: ["version", "item"],
-    boolean: ["color", "help"],
+    boolean: ["color"],
     negatable: ["color"],
     default: {},
     collect: ["item"],

@@ -22,9 +22,13 @@ export function parseArgs(
     if (options.boolean === undefined || !options.boolean.includes("help")) {
         const booleans = options.boolean || [];
         booleans.push("help")
-        options = { ...options, boolean: booleans }
+
+        const flagDescription = options.flagDescription || {};
+        flagDescription["help"] = "show help";
+        options = { ...options, boolean: booleans, flagDescription };
     }
 
+    // add default value for boolean options
     if (options.boolean !== undefined) {
         const defaults = options.default || {};
         const negatable = options.negatable || [];

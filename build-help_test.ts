@@ -27,6 +27,7 @@ Deno.test("boolean,negatable", () => {
 	const want = ["Usage: cli [options]", "", "Options:", "  --no-color    (default: color=true)"].join("\n")
 	assertEquals(got, want)
 })
+
 Deno.test("string", () => {
 	const got = buildHelp({ string: ["version"] })
 	const want = ["Usage: cli [options]", "", "Options:", "  --version    <string>"].join("\n")
@@ -38,7 +39,23 @@ Deno.test("string,collect", () => {
 	assertEquals(got, want)
 })
 Deno.test("string,default", () => {
-	const got = buildHelp({ string: ["version"], default: {version: "0.0.0"} })
+	const got = buildHelp({ string: ["version"], default: { version: "0.0.0" } })
 	const want = ["Usage: cli [options]", "", "Options:", "  --version    <string> (default: version=\"0.0.0\")"].join("\n")
+	assertEquals(got, want)
+})
+
+Deno.test("boolean,flagDescription", () => {
+	const got = buildHelp({ boolean: ["help"], flagDescription: { help: "show help" } })
+	const want = ["Usage: cli [options]", "", "Options:", "  --help    show help"].join("\n")
+	assertEquals(got, want)
+})
+Deno.test("boolean,negatable,flagDescription", () => {
+	const got = buildHelp({ boolean: ["color"], negatable: ["color"], flagDescription: { "color": "without color" } })
+	const want = ["Usage: cli [options]", "", "Options:", "  --no-color    without color"].join("\n")
+	assertEquals(got, want)
+})
+Deno.test("string,flagDescription", () => {
+	const got = buildHelp({ string: ["version"], required: ["version"], flagDescription: { "version": "set version ***required***" } })
+	const want = ["Usage: cli [options]", "", "Options:", "  --version    <string> set version ***required***"].join("\n")
 	assertEquals(got, want)
 })
