@@ -1,6 +1,36 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp } from "./build-help.ts";
 
+/**
+ * Command line arguments parser wrapper for parseArgs of {@link https://jsr.io/@std/cli/doc/parse-args}
+ *
+ * The following features have been added:
+ *
+ * - Flags can be specified as required options (affecting the return type)
+ * - Added help display by `--help`
+ * - Display an error when a non-existent flag is given by typo (this is added as the default value of the unknown option)
+ *
+ * Also, for religious reasons, alias options are not supported very politely.
+ * 
+ * @example
+ * ```ts
+ * import { parseArgs } from "jsr:podhmo/with-help"
+ * 
+ *  const flags = parseArgs(Deno.args, {
+ *     // original options (jsr:@std/cli/parse-args)
+ *     string: ["version", "item"],
+ *     boolean: ["color"], // as `boolean`
+ *     negatable: ["color"],
+ *     collect: ["item"], // as `string[]`
+ *
+ *     // more options
+ *     required: ["version"], // the version's type is `string` instead of `string | undefined`
+ *     name: "cli-example",
+ *     description: "this is cli-example",
+ * } as const);
+ * ```
+ */
+
 // for enfoce as-const assertion
 type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
     ? string[] extends T // if T is not a literal type, return never[]
@@ -26,7 +56,6 @@ type Parsed<
         ? boolean
         : (K extends DefaultKey ? boolean : boolean | undefined);
     } & { help: boolean; _: string[]; };
-
 
 export function parseArgs<
     StringKeys extends readonly string[],
