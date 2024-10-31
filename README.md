@@ -12,4 +12,4 @@ Hmm, I don't think so.
 
 ## how to use
 
-https://github.com/podhmo/with-help/blob/832299dd5ac3e33f8bc53074861a80e764e506ab/parse-args.ts#L4-L32
+https://github.com/podhmo/with-help/blob/832299dd5ac3e33f8bc53074861a80e764e506ab/parse-args.ts#L17-L30
