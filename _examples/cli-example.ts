@@ -2,23 +2,26 @@
 import { parseArgs } from "../mod.ts";
 
 const flags = parseArgs(Deno.args, {
+    // original options (jsr:@std/cli/parse-args)
     string: ["version", "item"],
     boolean: ["color"],
     negatable: ["color"],
     collect: ["item"],
+    required: ["version"],
 
     // more options
     name: "cli-example",
     description: "this is cli-example",
-    required: ["version"],
-});
+} as const);
 
-// deno run cli-example.ts --version=1.0.0
-// deno run cli-example.ts --no-color --version=1.0.0
+// ** success case **
+// deno run ./_examples/cli-example.ts --version=1.0.0
+// deno run ./_examples/cli-example.ts --no-color --version=1.0.0
+// deno run ./_examples/cli-example.ts --help
 //
-// hmm
-// deno run cli-example.ts
-// deno run cli-example.ts --colr=false --version=1.0.0 x y z
+// ** error case **
+// deno run ./_examples/cli-example.ts
+// deno run ./_examples/cli-example.ts --colr=false --version=1.0.0 x y z
 
 console.dir(flags, { depth: null });
 console.dir(flags._, { depth: null });
