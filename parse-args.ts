@@ -94,7 +94,7 @@ export function parseArgs<
                 defaults[name] = negatable.includes(name);
             }
         })
-        options.default = defaults;
+        options = { ...options, default: defaults };
     }
 
     // calling the original parseArgs
