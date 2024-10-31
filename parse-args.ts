@@ -35,7 +35,7 @@ export function parseArgs<
     CollectKeys extends readonly string[],
     TDefaults extends { [P in StringKeys[number]]?: string | string[] } & { [P in BooleanKeys[number]]?: boolean },
     DefaultKey extends Extract<keyof TDefaults, string>,
-    TFlagDescriptions extends Record<(BooleanKeys | StringKeys | "help")[number], string>
+    TFlagDescriptions extends { [P in StringKeys[number]]?: string } & { [P in BooleanKeys[number]]?: string } & { help?: string },
 >(
     args: string[],
     options: {
@@ -78,8 +78,7 @@ export function parseArgs<
         const booleans = options.boolean || [];
         booleans.push("help")
 
-        const flagDescription = options.flagDescription || ({} as TFlagDescriptions);
-        // @ts-ignore TODO: fix typing
+        const flagDescription: TFlagDescriptions = options.flagDescription || ({} as TFlagDescriptions);
         flagDescription["help"] = "show help";
         options = { ...options, boolean: booleans, flagDescription };
     }
