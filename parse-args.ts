@@ -1,13 +1,63 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
-import { buildHelp, Options } from "./build-help.ts";
+import { buildHelp } from "./build-help.ts";
 
 
-// TODO: typing improvement
+// for enfoce as-const assertion
+type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
+    ? string[] extends T // if T is not a literal type, return never[]
+    ? never[]
+    : T
+    : never;
 
-export function parseArgs(
+
+type Parsed<
+    StringKey extends string,
+    BooleanKey extends string,
+    RequiredKey extends string,
+    CollectKey extends string,
+    DefaultKey extends string
+> = {
+    [K in StringKey]:
+    K extends CollectKey
+    ? string[]
+    : (K extends (RequiredKey | DefaultKey) ? string : (string | undefined))
+} &
+    {
+        [K in BooleanKey]: K extends RequiredKey
+        ? boolean
+        : (K extends DefaultKey ? boolean : boolean | undefined);
+    } & { help: boolean; _: string[]; };
+
+
+export function parseArgs<
+    StringKeys extends readonly string[],
+    BooleanKeys extends readonly string[],
+    RequiredKeys extends readonly string[],
+    CollectKeys extends readonly string[],
+    TDefaults extends { [P in StringKeys[number]]?: string | string[] } & { [P in BooleanKeys[number]]?: boolean },
+    DefaultKey extends Extract<keyof TDefaults, string>,
+    TFlagDescriptions extends Record<(BooleanKeys | StringKeys | "help")[number], string>
+>(
     args: string[],
-    options?: Options & { unknown?: (name: string) => void },
-): Record<string, string | string[] | boolean | undefined> {
+    options: {
+        // original options
+        boolean?: (EnsureLiteralArray<BooleanKeys>[number] | "help")[];
+        string?: EnsureLiteralArray<StringKeys>;
+        collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number] ? CollectKeys : never;
+        negatable?: EnsureLiteralArray<BooleanKeys>;
+        default?: TDefaults
+        // "--": TDoubleDash;
+        // stopEarly?: boolean;
+        // alias?: Record<string, string | string[]>;
+        unknown?: (name: string) => void
+
+        // more options
+        name?: string;
+        required?: EnsureLiteralArray<RequiredKeys[number] extends (StringKeys[number] | BooleanKeys[number]) ? RequiredKeys : never>;
+        description?: string;
+        flagDescription?: TFlagDescriptions;
+    }
+): Parsed<StringKeys[number], BooleanKeys[number], RequiredKeys[number], CollectKeys[number], DefaultKey> {
     // add unknown option handler if not provided
     if (options?.unknown === undefined) {
         options = {
@@ -19,27 +69,31 @@ export function parseArgs(
     }
 
     // add help flag
-    if (options.boolean === undefined || !options.boolean.includes("help")) {
+    if (options.boolean === undefined || !options.boolean.includes("help")) { //
         const booleans = options.boolean || [];
         booleans.push("help")
 
-        const flagDescription = options.flagDescription || {};
+        const flagDescription = options.flagDescription || ({} as TFlagDescriptions);
+        // @ts-ignore TODO: fix typing
         flagDescription["help"] = "show help";
         options = { ...options, boolean: booleans, flagDescription };
     }
 
     // add default value for boolean options
     if (options.boolean !== undefined) {
-        const defaults = options.default || {};
+        const defaults = options.default || ({} as TDefaults);
         const negatable = options.negatable || [];
         options.boolean.forEach((name) => {
             if (defaults[name] === undefined) {
+                // @ts-ignore TODO: fix typing
                 defaults[name] = negatable.includes(name);
             }
         })
+        options.default = defaults;
     }
 
-    const parsed = originalParseArgs(args, options)
+    // @ts-ignore TODO: fix typing
+    const parsed = originalParseArgs(args, options) as Parsed<StringKeys[number], BooleanKeys[number], RequiredKeys[number], CollectKeys[number], DefaultKey>;
 
     // show help
     if (parsed["help"]) {
@@ -54,5 +108,5 @@ export function parseArgs(
             Deno.exit(1);
         }
     })
-    return parsed as Record<string, string | string[] | boolean | undefined>;
+    return parsed
 }

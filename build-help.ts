@@ -1,8 +1,8 @@
 export type OriginalOptions = {
-    boolean?: string[];
-    string?: string[];
-    collect?: string[];
-    negatable?: string[];
+    boolean?: readonly string[];
+    string?: readonly string[];
+    collect?: readonly string[];
+    negatable?: readonly string[];
     default?: Record<string, unknown>;
 
     // "--": TDoubleDash;
@@ -13,7 +13,7 @@ export type OriginalOptions = {
 
 export type MoreOptions = {
     name?: string;
-    required?: string[];
+    required?: readonly string[];
     description?: string;
     flagDescription?: Record<string, string>;
 }
@@ -21,7 +21,7 @@ export type MoreOptions = {
 export type Options = OriginalOptions & MoreOptions;
 const _negatable_padding = 3;
 
-function formatBooleanOptions(booleans: string[], negatable: string[], required: string[], flagDescription: Record<string, string>, maxLength: number): string[] {
+function formatBooleanOptions(booleans: readonly string[], negatable: readonly string[], required: readonly string[], flagDescription: Record<string, string>, maxLength: number): readonly string[] {
     return booleans.map((name) => {
         if (negatable.includes(name)) {
             const paddedName = name.padEnd(maxLength - _negatable_padding, " ");
@@ -41,7 +41,7 @@ function formatBooleanOptions(booleans: string[], negatable: string[], required:
     });
 }
 
-function formatStringOptions(strings: string[], collectable: string[], defaults: Record<string, unknown>, required: string[], flagDescription: Record<string, string>, maxLength: number): string[] {
+function formatStringOptions(strings: readonly string[], collectable: readonly string[], defaults: Record<string, unknown>, required: readonly string[], flagDescription: Record<string, string>, maxLength: number): readonly string[] {
     return strings.map((name) => {
         const paddedName = name.padEnd(maxLength, " ");
         if (flagDescription[name]) {
