@@ -1,7 +1,6 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp } from "./build-help.ts";
 
-
 // for enfoce as-const assertion
 type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
     ? string[] extends T // if T is not a literal type, return never[]
@@ -56,12 +55,18 @@ export function parseArgs<
         required?: EnsureLiteralArray<RequiredKeys[number] extends (StringKeys[number] | BooleanKeys[number]) ? RequiredKeys : never>;
         description?: string;
         flagDescription?: TFlagDescriptions;
+
+        supressHelp?: boolean;
     }
 ): Parsed<StringKeys[number], BooleanKeys[number], RequiredKeys[number], CollectKeys[number], DefaultKey> {
     // add unknown option handler if not provided
     if (options?.unknown === undefined) {
         options = {
             ...options, unknown: (name) => {
+                if (!options.supressHelp) {
+                    console.log(buildHelp(options));
+                    console.log("");
+                }
                 console.error(`Unknown option: ${name}`);
                 Deno.exit(1);
             }
@@ -104,6 +109,10 @@ export function parseArgs<
     // check required options
     options?.required?.forEach((name) => {
         if (parsed[name] === undefined) {
+            if (!options.supressHelp) {
+                console.log(buildHelp(options));
+                console.log("");
+            }
             console.error(`Missing required option: --${name}`);
             Deno.exit(1);
         }
