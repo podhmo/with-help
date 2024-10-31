@@ -46,8 +46,8 @@ export function parseArgs<
         negatable?: EnsureLiteralArray<BooleanKeys>;
         default?: TDefaults
         // "--": TDoubleDash;
-        // stopEarly?: boolean;
-        // alias?: Record<string, string | string[]>;
+        stopEarly?: boolean;
+        alias?: Record<string, string | string[]>; // I don't like this...
         unknown?: (name: string) => void
 
         // more options
