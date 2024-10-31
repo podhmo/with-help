@@ -74,7 +74,7 @@ export function parseArgs<
     }
 
     // add help flag
-    if (options.boolean === undefined || !options.boolean.includes("help")) { //
+    if (options.boolean === undefined || !options.boolean.includes("help")) {
         const booleans = options.boolean || [];
         booleans.push("help")
 
@@ -87,9 +87,10 @@ export function parseArgs<
     if (options.boolean !== undefined) {
         const defaults = options.default || ({} as TDefaults);
         const negatable = options.negatable || [];
+
         options.boolean.forEach((name) => {
             if (defaults[name] === undefined) {
-                // @ts-ignore TODO: fix typing
+                // @ts-ignore Since we are looping through BooleanKeys, name will always be BooleanKeys[number] and the value is always boolean
                 defaults[name] = negatable.includes(name);
             }
         })
