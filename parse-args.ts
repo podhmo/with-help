@@ -1,6 +1,31 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp } from "./build-help.ts";
 
+// for enfoce as-const assertion
+type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
+  ? string[] extends T // if T is not a literal type, return never[]
+    ? never[]
+  : T
+  : never;
+
+/** The return type of parseArgs(). */
+type Parsed<
+  StringKey extends string,
+  BooleanKey extends string,
+  RequiredKey extends string,
+  CollectKey extends string,
+  DefaultKey extends string,
+> =
+  & {
+    [K in StringKey]: K extends CollectKey ? string[]
+      : (K extends (RequiredKey | DefaultKey) ? string : (string | undefined));
+  }
+  & {
+    [K in BooleanKey]: K extends RequiredKey ? boolean
+      : (K extends DefaultKey ? boolean : boolean | undefined);
+  }
+  & { help: boolean; _: string[] };
+
 /**
  * Command line arguments parser wrapper for parseArgs of {@link https://jsr.io/@std/cli/doc/parse-args}
  *
@@ -30,33 +55,6 @@ import { buildHelp } from "./build-help.ts";
  * } as const);
  * ```
  */
-
-// for enfoce as-const assertion
-type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
-  ? string[] extends T // if T is not a literal type, return never[]
-    ? never[]
-  : T
-  : never;
-
-/** The return type of parseArgs(). */
-type Parsed<
-  StringKey extends string,
-  BooleanKey extends string,
-  RequiredKey extends string,
-  CollectKey extends string,
-  DefaultKey extends string,
-> =
-  & {
-    [K in StringKey]: K extends CollectKey ? string[]
-      : (K extends (RequiredKey | DefaultKey) ? string : (string | undefined));
-  }
-  & {
-    [K in BooleanKey]: K extends RequiredKey ? boolean
-      : (K extends DefaultKey ? boolean : boolean | undefined);
-  }
-  & { help: boolean; _: string[] };
-
-/** parse command line arguments via @std.cli/parse-args with some additional features. */
 export function parseArgs<
   StringKeys extends readonly string[],
   BooleanKeys extends readonly string[],
