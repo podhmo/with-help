@@ -100,7 +100,7 @@ export function parseArgs<
   StringKeys[number],
   BooleanKeys[number],
   RequiredKeys[number],
-  CollectKeys[number],
+  EnsureLiteralArray<CollectKeys>[number],
   DefaultKey
 > {
   // add unknown option handler if not provided
@@ -155,7 +155,7 @@ export function parseArgs<
     StringKeys[number],
     BooleanKeys[number],
     RequiredKeys[number],
-    CollectKeys[number],
+    EnsureLiteralArray<CollectKeys>[number],
     DefaultKey
   >;
 
