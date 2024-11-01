@@ -1,0 +1,129 @@
+Check file://ROOT/e2e-tests/00empty.ts
+Check file://ROOT/e2e-tests/10string1-booleanU-negatableU-collectU-requiredU.ts
+Check file://ROOT/e2e-tests/11string1-booleanU-negatableU-collectU-required0.ts
+Check file://ROOT/e2e-tests/12string1-booleanU-negatableU-collect0-required0.ts
+Check file://ROOT/e2e-tests/13string1-booleanU-negatable0-collect0-required0.ts
+Check file://ROOT/e2e-tests/14string1-boolean0-negatable0-collect0-required0.ts
+Check file://ROOT/e2e-tests/15string1-booleanU-negatableU-collectU-required1.ts
+Check file://ROOT/e2e-tests/16string1-booleanU-negatableU-collect0-required1.ts
+Check file://ROOT/e2e-tests/17string1-booleanU-negatable0-collect0-required1.ts
+Check file://ROOT/e2e-tests/18string1-boolean0-negatable0-collect0-required1.ts
+Check file://ROOT/e2e-tests/19string1-booleanU-negatableU-collect1-requiredU.ts
+Check file://ROOT/e2e-tests/1astring1-booleanU-negatableU-collect1-required0.ts
+Check file://ROOT/e2e-tests/1bstring1-booleanU-negatable0-collect1-required0.ts
+Check file://ROOT/e2e-tests/1cstring1-boolean0-negatable0-collect1-required0.ts
+Check file://ROOT/e2e-tests/1dstring1-booleanU-negatableU-collect1-required1.ts
+Check file://ROOT/e2e-tests/1estring1-booleanU-negatable0-collect1-required1.ts
+Check file://ROOT/e2e-tests/1fstring1-boolean0-negatable0-collect1-required1.ts
+Check file://ROOT/e2e-tests/20stringU-boolean1-negatableU-collectU-requiredU.ts
+Check file://ROOT/e2e-tests/21stringU-boolean1-negatableU-collectU-required0.ts
+Check file://ROOT/e2e-tests/22stringU-boolean1-negatableU-collect0-required0.ts
+Check file://ROOT/e2e-tests/23stringU-boolean1-negatable0-collect0-required0.ts
+Check file://ROOT/e2e-tests/24stringU-boolean1-negatableU-collectU-required1.ts
+Check file://ROOT/e2e-tests/25stringU-boolean1-negatable1-collectU-requiredU.ts
+Check file://ROOT/e2e-tests/26string0-boolean1-negatableU-collectU-requiredU.ts
+Check file://ROOT/e2e-tests/27string0-boolean1-negatableU-collectU-required0.ts
+Check file://ROOT/e2e-tests/28string0-boolean1-negatableU-collect0-required0.ts
+Check file://ROOT/e2e-tests/29string0-boolean1-negatable0-collect0-required0.ts
+Check file://ROOT/e2e-tests/2astringU-boolean1-negatable1-collectU-requiredU.ts
+Check file://ROOT/e2e-tests/2bstringU-boolean1-negatable1-collectU-required0.ts
+Check file://ROOT/e2e-tests/2cstringU-boolean1-negatable1-collectU-required0.ts
+Check file://ROOT/e2e-tests/2dstring0-boolean1-negatable1-collectU-requiredU.ts
+Check file://ROOT/e2e-tests/2estring0-boolean1-negatable1-collectU-required0.ts
+Check file://ROOT/e2e-tests/2fstring0-boolean1-negatable1-collectU-required1.ts
+error: TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
+const _name: string | undefined = parsed.name;
+      ~~~~~
+    at file://ROOT/e2e-tests/10string1-booleanU-negatableU-collectU-requiredU.ts:6:7
+
+TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
+const _name: string | undefined = parsed.name;
+      ~~~~~
+    at file://ROOT/e2e-tests/11string1-booleanU-negatableU-collectU-required0.ts:7:7
+
+TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
+const _name: string = parsed.name;
+      ~~~~~
+    at file://ROOT/e2e-tests/15string1-booleanU-negatableU-collectU-required1.ts:7:7
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/20stringU-boolean1-negatableU-collectU-requiredU.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/21stringU-boolean1-negatableU-collectU-required0.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/22stringU-boolean1-negatableU-collect0-required0.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/23stringU-boolean1-negatable0-collect0-required0.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/24stringU-boolean1-negatableU-collectU-required1.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/25stringU-boolean1-negatable1-collectU-requiredU.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/26string0-boolean1-negatableU-collectU-requiredU.ts:4:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/27string0-boolean1-negatableU-collectU-required0.ts:4:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/28string0-boolean1-negatableU-collect0-required0.ts:4:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/29string0-boolean1-negatable0-collect0-required0.ts:4:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/2astringU-boolean1-negatable1-collectU-requiredU.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/2bstringU-boolean1-negatable1-collectU-required0.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/2cstringU-boolean1-negatable1-collectU-required0.ts:3:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/2dstring0-boolean1-negatable1-collectU-requiredU.ts:4:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/2estring0-boolean1-negatable1-collectU-required0.ts:4:13
+
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "color"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/2fstring0-boolean1-negatable1-collectU-required1.ts:4:13
+
+Found 19 errors.
