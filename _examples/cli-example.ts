@@ -1,7 +1,9 @@
 // import { parseArgs } from "jsr:podhmo/with-help"
 import { parseArgs } from "../mod.ts";
 
-const flags = parseArgs(Deno.args, {
+const flags = parseArgs(
+  Deno.args,
+  {
     // original options (jsr:@std/cli/parse-args)
     string: ["version", "item"],
     boolean: ["color"],
@@ -12,7 +14,8 @@ const flags = parseArgs(Deno.args, {
     // more options
     name: "cli-example",
     description: "this is cli-example",
-} as const);
+  } as const,
+);
 
 // ** success case **
 // deno run ./_examples/cli-example.ts --version=1.0.0

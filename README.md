@@ -6,7 +6,8 @@ deno's [@std/cli.parseArgs()](https://jsr.io/@std/cli) with help message.
 
 https://github.com/nodejs/tooling/issues/19
 
-> My original intuition here was that automated help output would be overreaching.
+> My original intuition here was that automated help output would be
+> overreaching.
 
 Hmm, I don't think so.
 
@@ -15,9 +16,11 @@ Hmm, I don't think so.
 It's almost same as jsr:@std/cli/parse-args.parseArgs().
 
 ```ts
-import { parseArgs } from "jsr:podhmo/with-help"
+import { parseArgs } from "jsr:podhmo/with-help";
 
-const flags = parseArgs(Deno.args, {
+const flags = parseArgs(
+  Deno.args,
+  {
     // original options (jsr:@std/cli/parse-args)
     string: ["version", "item"],
     boolean: ["color"], // as `boolean`
@@ -28,7 +31,8 @@ const flags = parseArgs(Deno.args, {
     required: ["version"], // the version's type is `string` instead of `string | undefined`
     name: "cli-example",
     description: "this is cli-example",
-} as const); 
+  } as const,
+);
 ```
 
 Output example is here.
