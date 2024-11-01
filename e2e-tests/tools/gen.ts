@@ -9,6 +9,7 @@ interface TestCase {
         negatable?: string[]
         collect?: string[]
         required?: string[]
+        default?: Record<string,unknown>
     }
 }
 
@@ -32,41 +33,49 @@ function main() {
     // success case
 
     const testcases: TestCase[] = [
-        { title: "00empty", options: {} },
+        { title: "good-00empty", options: {} },
 
-        { title: "10string1-booleanU-negatableU-collectU-requiredU", options: { string: [["name", "string | undefined"]] } },
-        { title: "11string1-booleanU-negatableU-collectU-required0", options: { string: [["name", "string | undefined"]], required: [] } },
-        { title: "12string1-booleanU-negatableU-collect0-required0", options: { string: [["name", "string | undefined"]], collect: [], required: [] } },
-        { title: "13string1-booleanU-negatable0-collect0-required0", options: { string: [["name", "string | undefined"]], negatable: [], collect: [], required: [] } },
-        { title: "14string1-boolean0-negatable0-collect0-required0", options: { string: [["name", "string | undefined"]], boolean: [], negatable: [], collect: [], required: [] } },
-        { title: "15string1-booleanU-negatableU-collectU-required1", options: { string: [["name", "string"]], required: ["name"] } },
-        { title: "16string1-booleanU-negatableU-collect0-required1", options: { string: [["name", "string"]], collect: [], required: ["name"] } },
-        { title: "17string1-booleanU-negatable0-collect0-required1", options: { string: [["name", "string"]], negatable: [], collect: [], required: ["name"] } },
-        { title: "18string1-boolean0-negatable0-collect0-required1", options: { string: [["name", "string"]], boolean: [], negatable: [], collect: [], required: ["name"] } },
-        { title: "19string1-booleanU-negatableU-collect1-requiredU", options: { string: [["names", "string[]"]], collect: ["names"] } }, // not string[] | undefined
-        { title: "1astring1-booleanU-negatableU-collect1-required0", options: { string: [["names", "string[]"]], collect: ["names"], required: [] } },
-        { title: "1bstring1-booleanU-negatable0-collect1-required0", options: { string: [["names", "string[]"]], collect: ["names"], required: [], negatable: [] } },
-        { title: "1cstring1-boolean0-negatable0-collect1-required0", options: { string: [["names", "string[]"]], collect: ["names"], required: [], boolean: [], negatable: [] } },
-        { title: "1dstring1-booleanU-negatableU-collect1-required1", options: { string: [["names", "string[]"]], collect: ["names"], required: ["names"] } },
-        { title: "1estring1-booleanU-negatable0-collect1-required1", options: { string: [["names", "string[]"]], collect: ["names"], required: ["names"], negatable: [] } },
-        { title: "1fstring1-boolean0-negatable0-collect1-required1", options: { string: [["names", "string[]"]], collect: ["names"], required: ["names"], boolean: [], negatable: [] } },
+        { title: "good-10string1-booleanU-negatableU-collectU-requiredU", options: { string: [["name", "string | undefined"]] } },
+        { title: "good-11string1-booleanU-negatableU-collectU-required0", options: { string: [["name", "string | undefined"]], required: [] } },
+        { title: "good-12string1-booleanU-negatableU-collect0-required0", options: { string: [["name", "string | undefined"]], collect: [], required: [] } },
+        { title: "good-13string1-booleanU-negatable0-collect0-required0", options: { string: [["name", "string | undefined"]], negatable: [], collect: [], required: [] } },
+        { title: "good-14string1-boolean0-negatable0-collect0-required0", options: { string: [["name", "string | undefined"]], boolean: [], negatable: [], collect: [], required: [] } },
+        { title: "good-15string1-booleanU-negatableU-collectU-required1", options: { string: [["name", "string"]], required: ["name"] } },
+        { title: "good-16string1-booleanU-negatableU-collect0-required1", options: { string: [["name", "string"]], collect: [], required: ["name"] } },
+        { title: "good-17string1-booleanU-negatable0-collect0-required1", options: { string: [["name", "string"]], negatable: [], collect: [], required: ["name"] } },
+        { title: "good-18string1-boolean0-negatable0-collect0-required1", options: { string: [["name", "string"]], boolean: [], negatable: [], collect: [], required: ["name"] } },
+        { title: "good-19string1-booleanU-negatableU-collect1-requiredU", options: { string: [["names", "string[]"]], collect: ["names"] } }, // not string[] | undefined
+        { title: "good-1astring1-booleanU-negatableU-collect1-required0", options: { string: [["names", "string[]"]], collect: ["names"], required: [] } },
+        { title: "good-1bstring1-booleanU-negatable0-collect1-required0", options: { string: [["names", "string[]"]], collect: ["names"], required: [], negatable: [] } },
+        { title: "good-1cstring1-boolean0-negatable0-collect1-required0", options: { string: [["names", "string[]"]], collect: ["names"], required: [], boolean: [], negatable: [] } },
+        { title: "good-1dstring1-booleanU-negatableU-collect1-required1", options: { string: [["names", "string[]"]], collect: ["names"], required: ["names"] } },
+        { title: "good-1estring1-booleanU-negatable0-collect1-required1", options: { string: [["names", "string[]"]], collect: ["names"], required: ["names"], negatable: [] } },
+        { title: "good-1fstring1-boolean0-negatable0-collect1-required1", options: { string: [["names", "string[]"]], collect: ["names"], required: ["names"], boolean: [], negatable: [] } },
 
-        { title: "20stringU-boolean1-negatableU-collectU-requiredU", options: { boolean: [["color", "boolean"]] } },
-        { title: "21stringU-boolean1-negatableU-collectU-required0", options: { boolean: [["color", "boolean"]], required: [] } },
-        { title: "22stringU-boolean1-negatableU-collect0-required0", options: { boolean: [["color", "boolean"]], collect: [], required: [] } },
-        { title: "23stringU-boolean1-negatable0-collect0-required0", options: { boolean: [["color", "boolean"]], negatable: [], collect: [], required: [] } },
-        { title: "24stringU-boolean1-negatableU-collectU-required1", options: { boolean: [["color", "boolean"]], required: ["color"] } },
-        { title: "25stringU-boolean1-negatable1-collectU-requiredU", options: { boolean: [["color", "boolean"]], negatable: ["color"] } },
-        { title: "26string0-boolean1-negatableU-collectU-requiredU", options: { string: [], boolean: [["color", "boolean"]] } },
-        { title: "27string0-boolean1-negatableU-collectU-required0", options: { string: [], boolean: [["color", "boolean"]], required: [] } },
-        { title: "28string0-boolean1-negatableU-collect0-required0", options: { string: [], boolean: [["color", "boolean"]], collect: [], required: [] } },
-        { title: "29string0-boolean1-negatable0-collect0-required0", options: { string: [], boolean: [["color", "boolean"]], negatable: [], collect: [], required: [] } },
-        { title: "2astringU-boolean1-negatable1-collectU-requiredU", options: { boolean: [["color", "boolean"]], negatable: ["color"] } },
-        { title: "2bstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: [] } },
-        { title: "2cstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
-        { title: "2dstring0-boolean1-negatable1-collectU-requiredU", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"] } },
-        { title: "2estring0-boolean1-negatable1-collectU-required0", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: [] } },
-        { title: "2fstring0-boolean1-negatable1-collectU-required1", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
+        { title: "good-20stringU-boolean1-negatableU-collectU-requiredU", options: { boolean: [["color", "boolean"]] } },
+        { title: "good-21stringU-boolean1-negatableU-collectU-required0", options: { boolean: [["color", "boolean"]], required: [] } },
+        { title: "good-22stringU-boolean1-negatableU-collect0-required0", options: { boolean: [["color", "boolean"]], collect: [], required: [] } },
+        { title: "good-23stringU-boolean1-negatable0-collect0-required0", options: { boolean: [["color", "boolean"]], negatable: [], collect: [], required: [] } },
+        { title: "good-24stringU-boolean1-negatableU-collectU-required1", options: { boolean: [["color", "boolean"]], required: ["color"] } },
+        { title: "good-25stringU-boolean1-negatable1-collectU-requiredU", options: { boolean: [["color", "boolean"]], negatable: ["color"] } },
+        { title: "good-26string0-boolean1-negatableU-collectU-requiredU", options: { string: [], boolean: [["color", "boolean"]] } },
+        { title: "good-27string0-boolean1-negatableU-collectU-required0", options: { string: [], boolean: [["color", "boolean"]], required: [] } },
+        { title: "good-28string0-boolean1-negatableU-collect0-required0", options: { string: [], boolean: [["color", "boolean"]], collect: [], required: [] } },
+        { title: "good-29string0-boolean1-negatable0-collect0-required0", options: { string: [], boolean: [["color", "boolean"]], negatable: [], collect: [], required: [] } },
+        { title: "good-2astringU-boolean1-negatable1-collectU-requiredU", options: { boolean: [["color", "boolean"]], negatable: ["color"] } },
+        { title: "good-2bstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: [] } },
+        { title: "good-2cstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
+        { title: "good-2dstring0-boolean1-negatable1-collectU-requiredU", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"] } },
+        { title: "good-2estring0-boolean1-negatable1-collectU-required0", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: [] } },
+        { title: "good-2fstring0-boolean1-negatable1-collectU-required1", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
+
+        { title: "good-30string2-booleanU-negatableU-collectU-requiredU", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]] } },
+        { title: "good-31string2-booleanU-negatableU-collectU-required0", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], required: [] } },
+        { title: "good-32string2-booleanU-negatableU-collectU-required1", options: { string: [["name", "string"], ["nickname", "string | undefined"]], required: ["name"] } },
+        { title: "good-33string2-booleanU-negatableU-collectU-required2", options: { string: [["name", "string"], ["nickname", "string"]], required: ["name", "nickname"] } },
+        { title: "good-34string2-booleanU-negatableU-collectU-requiredU-default0", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], default: {} } },
+        { title: "good-35string2-booleanU-negatableU-collectU-requiredU-default1", options: { string: [["name", "string"], ["nickname", "string | undefined"]], default: {name: "FOO"} } },
+        { title: "good-36string2-booleanU-negatableU-collectU-requiredU-default1U", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], default: {name: undefined} } },
     ]
 
     // TODO: failure case
@@ -93,6 +102,9 @@ function main() {
         }
         if (tc.options.required) {
             code.push(`  required: ${JSON.stringify(tc.options.required)},`);
+        }
+        if (tc.options.default) {
+            code.push(`  default: ${JSON.stringify(tc.options.default)},`);
         }
 
         code.push(`} as const);`);

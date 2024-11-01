@@ -129,6 +129,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# ------------------------------------
-# e2e
-e2e-tests/*.ts

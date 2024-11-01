@@ -4,7 +4,8 @@ SHELL := bash
 
 # e2e type check
 type-check: clean gen
-	NO_COLOR=1 deno check e2e-tests/*.ts |& sed "s@`git rev-parse --show-toplevel`@ROOT@"| tee e2e-tests/result.golden
+	NO_COLOR=1 deno check e2e-tests/good-*.ts |& sed "s@`git rev-parse --show-toplevel`@ROOT@"| tee e2e-tests/good-result.golden
+	NO_COLOR=1 deno check e2e-tests/bad-*.ts |& sed "s@`git rev-parse --show-toplevel`@ROOT@"| tee e2e-tests/bad-result.golden
 .PHONY: type-check
 
 clean:
