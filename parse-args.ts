@@ -56,9 +56,7 @@ type Parsed<
   }
   & { help: boolean; _: string[] };
 
-/** parse command line arguments via @std.cli/parse-args with some additional features.
- * (required check, help message, unknown option handler)
- */
+/** parse command line arguments via @std.cli/parse-args with some additional features. */
 export function parseArgs<
   StringKeys extends readonly string[],
   BooleanKeys extends readonly string[],
