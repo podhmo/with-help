@@ -146,8 +146,6 @@ export function buildHelp(options: Options): string {
       flagDescription || {},
       maxLength,
     ),
-    // ...formatAliases(aliases),
-    // ...formatDefaults(defaults),
   ];
 
   return help.join("\n");
