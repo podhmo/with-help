@@ -1,4 +1,4 @@
-// import { parseArgs } from "jsr:podhmo/with-help"
+// import { parseArgs } from "jsr:@podhmo/with-help"
 import { parseArgs } from "../mod.ts";
 
 const flags = parseArgs(

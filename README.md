@@ -16,7 +16,7 @@ Hmm, I don't think so.
 It's almost same as jsr:@std/cli/parse-args.parseArgs().
 
 ```ts
-import { parseArgs } from "jsr:podhmo/with-help";
+import { parseArgs } from "jsr:@podhmo/with-help";
 
 const flags = parseArgs(
   Deno.args,

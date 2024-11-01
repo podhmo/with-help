@@ -39,7 +39,7 @@ type Parsed<
  *
  * @example
  * ```ts
- * import { parseArgs } from "jsr:podhmo/with-help"
+ * import { parseArgs } from "jsr:@podhmo/with-help"
  *
  *  const flags = parseArgs(Deno.args, {
  *     // original options (jsr:@std/cli/parse-args)
