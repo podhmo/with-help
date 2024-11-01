@@ -38,6 +38,7 @@ Check file://ROOT/e2e-tests/good-33string2-booleanU-negatableU-collectU-required
 Check file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-requiredU-default0.ts
 Check file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts
 Check file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts
+Check file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts
 error: TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
 const _name: string | undefined = parsed.name;
       ~~~~~
@@ -216,4 +217,19 @@ const _nickname: string | undefined = parsed.nickname;
       ~~~~~~~~~
     at file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts:8:7
 
-Found 34 errors.
+TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
+  boolean: [["color","boolean"]],
+            ~~~~~~~~~~~~~~~~~~~
+    at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:4:13
+
+TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
+const _name: string = parsed.name;
+      ~~~~~
+    at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:8:7
+
+TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
+const _nickname: string | undefined = parsed.nickname;
+      ~~~~~~~~~
+    at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:9:7
+
+Found 37 errors.
