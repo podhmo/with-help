@@ -23,10 +23,7 @@ function main() {
     // todo: handling undefined correctly
     const args = parseArgs(Deno.args, {
         string: ["dir"],
-        boolean: [],
-        negatable: [],
         required: ["dir"],
-        collect: [],
         description: "generate testdata",
     } as const)
 
