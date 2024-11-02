@@ -116,7 +116,7 @@ function main() {
             code.push(`  string: ${JSON.stringify(tc.options.string.map((p => p[0])))},`);
         }
         if (tc.options.boolean) {
-            code.push(`  boolean: ${JSON.stringify(tc.options.boolean)},`);
+            code.push(`  boolean: ${JSON.stringify(tc.options.boolean.map((p => p[0])))},`);
         }
         if (tc.options.negatable) {
             code.push(`  negatable: ${JSON.stringify(tc.options.negatable)},`);
