@@ -59,25 +59,27 @@ export function parseArgs<
   StringKeys extends readonly string[],
   BooleanKeys extends readonly string[],
   RequiredKeys extends readonly string[],
+  NegatableKeys extends readonly string[],
   CollectKeys extends readonly string[],
   TDefaults extends
-    & { [P in StringKeys[number]]?: string | string[] }
-    & { [P in BooleanKeys[number]]?: boolean },
+    & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
+    & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean },
   DefaultKey extends Extract<keyof TDefaults, string>,
   TFlagDescriptions extends
-    & { [P in StringKeys[number]]?: string }
-    & { [P in BooleanKeys[number]]?: string }
+    & { [P in EnsureLiteralArray<StringKeys>[number]]?: string }
+    & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string }
     & { help?: string },
 >(
   args: string[],
   options: {
     // original options
-    boolean?: (EnsureLiteralArray<BooleanKeys>[number] | "help")[];
+    boolean?: EnsureLiteralArray<BooleanKeys>;
     string?: EnsureLiteralArray<StringKeys>;
-    collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
-      ? CollectKeys
+    collect?: EnsureLiteralArray<CollectKeys>[number] extends
+      EnsureLiteralArray<StringKeys>[number] ? CollectKeys
       : never;
-    negatable?: EnsureLiteralArray<BooleanKeys>;
+    negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+      EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
     default?: TDefaults;
     // "--": TDoubleDash;
     stopEarly?: boolean;
@@ -86,21 +88,21 @@ export function parseArgs<
 
     // more options
     name?: string;
-    required?: EnsureLiteralArray<
-      RequiredKeys[number] extends (StringKeys[number] | BooleanKeys[number])
-        ? RequiredKeys
-        : never
-    >;
+    required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+      | EnsureLiteralArray<StringKeys>[number]
+      | EnsureLiteralArray<BooleanKeys>[number]
+    ) ? RequiredKeys
+      : never;
     description?: string;
     flagDescription?: TFlagDescriptions;
 
     supressHelp?: boolean;
   },
 ): Parsed<
-  StringKeys[number],
-  BooleanKeys[number],
-  RequiredKeys[number],
-  CollectKeys[number],
+  EnsureLiteralArray<StringKeys>[number],
+  EnsureLiteralArray<BooleanKeys>[number],
+  EnsureLiteralArray<RequiredKeys>[number],
+  EnsureLiteralArray<CollectKeys>[number],
   DefaultKey
 > {
   // add unknown option handler if not provided
@@ -119,14 +121,16 @@ export function parseArgs<
   }
 
   // add help flag
-  if (options.boolean === undefined || !options.boolean.includes("help")) {
-    const booleans = options.boolean || [];
+  const booleans: (BooleanKeys[number] | "help")[] = options.boolean || [];
+  if (!booleans.includes("help")) {
     booleans.push("help");
-
-    const flagDescription: TFlagDescriptions = options.flagDescription ||
-      ({} as TFlagDescriptions);
+    const flagDescription = options.flagDescription || {} as TFlagDescriptions;
     flagDescription["help"] = "show help";
-    options = { ...options, boolean: booleans, flagDescription };
+    options = {
+      ...options,
+      flagDescription,
+      boolean: booleans as EnsureLiteralArray<BooleanKeys>,
+    };
   }
 
   // add default value for boolean options
@@ -146,11 +150,11 @@ export function parseArgs<
   // calling the original parseArgs
   // @ts-ignore skipping it with an unknown hack because the type checking is too complex, maybe...
   //
-  // error: TS2345 [ERROR]: Argument of type '{ boolean?: ("help" | EnsureLiteralArray<BooleanKeys>[number])[] | undefined; string?: EnsureLiteralArray<StringKeys> | undefined; ... 8 more ...; supressHelp?: boolean | undefined; }' is not assignable to parameter of type 'ParseOptions<"help" | EnsureLiteralArray<BooleanKeys>[number], never, string, never, TDefaults, undefined, undefined>'.
+  // [ERROR] Argument of type '{ boolean?: EnsureLiteralArray<BooleanKeys> | undefined; string?: EnsureLiteralArray<StringKeys> | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }' is not assignable to parameter of type 'ParseOptions<never, never, string, string, TDefaults, Record<string, string | string[]>, undefined>'.
   // Types of property 'default' are incompatible.
   //   Type 'TDefaults | undefined' is not assignable to type 'undefined'.
   //     Type 'TDefaults' is not assignable to type 'undefined'.
-  //       Type '{ [P in StringKeys[number]]?: string | string[] | undefined; } & { [P in BooleanKeys[number]]?: boolean | undefined; }' is not assignable to type 'undefined'.
+  //       Type '{ [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] | undefined; } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean | undefined; }' is not assignable to type 'undefined'.
   const parsed = originalParseArgs(args, options) as Parsed<
     StringKeys[number],
     BooleanKeys[number],
@@ -167,7 +171,7 @@ export function parseArgs<
 
   // check required options
   options?.required?.forEach((name) => {
-    if (parsed[name] === undefined) {
+    if (parsed[name as keyof typeof parsed] === undefined) {
       if (!options.supressHelp) {
         console.log(buildHelp(options));
         console.log("");

@@ -18,130 +18,164 @@ Check file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts
 Check file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts
 Check file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts
 Check file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts
-error: TS2322 [ERROR]: Type '"FOO"' is not assignable to type '(string[] & false) | (string[] & true) | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-03-stringU-booleanU--unexpected-default.ts:3:13
+error: TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  negatable: ["XXX"],
+  ~~~~~~~~~
+    at file://ROOT/e2e-tests/bad-00-stringU-booleanU--unexpected-negatable.ts:3:3
+
+    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<...> | undefined; ... 5 more ...; supressHelp?: boolean | undefined; }'
+        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+        ~~~~~~~~~
+        at file://ROOT/parse-args.ts:81:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  collect: ["XXX"],
+  ~~~~~~~
+    at file://ROOT/e2e-tests/bad-01-stringU-booleanU--unexpected-collect.ts:3:3
+
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<...> | undefined; ... 5 more ...; supressHelp?: boolean | undefined; }'
+        collect?: EnsureLiteralArray<CollectKeys>[number] extends
+        ~~~~~~~
+        at file://ROOT/parse-args.ts:78:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-02-stringU-booleanU--unexpected-required.ts:3:3
+
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  negatable: ["XXX"],
+  ~~~~~~~~~
+    at file://ROOT/e2e-tests/bad-04-string0-booleanU--unexpected-negatable.ts:4:3
+
+    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<string, string | string[]> | undefined; ... 5 more ...; supressHelp?: boolean | undefined; }'
+        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+        ~~~~~~~~~
+        at file://ROOT/parse-args.ts:81:5
 
 TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   collect: ["XXX"],
   ~~~~~~~
     at file://ROOT/e2e-tests/bad-05-string0-booleanU--unexpected-collect.ts:4:3
 
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: "help"[] | undefined; string?: [] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({} & { [x: string]: boolean | undefined; }) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<string, string | string[]> | undefined; ... 5 more ...; supressHelp?: boolean | undefined; }'
+        collect?: EnsureLiteralArray<CollectKeys>[number] extends
         ~~~~~~~
-        at file://ROOT/parse-args.ts:77:5
+        at file://ROOT/parse-args.ts:78:5
 
-TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-07-string0-booleanU--unexpected-default.ts:4:13
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-06-string0-booleanU--unexpected-required.ts:4:3
 
-TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
-const _name: string | undefined = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/bad-10-string1-booleanU--unexpected-negatable.ts:7:7
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  negatable: ["XXX"],
+  ~~~~~~~~~
+    at file://ROOT/e2e-tests/bad-10-string1-booleanU--unexpected-negatable.ts:4:3
+
+    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+        ~~~~~~~~~
+        at file://ROOT/parse-args.ts:81:5
 
 TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   collect: ["XXX"],
   ~~~~~~~
     at file://ROOT/e2e-tests/bad-11-string1-booleanU--unexpected-collect.ts:4:3
 
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: "help"[] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({ name?: string | string[] | undefined; } & { [x: string]: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        collect?: EnsureLiteralArray<CollectKeys>[number] extends
         ~~~~~~~
-        at file://ROOT/parse-args.ts:77:5
+        at file://ROOT/parse-args.ts:78:5
 
-TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
-const _name: string | undefined = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/bad-12-string1-booleanU--unexpected-required.ts:7:7
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-12-string1-booleanU--unexpected-required.ts:4:3
 
-TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:4:13
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
 
-TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
-const _name: string | undefined = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:7:7
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  negatable: ["XXX"],
+  ~~~~~~~~~
+    at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:4:3
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "XXX"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:3:13
+    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+        ~~~~~~~~~
+        at file://ROOT/parse-args.ts:81:5
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-21-stringU-boolean1--unexpected-collect.ts:3:13
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  collect: ["XXX"],
+  ~~~~~~~
+    at file://ROOT/e2e-tests/bad-21-stringU-boolean1--unexpected-collect.ts:4:3
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-22-stringU-boolean1--unexpected-required.ts:3:13
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+        collect?: EnsureLiteralArray<CollectKeys>[number] extends
+        ~~~~~~~
+        at file://ROOT/parse-args.ts:78:5
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:3:13
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-22-stringU-boolean1--unexpected-required.ts:4:3
 
-TS2322 [ERROR]: Type '"FOO"' is not assignable to type '(string[] & false) | (string[] & true) | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:4:13
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"name" | "help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:4:13
+TS2322 [ERROR]: Type 'readonly ["name"]' is not assignable to type 'undefined'.
+  negatable: ["name"],
+  ~~~~~~~~~
+    at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:5:3
 
-TS2322 [ERROR]: Type 'string[] & boolean' is not assignable to type 'string | undefined'.
-  Type 'string[] & false' is not assignable to type 'string | undefined'.
-const _name: string | undefined = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:8:7
-
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts:4:13
+    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({ name?: string | string[] | undefined; } & { color?: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+        ~~~~~~~~~
+        at file://ROOT/parse-args.ts:81:5
 
 TS2322 [ERROR]: Type 'readonly ["color"]' is not assignable to type 'undefined'.
   collect: ["color"],
   ~~~~~~~
     at file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts:5:3
 
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: "help"[] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({ name?: string | string[] | undefined; } & { [x: string]: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { color?: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        collect?: EnsureLiteralArray<CollectKeys>[number] extends
         ~~~~~~~
-        at file://ROOT/parse-args.ts:77:5
+        at file://ROOT/parse-args.ts:78:5
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:4:13
+TS2322 [ERROR]: Type 'readonly ["xxxx"]' is not assignable to type 'undefined'.
+  required: ["xxxx"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:5:3
 
-TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
-const _name: string | undefined = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:8:7
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:4:13
-
-TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
+TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' does not exist in type '{ name?: string | string[] | undefined; } & { color?: boolean | undefined; }'.
   default: {"XXX":"FOO"},
             ~~~~~
     at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:5:13
 
-TS2322 [ERROR]: Type 'string[]' is not assignable to type 'string'.
-const _name: string | undefined = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:8:7
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        default?: TDefaults;
+        ~~~~~~~
+        at file://ROOT/parse-args.ts:83:5
 
-Found 22 errors.
+Found 16 errors.
