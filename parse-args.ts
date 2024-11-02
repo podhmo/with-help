@@ -72,7 +72,7 @@ export function parseArgs<
   args: string[],
   options: {
     // original options
-    boolean?: (EnsureLiteralArray<BooleanKeys>[number] | "help")[];
+    boolean?: EnsureLiteralArray<BooleanKeys>;
     string?: EnsureLiteralArray<StringKeys>;
     collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
       ? CollectKeys
