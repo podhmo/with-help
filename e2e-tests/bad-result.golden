@@ -39,6 +39,16 @@ TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
         at file://ROOT/parse-args.ts:78:5
 
 TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-02-stringU-booleanU--unexpected-required.ts:3:3
+
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   negatable: ["XXX"],
   ~~~~~~~~~
     at file://ROOT/e2e-tests/bad-04-string0-booleanU--unexpected-negatable.ts:4:3
@@ -57,6 +67,16 @@ TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
         collect?: EnsureLiteralArray<CollectKeys>[number] extends
         ~~~~~~~
         at file://ROOT/parse-args.ts:78:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-06-string0-booleanU--unexpected-required.ts:4:3
+
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
 
 TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   negatable: ["XXX"],
@@ -79,6 +99,16 @@ TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
         at file://ROOT/parse-args.ts:78:5
 
 TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-12-string1-booleanU--unexpected-required.ts:4:3
+
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   negatable: ["XXX"],
   ~~~~~~~~~
     at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:4:3
@@ -97,6 +127,16 @@ TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
         collect?: EnsureLiteralArray<CollectKeys>[number] extends
         ~~~~~~~
         at file://ROOT/parse-args.ts:78:5
+
+TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+  required: ["XXX"],
+  ~~~~~~~~
+    at file://ROOT/e2e-tests/bad-22-stringU-boolean1--unexpected-required.ts:4:3
+
+    The expected type comes from property 'required' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+        ~~~~~~~~
+        at file://ROOT/parse-args.ts:91:5
 
 TS2322 [ERROR]: Type 'readonly ["name"]' is not assignable to type 'undefined'.
   negatable: ["name"],
@@ -124,7 +164,7 @@ TS2322 [ERROR]: Type 'readonly ["xxxx"]' is not assignable to type 'undefined'.
     at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:5:3
 
     The expected type comes from property 'required' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
-        required?: EnsureLiteralArray<
+        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
         ~~~~~~~~
         at file://ROOT/parse-args.ts:91:5
 
@@ -138,4 +178,4 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
         ~~~~~~~
         at file://ROOT/parse-args.ts:83:5
 
-Found 12 errors.
+Found 16 errors.
