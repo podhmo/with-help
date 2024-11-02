@@ -6,7 +6,12 @@
     "./parse-args": "./src/parse-args.ts"
   },
   "tasks": {
-    "check": "deno check *.ts"
+    "check": "deno check src/**/*.ts _examples/**/*.ts",
+    "ok": "deno fmt --check && deno lint && deno task check && deno test"
+  },
+  "publish": {
+    "include": ["src/**", "deno.json", "README.md", "LICENSE"],
+    "exclude": ["**/*_test.*", "e2e-tests/*.ts"]
   },
   "imports": {
     "@std/cli": "jsr:@std/cli@1",
