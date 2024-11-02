@@ -20,7 +20,6 @@ function emitFile({ tc, code, dir }: { tc: TestCase, code: string[], dir: string
 
 
 function main() {
-    // todo: handling undefined correctly
     const args = parseArgs(Deno.args, {
         string: ["dir"],
         required: ["dir"],
