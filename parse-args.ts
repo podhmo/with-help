@@ -119,14 +119,16 @@ export function parseArgs<
   }
 
   // add help flag
-  if (options.boolean === undefined || !options.boolean.includes("help")) {
-    const booleans = options.boolean || [];
+  const booleans: (BooleanKeys[number] | "help")[] = options.boolean || [];
+  if (!booleans.includes("help")) {
     booleans.push("help");
-
-    const flagDescription: TFlagDescriptions = options.flagDescription ||
-      ({} as TFlagDescriptions);
+    const flagDescription = options.flagDescription || {} as TFlagDescriptions;
     flagDescription["help"] = "show help";
-    options = { ...options, boolean: booleans, flagDescription };
+    options = {
+      ...options,
+      flagDescription,
+      boolean: booleans as EnsureLiteralArray<BooleanKeys>,
+    };
   }
 
   // add default value for boolean options
