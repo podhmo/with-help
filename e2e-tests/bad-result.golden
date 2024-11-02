@@ -18,40 +18,25 @@ Check file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts
 Check file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts
 Check file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts
 Check file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts
-error: TS2322 [ERROR]: Type '"FOO"' is not assignable to type '(string[] & false) | (string[] & true) | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-03-stringU-booleanU--unexpected-default.ts:3:13
-
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+error: TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   collect: ["XXX"],
   ~~~~~~~
     at file://ROOT/e2e-tests/bad-05-string0-booleanU--unexpected-collect.ts:4:3
 
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({} & { [x: string]: boolean | undefined; }) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<string, string | string[]> | undefined; ... 5 more ...; supressHelp?: boolean | undefined; }'
         collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
         ~~~~~~~
         at file://ROOT/parse-args.ts:77:5
-
-TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-07-string0-booleanU--unexpected-default.ts:4:13
 
 TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
   collect: ["XXX"],
   ~~~~~~~
     at file://ROOT/e2e-tests/bad-11-string1-booleanU--unexpected-collect.ts:4:3
 
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({ name?: string | string[] | undefined; } & { [x: string]: boolean | undefined; }) | undefined; ... 7 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: never[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; stopEarly?: boolean | undefined; ... 6 more ...; supressHelp?: boolean | undefined; }'
         collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
         ~~~~~~~
         at file://ROOT/parse-args.ts:77:5
-
-TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
-  default: {"XXX":"FOO"},
-            ~~~~~
-    at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:4:13
 
 TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
   The intersection 'Parsed<"name", "name" | "color", string, never, "name" | "color">' was reduced to 'never' because property 'name' has conflicting types in some constituents.
@@ -89,4 +74,4 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
         ~~~~~~~
         at file://ROOT/parse-args.ts:81:5
 
-Found 9 errors.
+Found 6 errors.

@@ -39,15 +39,3 @@ Check file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-required
 Check file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts
 Check file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts
 Check file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts
-error: TS2322 [ERROR]: Type '{ readonly name: "FOO"; }' is not assignable to type '{ name?: string | string[] | undefined; nickname?: string | string[] | undefined; } & { [x: string]: boolean | undefined; }'.
-  Type '{ readonly name: "FOO"; }' is not assignable to type '{ [x: string]: boolean | undefined; }'.
-    Property '"name"' is incompatible with index signature.
-      Type '"FOO"' is not assignable to type 'boolean | undefined'.
-  default: {"name":"FOO"},
-  ~~~~~~~
-    at file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts:4:3
-
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name", "nickname"] | undefined; collect?: readonly string[] | undefined; negatable?: never[] | undefined; default?: ({ name?: string | string[] | undefined; nickname?: string | ... 1 more ... | undefined; } & { ...; }) | undefined; ... 7 more ...; supressHelp?: boolean | u...'
-        default?: TDefaults;
-        ~~~~~~~
-        at file://ROOT/parse-args.ts:81:5
