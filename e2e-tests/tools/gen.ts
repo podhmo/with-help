@@ -1,4 +1,4 @@
-import { parseArgs } from "../../parse-args.ts";
+import { parseArgs } from "../../src/parse-args.ts";
 
 
 interface TestCase {
@@ -20,7 +20,6 @@ function emitFile({ tc, code, dir }: { tc: TestCase, code: string[], dir: string
 
 
 function main() {
-    // todo: handling undefined correctly
     const args = parseArgs(Deno.args, {
         string: ["dir"],
         required: ["dir"],
@@ -109,7 +108,7 @@ function main() {
 
     for (const tc of successCases.concat(failureCases)) {
         const code = [];
-        code.push(`import { parseArgs } from "../parse-args.ts"`);
+        code.push(`import { parseArgs } from "../src/parse-args.ts"`);
         code.push(`const parsed = parseArgs(Deno.args,  {`);
 
         if (tc.options.string) {
