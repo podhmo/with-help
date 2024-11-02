@@ -99,9 +99,9 @@ export function parseArgs<
     supressHelp?: boolean;
   },
 ): Parsed<
-  StringKeys[number],
-  BooleanKeys[number],
-  RequiredKeys[number],
+  EnsureLiteralArray<StringKeys>[number],
+  EnsureLiteralArray<BooleanKeys>[number],
+  EnsureLiteralArray<RequiredKeys>[number],
   EnsureLiteralArray<CollectKeys>[number],
   DefaultKey
 > {
@@ -159,7 +159,7 @@ export function parseArgs<
     StringKeys[number],
     BooleanKeys[number],
     RequiredKeys[number],
-    EnsureLiteralArray<CollectKeys>[number],
+    CollectKeys[number],
     DefaultKey
   >;
 
