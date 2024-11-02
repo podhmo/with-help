@@ -110,6 +110,10 @@ export function parseArgs<
     options = {
       ...options,
       unknown: (name) => {
+        if (!name.startsWith("-")) {
+          return; // skip positional arguments
+        }
+
         if (!options.supressHelp) {
           console.log(buildHelp(options));
           console.log("");
