@@ -59,6 +59,7 @@ export function parseArgs<
   StringKeys extends readonly string[],
   BooleanKeys extends readonly string[],
   RequiredKeys extends readonly string[],
+  NegatableKeys extends readonly string[],
   CollectKeys extends readonly string[],
   TDefaults extends
     & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
@@ -74,10 +75,11 @@ export function parseArgs<
     // original options
     boolean?: EnsureLiteralArray<BooleanKeys>;
     string?: EnsureLiteralArray<StringKeys>;
-    collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number]
-      ? CollectKeys
+    collect?: EnsureLiteralArray<CollectKeys>[number] extends
+      EnsureLiteralArray<StringKeys>[number] ? CollectKeys
       : never;
-    negatable?: EnsureLiteralArray<BooleanKeys>;
+    negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
+      EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
     default?: TDefaults;
     // "--": TDoubleDash;
     stopEarly?: boolean;
