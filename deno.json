@@ -14,7 +14,15 @@
   },
   "fmt": {
     "include": [
-      "*.ts"
+      "*.json",
+      "src/**/*.ts",
+      "_examples/**/*.ts"
+    ]
+  },
+  "lint": {
+    "include": [
+      "src/**/*.ts",
+      "_examples/**/*.ts"
     ]
   }
 }
