@@ -61,12 +61,12 @@ export function parseArgs<
   RequiredKeys extends readonly string[],
   CollectKeys extends readonly string[],
   TDefaults extends
-    & { [P in StringKeys[number]]?: string | string[] }
-    & { [P in BooleanKeys[number]]?: boolean },
+    & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
+    & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean },
   DefaultKey extends Extract<keyof TDefaults, string>,
   TFlagDescriptions extends
-    & { [P in StringKeys[number]]?: string }
-    & { [P in BooleanKeys[number]]?: string }
+    & { [P in EnsureLiteralArray<StringKeys>[number]]?: string }
+    & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string }
     & { help?: string },
 >(
   args: string[],
