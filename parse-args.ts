@@ -171,7 +171,7 @@ export function parseArgs<
 
   // check required options
   options?.required?.forEach((name) => {
-    if (parsed[name] === undefined) {
+    if (parsed[name as keyof typeof parsed] === undefined) {
       if (!options.supressHelp) {
         console.log(buildHelp(options));
         console.log("");
