@@ -74,7 +74,7 @@ export function parseArgs<
     // original options
     boolean?: EnsureLiteralArray<BooleanKeys>;
     string?: EnsureLiteralArray<StringKeys>;
-    collect?: EnsureLiteralArray<CollectKeys>[number] extends StringKeys[number]
+    collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number]
       ? CollectKeys
       : never;
     negatable?: EnsureLiteralArray<BooleanKeys>;
