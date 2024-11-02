@@ -88,11 +88,11 @@ export function parseArgs<
 
     // more options
     name?: string;
-    required?: EnsureLiteralArray<
-      RequiredKeys[number] extends (StringKeys[number] | BooleanKeys[number])
-        ? RequiredKeys
-        : never
-    >;
+    required?: EnsureLiteralArray<RequiredKeys>[number] extends (
+      | EnsureLiteralArray<StringKeys>[number]
+      | EnsureLiteralArray<BooleanKeys>[number]
+    ) ? RequiredKeys
+      : never;
     description?: string;
     flagDescription?: TFlagDescriptions;
 
