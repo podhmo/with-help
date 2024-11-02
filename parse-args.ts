@@ -150,11 +150,11 @@ export function parseArgs<
   // calling the original parseArgs
   // @ts-ignore skipping it with an unknown hack because the type checking is too complex, maybe...
   //
-  // error: TS2345 [ERROR]: Argument of type '{ boolean?: ("help" | EnsureLiteralArray<BooleanKeys>[number])[] | undefined; string?: EnsureLiteralArray<StringKeys> | undefined; ... 8 more ...; supressHelp?: boolean | undefined; }' is not assignable to parameter of type 'ParseOptions<"help" | EnsureLiteralArray<BooleanKeys>[number], never, string, never, TDefaults, undefined, undefined>'.
+  // [ERROR] Argument of type '{ boolean?: EnsureLiteralArray<BooleanKeys> | undefined; string?: EnsureLiteralArray<StringKeys> | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }' is not assignable to parameter of type 'ParseOptions<never, never, string, string, TDefaults, Record<string, string | string[]>, undefined>'.
   // Types of property 'default' are incompatible.
   //   Type 'TDefaults | undefined' is not assignable to type 'undefined'.
   //     Type 'TDefaults' is not assignable to type 'undefined'.
-  //       Type '{ [P in StringKeys[number]]?: string | string[] | undefined; } & { [P in BooleanKeys[number]]?: boolean | undefined; }' is not assignable to type 'undefined'.
+  //       Type '{ [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] | undefined; } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean | undefined; }' is not assignable to type 'undefined'.
   const parsed = originalParseArgs(args, options) as Parsed<
     StringKeys[number],
     BooleanKeys[number],
