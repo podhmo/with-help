@@ -53,24 +53,24 @@ TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
             ~~~~~
     at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:4:13
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "XXX"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help" | "XXX"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:3:13
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-21-stringU-boolean1--unexpected-collect.ts:3:13
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-22-stringU-boolean1--unexpected-required.ts:3:13
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:3:13
 
 TS2322 [ERROR]: Type '"FOO"' is not assignable to type '(string[] & false) | (string[] & true) | undefined'.
@@ -78,9 +78,9 @@ TS2322 [ERROR]: Type '"FOO"' is not assignable to type '(string[] & false) | (st
             ~~~~~
     at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:4:13
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help" | "name"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help" | "name"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:4:13
 
 TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
@@ -89,9 +89,9 @@ const _name: string | undefined = parsed.name;
                                          ~~~~
     at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:8:42
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts:4:13
 
 TS2322 [ERROR]: Type 'readonly ["color"]' is not assignable to type 'undefined'.
@@ -104,14 +104,14 @@ TS2322 [ERROR]: Type 'readonly ["color"]' is not assignable to type 'undefined'.
         ~~~~~~~
         at file://ROOT/parse-args.ts:77:5
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:4:13
 
-TS2322 [ERROR]: Type 'readonly ["color", "boolean"]' is not assignable to type '"help"'.
-  boolean: [["color","boolean"]],
-            ~~~~~~~~~~~~~~~~~~~
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"help"'.
+  boolean: ["color"],
+            ~~~~~~~
     at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:4:13
 
 TS2322 [ERROR]: Type '"FOO"' is not assignable to type 'boolean | undefined'.
