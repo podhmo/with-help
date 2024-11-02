@@ -9,9 +9,9 @@ const flags = parseArgs(
     boolean: ["color"],
     negatable: ["color"],
     collect: ["item"],
-    required: ["version"],
 
     // more options
+    required: ["version"],
     name: "cli-example",
     description: "this is cli-example",
   } as const,
