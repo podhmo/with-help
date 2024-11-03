@@ -14,15 +14,14 @@ type Parsed<
   BooleanKey extends string,
   RequiredKey extends string,
   CollectKey extends string,
-  DefaultKey extends string,
 > =
   & {
     [K in StringKey]: K extends CollectKey ? string[]
-      : (K extends (RequiredKey | DefaultKey) ? string : (string | undefined));
+      : (K extends RequiredKey ? string : (string | undefined));
   }
   & {
     [K in BooleanKey]: K extends RequiredKey ? boolean
-      : (K extends DefaultKey ? boolean : boolean | undefined);
+      : boolean; // boolean | undefined is not allowed
   }
   & { help: boolean; _: string[] };
 
@@ -64,7 +63,6 @@ export function parseArgs<
   TDefaults extends
     & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
     & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean },
-  DefaultKey extends Extract<keyof TDefaults, string>,
   TFlagDescriptions extends
     & { [P in EnsureLiteralArray<StringKeys>[number]]?: string }
     & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string }
@@ -102,8 +100,7 @@ export function parseArgs<
   EnsureLiteralArray<StringKeys>[number],
   EnsureLiteralArray<BooleanKeys>[number],
   EnsureLiteralArray<RequiredKeys>[number],
-  EnsureLiteralArray<CollectKeys>[number],
-  DefaultKey
+  EnsureLiteralArray<CollectKeys>[number]
 > {
   // add unknown option handler if not provided
   if (options?.unknown === undefined) {
@@ -163,8 +160,7 @@ export function parseArgs<
     StringKeys[number],
     BooleanKeys[number],
     RequiredKeys[number],
-    CollectKeys[number],
-    DefaultKey
+    CollectKeys[number]
   >;
 
   // show help
