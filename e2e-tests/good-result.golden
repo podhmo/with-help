@@ -39,3 +39,209 @@ Check file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-required
 Check file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts
 Check file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts
 Check file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts
+error: TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
+const _result :never = {};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-00empty.ts:5:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-10string1-booleanU-negatableU-collectU-requiredU.ts:7:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-11string1-booleanU-negatableU-collectU-required0.ts:8:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-12string1-booleanU-negatableU-collect0-required0.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-13string1-booleanU-negatable0-collect0-required0.ts:10:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-14string1-boolean0-negatable0-collect0-required0.ts:11:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-15string1-booleanU-negatableU-collectU-required1.ts:8:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-16string1-booleanU-negatableU-collect0-required1.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-17string1-booleanU-negatable0-collect0-required1.ts:10:7
+
+TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-18string1-boolean0-negatable0-collect0-required1.ts:11:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-19string1-booleanU-negatableU-collect1-requiredU.ts:8:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-1astring1-booleanU-negatableU-collect1-required0.ts:9:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-1bstring1-booleanU-negatable0-collect1-required0.ts:10:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-1cstring1-boolean0-negatable0-collect1-required0.ts:11:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-1dstring1-booleanU-negatableU-collect1-required1.ts:9:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-1estring1-booleanU-negatable0-collect1-required1.ts:10:7
+
+TS2322 [ERROR]: Type '{ names: string[]; }' is not assignable to type 'never'.
+const _result :never = {names: parsed.names};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-1fstring1-boolean0-negatable0-collect1-required1.ts:11:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-20stringU-boolean1-negatableU-collectU-requiredU.ts:6:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-21stringU-boolean1-negatableU-collectU-required0.ts:7:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-22stringU-boolean1-negatableU-collect0-required0.ts:8:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-23stringU-boolean1-negatable0-collect0-required0.ts:9:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-24stringU-boolean1-negatableU-collectU-required1.ts:7:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-25stringU-boolean1-negatable1-collectU-requiredU.ts:7:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-26string0-boolean1-negatableU-collectU-requiredU.ts:7:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-27string0-boolean1-negatableU-collectU-required0.ts:8:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-28string0-boolean1-negatableU-collect0-required0.ts:9:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-29string0-boolean1-negatable0-collect0-required0.ts:10:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-2astringU-boolean1-negatable1-collectU-requiredU.ts:7:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-2bstringU-boolean1-negatable1-collectU-required0.ts:8:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-2cstringU-boolean1-negatable1-collectU-required0.ts:8:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-2dstring0-boolean1-negatable1-collectU-requiredU.ts:8:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-2estring0-boolean1-negatable1-collectU-required0.ts:9:7
+
+TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
+const _result :never = {color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-2fstring0-boolean1-negatable1-collectU-required1.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-30string2-booleanU-negatableU-collectU-requiredU.ts:8:7
+
+TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-31string2-booleanU-negatableU-collectU-required0.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-32string2-booleanU-negatableU-collectU-required1.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-33string2-booleanU-negatableU-collectU-required2.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string | undefined; nickname: string | undefined; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-requiredU-default0.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; nickname: string | undefined; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string | undefined; nickname: string | undefined; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts:9:7
+
+TS2322 [ERROR]: Type '{ name: string; nickname: string; color: boolean; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, nickname: parsed.nickname, color: parsed.color};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:10:7
+
+Found 41 errors.
