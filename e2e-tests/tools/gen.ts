@@ -138,6 +138,13 @@ function main() {
                 code.push(`const _${name}: ${type} = parsed.${name};`);
             }
         }
+
+        const body = [
+            ...(tc.options.string?.map(([name]) => `${name}: parsed.${name}`) || []),
+            ...(tc.options.boolean?.map(([name]) => `${name}: parsed.${name}`) || []),
+        ].join(", ");
+        code.push(`const _result :never = {${body}};`);
+
         emitFile({ tc, code, dir: args.dir });
     }
 }
