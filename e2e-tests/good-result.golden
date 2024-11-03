@@ -44,27 +44,27 @@ const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-00empty.ts:5:7
 
-TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-10string1-booleanU-negatableU-collectU-requiredU.ts:7:7
 
-TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-11string1-booleanU-negatableU-collectU-required0.ts:8:7
 
-TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-12string1-booleanU-negatableU-collect0-required0.ts:9:7
 
-TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-13string1-booleanU-negatable0-collect0-required0.ts:10:7
 
-TS2322 [ERROR]: Type '{ name: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-14string1-boolean0-negatable0-collect0-required0.ts:11:7
@@ -204,17 +204,17 @@ const _result :never = {color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-2fstring0-boolean1-negatable1-collectU-required1.ts:9:7
 
-TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; nickname: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-30string2-booleanU-negatableU-collectU-requiredU.ts:8:7
 
-TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string | undefined; nickname: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-31string2-booleanU-negatableU-collectU-required0.ts:9:7
 
-TS2322 [ERROR]: Type '{ name: string; nickname: string; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string; nickname: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-32string2-booleanU-negatableU-collectU-required1.ts:9:7
@@ -229,7 +229,13 @@ const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-requiredU-default0.ts:9:7
 
-TS2322 [ERROR]: Type '{ name: string; nickname: string | undefined; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+const _name: string = parsed.name;
+      ~~~~~
+    at file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts:7:7
+
+TS2322 [ERROR]: Type '{ name: string | undefined; nickname: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts:9:7
@@ -239,9 +245,9 @@ const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts:9:7
 
-TS2322 [ERROR]: Type '{ name: string; nickname: string; color: boolean; }' is not assignable to type 'never'.
+TS2322 [ERROR]: Type '{ name: string; nickname: string | undefined; color: boolean; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, nickname: parsed.nickname, color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:10:7
 
-Found 41 errors.
+Found 42 errors.
