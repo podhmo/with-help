@@ -70,7 +70,7 @@ function main() {
         { title: "good-32string2-booleanU-negatableU-collectU-required1", options: { string: [["name", "string"], ["nickname", "string | undefined"]], required: ["name"] } },
         { title: "good-33string2-booleanU-negatableU-collectU-required2", options: { string: [["name", "string"], ["nickname", "string"]], required: ["name", "nickname"] } },
         { title: "good-34string2-booleanU-negatableU-collectU-requiredU-default0", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], default: {} } },
-        { title: "good-35string2-booleanU-negatableU-collectU-requiredU-default1", options: { string: [["name", "string"], ["nickname", "string | undefined"]], default: { name: "FOO" } } },
+        { title: "good-35string2-booleanU-negatableU-collectU-requiredU-default1", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], default: { name: "FOO" } } }, // sorry not support that default option as metadata for now
         { title: "good-36string2-booleanU-negatableU-collectU-requiredU-default1U", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], default: { name: undefined } } },
 
         { title: "good-40string2-boolean1-negatableU-collectU-required1", options: { string: [["name", "string"], ["nickname", "string | undefined"]], boolean: [["color", "boolean"]], required: ["name"] } },
