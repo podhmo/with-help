@@ -229,12 +229,6 @@ const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
     at file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-requiredU-default0.ts:9:7
 
-TS2322 [ERROR]: Type 'string | undefined' is not assignable to type 'string'.
-  Type 'undefined' is not assignable to type 'string'.
-const _name: string = parsed.name;
-      ~~~~~
-    at file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts:7:7
-
 TS2322 [ERROR]: Type '{ name: string | undefined; nickname: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, nickname: parsed.nickname};
       ~~~~~~~
@@ -250,4 +244,4 @@ const _result :never = {name: parsed.name, nickname: parsed.nickname, color: par
       ~~~~~~~
     at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:10:7
 
-Found 42 errors.
+Found 41 errors.
