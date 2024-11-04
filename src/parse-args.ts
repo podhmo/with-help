@@ -195,8 +195,13 @@ export function parseArgs<
               );
             }
           } else {
-            // @ts-ignore name is always a key of parsed (strings)
-            parsed[name] = value;
+            if (options.collect?.includes(name)) {
+              // @ts-ignore name is always a key of parsed (strings)
+              parsed[name] = [value]; // support only 1 item...
+            } else {
+              // @ts-ignore name is always a key of parsed (strings)
+              parsed[name] = value;
+            }
           }
         }
       }
