@@ -182,9 +182,20 @@ export function parseArgs<
       if (envname !== undefined) {
         const value = Deno.env.get(envname) ?? "";
         if (value !== "") {
-          if (options.boolean?.includes(name)) {
-            parsed[name] = ["true", "1", "True"].includes(value);
+          if (booleans.includes(name)) {
+            if (value === "1" || value.toUpperCase() === "TRUE") {
+              // @ts-ignore name is always a key of parsed (booleans)
+              parsed[name] = true;
+            } else if (value === "0" || value.toUpperCase() === "FALSE") {
+              // @ts-ignore name is always a key of parsed (booleans)
+              parsed[name] = false;
+            } else {
+              console.debug(
+                `envvar ${envname}=${value} is not boolean value, ignored`,
+              );
+            }
           } else {
+            // @ts-ignore name is always a key of parsed (strings)
             parsed[name] = value;
           }
         }
