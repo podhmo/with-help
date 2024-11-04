@@ -23,7 +23,90 @@ class _FakeGetEnvHandler {
   };
 }
 
+// strings
+Deno.test("parseArgs: strings", () => {
+  const options = {
+    string: ["name"],
+  } as const;
+  const handler = new _FakeGetEnvHandler({});
+
+  {
+    const args = parseArgs(["--name", "foo"], options, handler);
+    assertEquals(args.name, "foo");
+  }
+  {
+    const args = parseArgs([], options, handler);
+    assertEquals(args.name, undefined);
+  }
+});
+Deno.test("parseArgs: strings with collect", () => {
+  const options = {
+    string: ["item"],
+    collect: ["item"],
+  } as const;
+  const handler = new _FakeGetEnvHandler({});
+
+  {
+    const args = parseArgs(["--item", "a", "--item", "b"], options, handler);
+    assertEquals(args.item, ["a", "b"]);
+  }
+  {
+    const args = parseArgs([], options, handler);
+    assertEquals(args.item, []);
+  }
+});
+
+// booleans
+Deno.test("parseArgs: booleans", () => {
+  const options = {
+    boolean: ["verbose"],
+  } as const;
+  const handler = new _FakeGetEnvHandler({});
+
+  {
+    const args = parseArgs(["--verbose"], options, handler);
+    assertEquals(args.verbose, true);
+  }
+  {
+    const args = parseArgs([], options, handler);
+    assertEquals(args.verbose, false);
+  }
+  {
+    try {
+      const args = parseArgs(["--no-verbose"], options, handler);
+      assertEquals(args.verbose, false);
+    } catch (e) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        "Unknown option: --no-verbose",
+      );
+    }
+  }
+});
+Deno.test("parseArgs: booleans with negatable", () => {
+  const options = {
+    boolean: ["color"],
+    negatable: ["color"],
+  } as const;
+  const handler = new _FakeGetEnvHandler({});
+
+  {
+    const args = parseArgs(["--color"], options, handler);
+    assertEquals(args.color, true);
+  }
+  {
+    const args = parseArgs(["--no-color"], options, handler);
+    assertEquals(args.color, false);
+  }
+  {
+    const args = parseArgs([], options, handler);
+    assertEquals(args.color, true);
+  }
+});
+
 // required
+
 Deno.test("parseArgs: required", () => {
   const options = {
     string: ["name"],
