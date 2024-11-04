@@ -9,11 +9,15 @@ type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
   : never;
 
 interface Handler {
+  getEnvVar(name: string): string | undefined;
   onExit(options: { message: string; code: number }): void;
 }
 
 // default handler
 const denoHandler: Handler = {
+  getEnvVar(name: string): string | undefined {
+    return Deno.env.get(name);
+  },
   onExit(options: { message: string; code: number }): void {
     console.error(options.message);
     Deno.exit(options.code);
@@ -195,7 +199,7 @@ export function parseArgs<
     const envmap: Record<string, string | undefined> = options.envvar;
     for (const [name, envname] of Object.entries(envmap)) {
       if (envname !== undefined) {
-        const value = Deno.env.get(envname) ?? "";
+        const value = handler.getEnvVar(envname) ?? "";
         if (value !== "") {
           if (booleans.includes(name)) {
             if (value === "1" || value.toUpperCase() === "TRUE") {
