@@ -12,7 +12,7 @@ interface Handler {
   // get environment variable
   getEnvVar(name: string): string | undefined;
   // exit on error
-  onExit(options: { message: string; code: number }): void;
+  terminate(options: { message: string; code: number }): void;
 }
 
 // default handler
@@ -20,7 +20,7 @@ const denoHandler: Handler = {
   getEnvVar(name: string): string | undefined {
     return Deno.env.get(name);
   },
-  onExit(options: { message: string; code: number }): void {
+  terminate(options: { message: string; code: number }): void {
     console.error(options.message);
     Deno.exit(options.code);
   },
@@ -144,7 +144,7 @@ export function parseArgs<
           console.log(buildHelp(options));
           console.log("");
         }
-        handler.onExit({ message: `Unknown option: ${name}`, code: 1 });
+        handler.terminate({ message: `Unknown option: ${name}`, code: 1 });
       },
     };
   }
@@ -193,7 +193,7 @@ export function parseArgs<
 
   // show help
   if (parsed["help"]) {
-    handler.onExit({ message: buildHelp(options), code: 0 });
+    handler.terminate({ message: buildHelp(options), code: 0 });
   }
 
   // loading environment variables
@@ -236,7 +236,7 @@ export function parseArgs<
         console.log(buildHelp(options));
         console.log("");
       }
-      handler.onExit({
+      handler.terminate({
         message: `Missing required option: --${name}`,
         code: 1,
       });
