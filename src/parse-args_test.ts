@@ -1,9 +1,15 @@
 import { assertEquals } from "@std/assert/equals";
 import { parseArgs } from "./parse-args.ts";
 
-// loading environment variables
+class _TerminateError extends Error {
+  code: number;
+  constructor(message: string, code: number) {
+    super(message);
+    this.code = code;
+  }
+}
 
-class _HandlerForTest {
+class _FakeGetEnvHandler {
   env: Record<string, string> = {};
 
   constructor(env: Record<string, string>) {
@@ -12,13 +18,59 @@ class _HandlerForTest {
   getEnvVar = (name: string) => {
     return this.env[name];
   };
-  terminate = ({ message }: { message: string; code: number }) => {
-    throw new Error(message);
+  terminate = (ctx: { message: string; code: number }) => {
+    throw new _TerminateError(ctx.message, ctx.code);
   };
 }
 
+// required
+Deno.test("parseArgs: required", () => {
+  const options = {
+    string: ["name"],
+    required: ["name"],
+  } as const;
+  const handler = new _FakeGetEnvHandler({});
+
+  {
+    const args = parseArgs(["--name", "foo"], options, handler);
+    assertEquals(args.name, "foo");
+  }
+
+  try {
+    parseArgs([], options, handler);
+  } catch (e: unknown) {
+    assertEquals(e instanceof _TerminateError, true);
+    assertEquals(
+      (e as _TerminateError).message,
+      "Missing required option: --name",
+    );
+  }
+});
+Deno.test("parseArgs: required with default", () => {
+  const options = {
+    string: ["name"],
+    required: ["name"],
+    default: {
+      name: "default-name",
+    },
+  } as const;
+  const handler = new _FakeGetEnvHandler({});
+
+  {
+    const args = parseArgs(["--name", "foo"], options, handler);
+    assertEquals(args.name, "foo");
+  }
+
+  {
+    const args = parseArgs([], options, handler);
+    assertEquals(args.name, "default-name");
+  }
+});
+
+// loading environment variables
+
 Deno.test("parseArgs: loadEnv, string", () => {
-  const handler = new _HandlerForTest({
+  const handler = new _FakeGetEnvHandler({
     OVERRIDE_NAME: "bar",
   });
   const options = {
@@ -39,7 +91,7 @@ Deno.test("parseArgs: loadEnv, string", () => {
 });
 
 Deno.test("parseArgs: loadEnv, string with collect", () => {
-  const handler = new _HandlerForTest({
+  const handler = new _FakeGetEnvHandler({
     ITEM: "x",
   });
   const options = {
@@ -72,7 +124,7 @@ Deno.test("parseArgs: loadEnv, boolean", () => {
     const args = parseArgs(
       [],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         VERBOSE: "1",
       }),
     );
@@ -82,7 +134,7 @@ Deno.test("parseArgs: loadEnv, boolean", () => {
     const args = parseArgs(
       [],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         VERBOSE: "false",
       }),
     );
@@ -92,7 +144,7 @@ Deno.test("parseArgs: loadEnv, boolean", () => {
     const args = parseArgs(
       ["--verbose"],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         VERBOSE: "true",
       }),
     );
@@ -112,7 +164,7 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
     const args = parseArgs(
       [],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         COLOR: "1",
       }),
     );
@@ -122,7 +174,7 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
     const args = parseArgs(
       [],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         COLOR: "0",
       }),
     );
@@ -132,7 +184,7 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
     const args = parseArgs(
       ["--no-color"],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         COLOR: "1",
       }),
     );
@@ -142,7 +194,7 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
     const args = parseArgs(
       ["--color"],
       options,
-      new _HandlerForTest({
+      new _FakeGetEnvHandler({
         COLOR: "0",
       }),
     );
