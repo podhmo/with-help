@@ -93,7 +93,13 @@ export function parseArgs<
       : never;
     description?: string;
     flagDescription?: TFlagDescriptions;
-
+    envvar?: {
+      [
+        P in
+          | EnsureLiteralArray<StringKeys>[number]
+          | EnsureLiteralArray<BooleanKeys>[number]
+      ]?: string;
+    };
     supressHelp?: boolean;
   },
 ): Parsed<
@@ -167,6 +173,23 @@ export function parseArgs<
   if (parsed["help"]) {
     console.log(buildHelp(options));
     Deno.exit(1);
+  }
+
+  // loading environment variables
+  if (options.envvar !== undefined) {
+    const envmap: Record<string, string | undefined> = options.envvar;
+    for (const [name, envname] of Object.entries(envmap)) {
+      if (envname !== undefined) {
+        const value = Deno.env.get(envname) ?? "";
+        if (value !== "") {
+          if (options.boolean?.includes(name)) {
+            parsed[name] = ["true", "1", "True"].includes(value);
+          } else {
+            parsed[name] = value;
+          }
+        }
+      }
+    }
   }
 
   // check required options
