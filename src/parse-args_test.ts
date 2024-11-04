@@ -1,5 +1,6 @@
 import { assertEquals } from "@std/assert/equals";
 import { parseArgs } from "./parse-args.ts";
+import type { Options } from "./build-help.ts";
 
 class _TerminateError extends Error {
   code: number;
@@ -15,9 +16,9 @@ class _FakeGetEnvHandler {
   constructor(env: Record<string, string>) {
     this.env = env;
   }
-  getEnvVar = (name: string) => {
-    return this.env[name];
-  };
+
+  getEnvVar = (name: string) => this.env[name];
+  showHelp = (_: Options) => {};
   terminate = (ctx: { message: string; code: number }) => {
     throw new _TerminateError(ctx.message, ctx.code);
   };

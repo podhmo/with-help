@@ -1,5 +1,5 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
-import { buildHelp } from "./build-help.ts";
+import { buildHelp, type Options } from "./build-help.ts";
 
 // for enfoce as-const assertion
 type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
@@ -11,6 +11,10 @@ type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
 interface Handler {
   // get environment variable
   getEnvVar(name: string): string | undefined;
+
+  // show help
+  showHelp(options: Options): void;
+
   // exit on error
   terminate(options: { message: string; code: number }): void;
 }
@@ -19,6 +23,10 @@ interface Handler {
 const denoHandler: Handler = {
   getEnvVar(name: string): string | undefined {
     return Deno.env.get(name);
+  },
+  showHelp(options: Options): void {
+    console.log(buildHelp(options));
+    console.log("");
   },
   terminate(options: { message: string; code: number }): void {
     console.error(options.message);
@@ -140,8 +148,7 @@ export function parseArgs<
         }
 
         if (!options.supressHelp) {
-          console.log(buildHelp(options));
-          console.log("");
+          handler.showHelp(options);
         }
         handler.terminate({ message: `Unknown option: ${name}`, code: 1 });
       },
@@ -192,7 +199,8 @@ export function parseArgs<
 
   // show help
   if (parsed["help"]) {
-    handler.terminate({ message: buildHelp(options), code: 0 });
+    handler.showHelp(options);
+    handler.terminate({ message: "", code: 0 });
   }
 
   // loading environment variables
@@ -232,8 +240,7 @@ export function parseArgs<
   options?.required?.forEach((name) => {
     if (parsed[name as keyof typeof parsed] === undefined) {
       if (!options.supressHelp) {
-        console.log(buildHelp(options));
-        console.log("");
+        handler.showHelp(options);
       }
       handler.terminate({
         message: `Missing required option: --${name}`,
