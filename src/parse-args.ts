@@ -9,7 +9,9 @@ type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
   : never;
 
 interface Handler {
+  // get environment variable
   getEnvVar(name: string): string | undefined;
+  // exit on error
   onExit(options: { message: string; code: number }): void;
 }
 
