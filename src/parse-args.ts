@@ -8,6 +8,18 @@ type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
   : T
   : never;
 
+interface Handler {
+  onExit(options: { message: string; code: number }): void;
+}
+
+// default handler
+const denoHandler: Handler = {
+  onExit(options: { message: string; code: number }): void {
+    console.error(options.message);
+    Deno.exit(options.code);
+  },
+};
+
 /** The return type of parseArgs(). */
 type Parsed<
   StringKey extends string,
@@ -101,6 +113,9 @@ export function parseArgs<
       ]?: string;
     };
     supressHelp?: boolean;
+
+    // for debug or test
+    handler?: Handler;
   },
 ): Parsed<
   EnsureLiteralArray<StringKeys>[number],
@@ -108,6 +123,8 @@ export function parseArgs<
   EnsureLiteralArray<RequiredKeys>[number],
   EnsureLiteralArray<CollectKeys>[number]
 > {
+  const handler: Handler = options.handler ?? denoHandler;
+
   // add unknown option handler if not provided
   if (options?.unknown === undefined) {
     options = {
@@ -121,8 +138,7 @@ export function parseArgs<
           console.log(buildHelp(options));
           console.log("");
         }
-        console.error(`Unknown option: ${name}`);
-        Deno.exit(1);
+        handler.onExit({ message: `Unknown option: ${name}`, code: 1 });
       },
     };
   }
@@ -171,8 +187,7 @@ export function parseArgs<
 
   // show help
   if (parsed["help"]) {
-    console.log(buildHelp(options));
-    Deno.exit(1);
+    handler.onExit({ message: buildHelp(options), code: 0 });
   }
 
   // loading environment variables
@@ -215,8 +230,10 @@ export function parseArgs<
         console.log(buildHelp(options));
         console.log("");
       }
-      console.error(`Missing required option: --${name}`);
-      Deno.exit(1);
+      handler.onExit({
+        message: `Missing required option: --${name}`,
+        code: 1,
+      });
     }
   });
   return parsed;
