@@ -119,17 +119,16 @@ export function parseArgs<
       ]?: string;
     };
     supressHelp?: boolean;
-
-    // for debug or test
-    handler?: Handler;
   },
+  // for debug or test
+  handler?: Handler,
 ): Parsed<
   EnsureLiteralArray<StringKeys>[number],
   EnsureLiteralArray<BooleanKeys>[number],
   EnsureLiteralArray<RequiredKeys>[number],
   EnsureLiteralArray<CollectKeys>[number]
 > {
-  const handler: Handler = options.handler ?? denoHandler;
+  handler = handler ?? denoHandler;
 
   // add unknown option handler if not provided
   if (options?.unknown === undefined) {
