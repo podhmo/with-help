@@ -10,7 +10,7 @@
     "ok": "deno fmt --check && deno lint && deno task check && deno test"
   },
   "publish": {
-    "include": ["src/**", "deno.json", "README.md", "LICENSE"],
+    "include": ["src/**", "examples/**", "deno.json", "README.md", "LICENSE"],
     "exclude": ["**/*_test.*", "e2e-tests/*.ts"]
   },
   "imports": {
