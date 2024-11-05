@@ -63,16 +63,22 @@ function formatBooleanOptions(
       if (flagDescription[name] || flagDescription[`no-${name}`]) {
         output.push(`  --no-${paddedName} ${flagDescription[name]}`);
       } else {
-        output.push(`  --no-${paddedName}${required.includes(name) ? " (required)" : ""
-          } (default: ${name}=true)`);
+        output.push(
+          `  --no-${paddedName}${
+            required.includes(name) ? " (required)" : ""
+          } (default: ${name}=true)`,
+        );
       }
     } else {
       const paddedName = name.padEnd(maxLength, " ");
       if (flagDescription[name]) {
         output.push(`  --${paddedName} ${flagDescription[name]}`);
       } else {
-        output.push(`  --${paddedName}${required.includes(name) ? " (required)" : ""
-          } (default: ${name}=false)`);
+        output.push(
+          `  --${paddedName}${
+            required.includes(name) ? " (required)" : ""
+          } (default: ${name}=false)`,
+        );
       }
     }
     if (envvar[name]) {
@@ -95,15 +101,23 @@ function formatStringOptions(
     const output = [];
     const paddedName = name.padEnd(maxLength, " ");
     if (flagDescription[name]) {
-      output.push(`  --${paddedName} <string${collectable.includes(name) ? "[]" : ""
-        }> ${flagDescription[name]}`);
+      output.push(
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}> ${
+          flagDescription[name]
+        }`,
+      );
     } else if (defaults[name] !== undefined) {
-      output.push(`  --${paddedName} <string${collectable.includes(name) ? "[]" : ""
-        }>${required.includes(name) ? " (required)" : ""} (default: ${name}=${JSON.stringify(defaults[name])
-        })`);
+      output.push(
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${
+          required.includes(name) ? " (required)" : ""
+        } (default: ${name}=${JSON.stringify(defaults[name])})`,
+      );
     } else {
-      output.push(`  --${paddedName} <string${collectable.includes(name) ? "[]" : ""
-        }>${required.includes(name) ? " (required)" : ""}`);
+      output.push(
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${
+          required.includes(name) ? " (required)" : ""
+        }`,
+      );
     }
     if (envvar[name]) {
       output.push(`    (env: ${envvar[name]})`);
