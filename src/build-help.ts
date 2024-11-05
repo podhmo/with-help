@@ -112,7 +112,9 @@ function formatStringOptions(
   });
 }
 
-function buildUsage({ name }: Options): string {
+
+/** Builds a usage message from the provided options. */
+export function buildUsage({ name }: Options): string {
   return `Usage: ${name || "cli"} [options]`;
 }
 
