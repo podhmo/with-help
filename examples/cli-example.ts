@@ -18,13 +18,13 @@ const flags = parseArgs(
 );
 
 // ** success case **
-// deno run ./_examples/cli-example.ts --version=1.0.0
-// deno run ./_examples/cli-example.ts --no-color --version=1.0.0
-// deno run ./_examples/cli-example.ts --help
+// deno run ./examples/cli-example.ts --version=1.0.0
+// deno run ./examples/cli-example.ts --no-color --version=1.0.0
+// deno run ./examples/cli-example.ts --help
 //
 // ** error case **
-// deno run ./_examples/cli-example.ts
-// deno run ./_examples/cli-example.ts --colr=false --version=1.0.0 x y z
+// deno run ./examples/cli-example.ts
+// deno run ./examples/cli-example.ts --colr=false --version=1.0.0 x y z
 
 console.dir(flags, { depth: null });
 console.dir(flags._, { depth: null });

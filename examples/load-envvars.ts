@@ -1,15 +1,15 @@
 import { parseArgs } from "../src/parse-args.ts";
 
-// deno run --allow-env ./_examples/load-envvars.ts --name foo
-// OVERRIDE_NAME=bar deno run --allow-env ./_examples/load-envvars.ts
-// OVERRIDE_NAME=bar deno run --allow-env ./_examples/load-envvars.ts --name foo
+// deno run --allow-env ./examples/load-envvars.ts --name foo
+// OVERRIDE_NAME=bar deno run --allow-env ./examples/load-envvars.ts
+// OVERRIDE_NAME=bar deno run --allow-env ./examples/load-envvars.ts --name foo
 //
-// deno run --allow-env ./_examples/load-envvars.ts --name foo --no-color
-// VERBOSE=true COLOR=1 deno run --allow-env ./_examples/load-envvars.ts --name foo --no-color
+// deno run --allow-env ./examples/load-envvars.ts --name foo --no-color
+// VERBOSE=true COLOR=1 deno run --allow-env ./examples/load-envvars.ts --name foo --no-color
 //
-// deno run --allow-env ./_examples/load-envvars.ts --name foo --item a --item b
-// ITEM=X ITEM=Y deno run --allow-env ./_examples/load-envvars.ts --name foo
-// ITEM=X ITEM=Y deno run --allow-env ./_examples/load-envvars.ts --name foo --item a --item b
+// deno run --allow-env ./examples/load-envvars.ts --name foo --item a --item b
+// ITEM=X ITEM=Y deno run --allow-env ./examples/load-envvars.ts --name foo
+// ITEM=X ITEM=Y deno run --allow-env ./examples/load-envvars.ts --name foo --item a --item b
 const args = parseArgs(
   Deno.args,
   {

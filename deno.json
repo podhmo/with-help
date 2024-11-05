@@ -6,7 +6,7 @@
     "./parse-args": "./src/parse-args.ts"
   },
   "tasks": {
-    "check": "deno check src/**/*.ts _examples/**/*.ts",
+    "check": "deno check src/**/*.ts examples/**/*.ts",
     "ok": "deno fmt --check && deno lint && deno task check && deno test"
   },
   "publish": {
@@ -21,14 +21,14 @@
     "include": [
       "*.json",
       "src/**/*.ts",
-      "_examples/**/*.ts"
+      "examples/**/*.ts"
     ],
     "lineWidth": 200
   },
   "lint": {
     "include": [
       "src/**/*.ts",
-      "_examples/**/*.ts"
+      "examples/**/*.ts"
     ]
   }
 }
