@@ -136,10 +136,10 @@ Deno.test("string,boolean,envvar", () => {
     "Usage: cli [options]",
     "",
     "Options:",
-    "  --verbose     (default: verbose=false)    (env: CLI_VERBOSE)",
-    "  --no-color    (default: color=true)    (env: CLI_COLOR)",
     "  --version     <string> (required)    (env: CLI_VERSION)",
     "  --config      <string>",
+    "  --verbose     (default: verbose=false)    (env: CLI_VERBOSE)",
+    "  --no-color    (default: color=true)    (env: CLI_COLOR)",
   ].join("\n");
   assertEquals(got, want);
 });

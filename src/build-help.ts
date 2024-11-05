@@ -155,18 +155,18 @@ export function buildHelp(options: Options): string {
     buildUsage(options),
     description ? `\nDescription: ${description}\n` : "",
     "Options:",
-    ...formatBooleanOptions(
-      boolean || [],
-      negatable || [],
+    ...formatStringOptions(
+      string || [],
+      collect || [],
+      defaults || {},
       required || [],
       flagDescription || {},
       envvar || {},
       maxLength,
     ),
-    ...formatStringOptions(
-      string || [],
-      collect || [],
-      defaults || {},
+    ...formatBooleanOptions(
+      boolean || [],
+      negatable || [],
       required || [],
       flagDescription || {},
       envvar || {},
