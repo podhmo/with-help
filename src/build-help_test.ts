@@ -143,3 +143,21 @@ Deno.test("string,boolean,envvar", () => {
   ].join("\n");
   assertEquals(got, want);
 });
+
+// override text
+Deno.test("override usageText", () => {
+  const got = buildHelp({ boolean: ["verbose"], usageText: "cli-example [Options]" } as const);
+  const want = [
+    "cli-example [Options]",
+    "",
+    "Options:",
+    "  --verbose    (default: verbose=false)"
+  ].join("\n");
+  assertEquals(got, want);
+});
+
+Deno.test("override helpText", () => {
+  const got = buildHelp({ boolean: ["verbose"], helpText: "this is help" });
+  const want = "this is help";
+  assertEquals(got, want);
+});

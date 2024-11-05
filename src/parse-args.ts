@@ -115,7 +115,10 @@ export function parseArgs<
     description?: string;
     flagDescription?: TFlagDescriptions;
     envvar?: { [P in EnsureLiteralArray<StringKeys>[number] | EnsureLiteralArray<BooleanKeys>[number]]?: string };
-    supressHelp?: boolean;
+
+    helpText?: string; // override help text
+    usageText?: string; // override usage text
+    supressHelp?: boolean; // supress help message if error
   },
   // for debug or test
   handler?: Handler,

@@ -41,6 +41,12 @@ export type MoreOptions = {
 
   /** Environment variables to use for options. */
   envvar?: Record<string, string>;
+
+  /** Help text (overwrite) */
+  helpText?: string;
+
+  /** Usage text (overwrite) */
+  usageText?: string;
 };
 
 /** Combined options including both OriginalOptions and MoreOptions. */
@@ -112,7 +118,11 @@ function formatStringOptions(
   });
 }
 
-function buildUsage({ name }: Options): string {
+/** Builds a usage message from the provided options. */
+export function buildUsage({ name, usageText }: Options): string {
+  if (usageText) {
+    return usageText;
+  }
   return `Usage: ${name || "cli"} [options]`;
 }
 
@@ -129,6 +139,10 @@ export function buildHelp(options: Options): string {
     flagDescription,
     envvar,
   } = options;
+
+  if (options.helpText) {
+    return options.helpText;
+  }
 
   const maxLength = Math.max(
     ...(boolean || []).map((name) => name.length + ((negatable || []).includes(name) ? _negatable_padding : 0)),
