@@ -205,33 +205,15 @@ Deno.test("parseArgs: loadEnv, boolean", () => {
   } as const;
 
   {
-    const args = parseArgs(
-      [],
-      options,
-      new _FakeGetEnvHandler({
-        VERBOSE: "1",
-      }),
-    );
+    const args = parseArgs([], options, new _FakeGetEnvHandler({ VERBOSE: "1" }));
     assertEquals(args.verbose, true);
   }
   {
-    const args = parseArgs(
-      [],
-      options,
-      new _FakeGetEnvHandler({
-        VERBOSE: "false",
-      }),
-    );
+    const args = parseArgs([], options, new _FakeGetEnvHandler({ VERBOSE: "false" }));
     assertEquals(args.verbose, false);
   }
   {
-    const args = parseArgs(
-      ["--verbose"],
-      options,
-      new _FakeGetEnvHandler({
-        VERBOSE: "true",
-      }),
-    );
+    const args = parseArgs(["--verbose"], options, new _FakeGetEnvHandler({ VERBOSE: "true" }));
     assertEquals(args.verbose, true);
   }
 });
@@ -245,43 +227,19 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
   } as const;
 
   {
-    const args = parseArgs(
-      [],
-      options,
-      new _FakeGetEnvHandler({
-        COLOR: "1",
-      }),
-    );
+    const args = parseArgs([], options, new _FakeGetEnvHandler({ COLOR: "1" }));
     assertEquals(args.color, true);
   }
   {
-    const args = parseArgs(
-      [],
-      options,
-      new _FakeGetEnvHandler({
-        COLOR: "0",
-      }),
-    );
+    const args = parseArgs([], options, new _FakeGetEnvHandler({ COLOR: "0" }));
     assertEquals(args.color, false);
   }
   {
-    const args = parseArgs(
-      ["--no-color"],
-      options,
-      new _FakeGetEnvHandler({
-        COLOR: "1",
-      }),
-    );
+    const args = parseArgs(["--no-color"], options, new _FakeGetEnvHandler({ COLOR: "1" }));
     assertEquals(args.color, true);
   }
   {
-    const args = parseArgs(
-      ["--color"],
-      options,
-      new _FakeGetEnvHandler({
-        COLOR: "0",
-      }),
-    );
+    const args = parseArgs(["--color"], options, new _FakeGetEnvHandler({ COLOR: "0" }));
     assertEquals(args.color, false);
   }
 });
