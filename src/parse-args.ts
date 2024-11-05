@@ -2,8 +2,7 @@ import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp, type Options } from "./build-help.ts";
 
 // for enfoce as-const assertion
-type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
-  ? string[] extends T // if T is not a literal type, return never[]
+type EnsureLiteralArray<T> = T extends ReadonlyArray<string> ? string[] extends T // if T is not a literal type, return never[]
     ? never[]
   : T
   : never;
@@ -42,12 +41,10 @@ type Parsed<
   CollectKey extends string,
 > =
   & {
-    [K in StringKey]: K extends CollectKey ? string[]
-      : (K extends RequiredKey ? string : (string | undefined));
+    [K in StringKey]: K extends CollectKey ? string[] : (K extends RequiredKey ? string : (string | undefined));
   }
   & {
-    [K in BooleanKey]: K extends RequiredKey ? boolean
-      : boolean; // boolean | undefined is not allowed
+    [K in BooleanKey]: K extends RequiredKey ? boolean : boolean; // boolean | undefined is not allowed
   }
   & { help: boolean; _: string[] };
 
@@ -99,11 +96,9 @@ export function parseArgs<
     // original options
     boolean?: EnsureLiteralArray<BooleanKeys>;
     string?: EnsureLiteralArray<StringKeys>;
-    collect?: EnsureLiteralArray<CollectKeys>[number] extends
-      EnsureLiteralArray<StringKeys>[number] ? CollectKeys
+    collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
       : never;
-    negatable?: EnsureLiteralArray<NegatableKeys>[number] extends
-      EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
+    negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
     default?: TDefaults;
     // "--": TDoubleDash;
     stopEarly?: boolean;
@@ -113,19 +108,12 @@ export function parseArgs<
     // more options
     name?: string;
     required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-      | EnsureLiteralArray<StringKeys>[number]
-      | EnsureLiteralArray<BooleanKeys>[number]
+      EnsureLiteralArray<StringKeys>[number] | EnsureLiteralArray<BooleanKeys>[number]
     ) ? RequiredKeys
       : never;
     description?: string;
     flagDescription?: TFlagDescriptions;
-    envvar?: {
-      [
-        P in
-          | EnsureLiteralArray<StringKeys>[number]
-          | EnsureLiteralArray<BooleanKeys>[number]
-      ]?: string;
-    };
+    envvar?: { [P in EnsureLiteralArray<StringKeys>[number] | EnsureLiteralArray<BooleanKeys>[number]]?: string };
     supressHelp?: boolean;
   },
   // for debug or test
@@ -161,11 +149,7 @@ export function parseArgs<
     booleans.push("help");
     const flagDescription = options.flagDescription || {} as TFlagDescriptions;
     flagDescription["help"] = "show help";
-    options = {
-      ...options,
-      flagDescription,
-      boolean: booleans as EnsureLiteralArray<BooleanKeys>,
-    };
+    options = { ...options, flagDescription, boolean: booleans as EnsureLiteralArray<BooleanKeys> };
   }
 
   // add default value for boolean options
@@ -217,9 +201,7 @@ export function parseArgs<
               // @ts-ignore name is always a key of parsed (booleans)
               parsed[name] = false;
             } else {
-              console.debug(
-                `envvar ${envname}=${value} is not boolean value, ignored`,
-              );
+              console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
             }
           } else {
             if (options.collect?.includes(name)) {
@@ -241,10 +223,7 @@ export function parseArgs<
       if (!options.supressHelp) {
         handler.showHelp({ ...options, envvar });
       }
-      handler.terminate({
-        message: `Missing required option: --${name}`,
-        code: 1,
-      });
+      handler.terminate({ message: `Missing required option: --${name}`, code: 1 });
     }
   });
   return parsed;

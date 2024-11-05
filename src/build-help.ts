@@ -63,22 +63,14 @@ function formatBooleanOptions(
       if (flagDescription[name] || flagDescription[`no-${name}`]) {
         output.push(`  --no-${paddedName} ${flagDescription[name]}`);
       } else {
-        output.push(
-          `  --no-${paddedName}${
-            required.includes(name) ? " (required)" : ""
-          } (default: ${name}=true)`,
-        );
+        output.push(`  --no-${paddedName}${required.includes(name) ? " (required)" : ""} (default: ${name}=true)`);
       }
     } else {
       const paddedName = name.padEnd(maxLength, " ");
       if (flagDescription[name]) {
         output.push(`  --${paddedName} ${flagDescription[name]}`);
       } else {
-        output.push(
-          `  --${paddedName}${
-            required.includes(name) ? " (required)" : ""
-          } (default: ${name}=false)`,
-        );
+        output.push(`  --${paddedName}${required.includes(name) ? " (required)" : ""} (default: ${name}=false)`);
       }
     }
     if (envvar[name]) {
@@ -102,21 +94,15 @@ function formatStringOptions(
     const paddedName = name.padEnd(maxLength, " ");
     if (flagDescription[name]) {
       output.push(
-        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}> ${
-          flagDescription[name]
-        }`,
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}> ${flagDescription[name]}`,
       );
     } else if (defaults[name] !== undefined) {
       output.push(
-        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${
-          required.includes(name) ? " (required)" : ""
-        } (default: ${name}=${JSON.stringify(defaults[name])})`,
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""} (default: ${name}=${JSON.stringify(defaults[name])})`,
       );
     } else {
       output.push(
-        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${
-          required.includes(name) ? " (required)" : ""
-        }`,
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""}`,
       );
     }
     if (envvar[name]) {
@@ -145,9 +131,7 @@ export function buildHelp(options: Options): string {
   } = options;
 
   const maxLength = Math.max(
-    ...(boolean || []).map((name) =>
-      name.length + ((negatable || []).includes(name) ? _negatable_padding : 0)
-    ),
+    ...(boolean || []).map((name) => name.length + ((negatable || []).includes(name) ? _negatable_padding : 0)),
     ...(string || []).map((name) => name.length),
   ) + 3;
 

@@ -22,7 +22,8 @@
       "*.json",
       "src/**/*.ts",
       "_examples/**/*.ts"
-    ]
+    ],
+    "lineWidth": 200
   },
   "lint": {
     "include": [
