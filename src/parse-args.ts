@@ -56,6 +56,7 @@ type Parsed<
  * - Flags can be specified as required options (affecting the return type)
  * - Added help display by `--help`
  * - Display an error when a non-existent flag is given by typo (this is added as the default value of the unknown option)
+ * - Added support for environment variables
  *
  * Also, for religious reasons, alias options are not supported very politely.
  *

@@ -49,3 +49,41 @@ Options:
   --version     <string> (required)
   --item        <string[]>
 ```
+
+### with environment variables
+
+```ts
+import { parseArgs } from "../src/parse-args.ts";
+
+const args = parseArgs(
+  Deno.args,
+  {
+    string: ["name"],
+    boolean: ["color"],
+    negatable: ["color"],
+    envvar: {
+      name: "OVERRIDE_NAME",
+      color: "COLOR", // if COLOR=1 set args.color=true, if COLOR=0 set args.color=false (even if --no-color is set)
+    },
+  } as const,
+);
+
+console.log(`name=${args.name}, envvar=${Deno.env.get("OVERRIDE_NAME")}`);
+console.log(`color=${args.color}, envvar=${Deno.env.get("COLOR")}`);
+```
+
+Output example is here.
+
+```console
+$ COLOR=0 OVERRIDE_NAME=bar deno run --allow-env load-envvars.ts --name foo 
+name=bar, envvar=bar
+color=false, envvar=0
+
+$ deno run load-envvars.ts --help
+Usage: cli [options]
+
+Options:
+  --name        <string> (required)    (env: OVERRIDE_NAME)
+  --no-color    (default: color=true)    (env: COLOR)
+  --help        show help
+```
