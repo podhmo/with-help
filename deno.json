@@ -1,6 +1,7 @@
 {
   "name": "@podhmo/with-help",
   "version": "0.2.0",
+  "license": "MIT",
   "exports": {
     ".": "./src/mod.ts",
     "./parse-args": "./src/parse-args.ts"
