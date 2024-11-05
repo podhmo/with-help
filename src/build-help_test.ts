@@ -120,3 +120,26 @@ Deno.test("string,flagDescription", () => {
   ].join("\n");
   assertEquals(got, want);
 });
+Deno.test("string,boolean,envvar", () => {
+  const got = buildHelp({
+    string: ["version", "config"],
+    boolean: ["verbose", "color"],
+    required: ["version"],
+    negatable: ["color"],
+    envvar: {
+      version: "CLI_VERSION",
+      color: "CLI_COLOR",
+      verbose: "CLI_VERBOSE",
+    },
+  });
+  const want = [
+    "Usage: cli [options]",
+    "",
+    "Options:",
+    "  --verbose     (default: verbose=false)    (env: CLI_VERBOSE)",
+    "  --no-color    (default: color=true)    (env: CLI_COLOR)",
+    "  --version     <string> (required)    (env: CLI_VERSION)",
+    "  --config      <string>",
+  ].join("\n");
+  assertEquals(got, want);
+});

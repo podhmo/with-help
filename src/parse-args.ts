@@ -1,5 +1,5 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
-import { buildHelp } from "./build-help.ts";
+import { buildHelp, type Options } from "./build-help.ts";
 
 // for enfoce as-const assertion
 type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
@@ -7,6 +7,32 @@ type EnsureLiteralArray<T> = T extends ReadonlyArray<string>
     ? never[]
   : T
   : never;
+
+interface Handler {
+  // get environment variable
+  getEnvVar(name: string): string | undefined;
+
+  // show help
+  showHelp(options: Options): void;
+
+  // exit on error
+  terminate(options: { message: string; code: number }): void;
+}
+
+// default handler
+const denoHandler: Handler = {
+  getEnvVar(name: string): string | undefined {
+    return Deno.env.get(name);
+  },
+  showHelp(options: Options): void {
+    console.log(buildHelp(options));
+    console.log("");
+  },
+  terminate(options: { message: string; code: number }): void {
+    console.error(options.message);
+    Deno.exit(options.code);
+  },
+};
 
 /** The return type of parseArgs(). */
 type Parsed<
@@ -93,15 +119,25 @@ export function parseArgs<
       : never;
     description?: string;
     flagDescription?: TFlagDescriptions;
-
+    envvar?: {
+      [
+        P in
+          | EnsureLiteralArray<StringKeys>[number]
+          | EnsureLiteralArray<BooleanKeys>[number]
+      ]?: string;
+    };
     supressHelp?: boolean;
   },
+  // for debug or test
+  handler?: Handler,
 ): Parsed<
   EnsureLiteralArray<StringKeys>[number],
   EnsureLiteralArray<BooleanKeys>[number],
   EnsureLiteralArray<RequiredKeys>[number],
   EnsureLiteralArray<CollectKeys>[number]
 > {
+  handler = handler ?? denoHandler;
+  const envvar = (options.envvar || {}) as Record<string, string>;
   // add unknown option handler if not provided
   if (options?.unknown === undefined) {
     options = {
@@ -112,11 +148,9 @@ export function parseArgs<
         }
 
         if (!options.supressHelp) {
-          console.log(buildHelp(options));
-          console.log("");
+          handler.showHelp({ ...options, envvar });
         }
-        console.error(`Unknown option: ${name}`);
-        Deno.exit(1);
+        handler.terminate({ message: `Unknown option: ${name}`, code: 1 });
       },
     };
   }
@@ -165,19 +199,52 @@ export function parseArgs<
 
   // show help
   if (parsed["help"]) {
-    console.log(buildHelp(options));
-    Deno.exit(1);
+    handler.showHelp({ ...options, envvar });
+    handler.terminate({ message: "", code: 0 });
+  }
+
+  // loading environment variables
+  if (options.envvar !== undefined) {
+    for (const [name, envname] of Object.entries(envvar)) {
+      if (envname !== undefined) {
+        const value = handler.getEnvVar(envname) ?? "";
+        if (value !== "") {
+          if (booleans.includes(name)) {
+            if (value === "1" || value.toUpperCase() === "TRUE") {
+              // @ts-ignore name is always a key of parsed (booleans)
+              parsed[name] = true;
+            } else if (value === "0" || value.toUpperCase() === "FALSE") {
+              // @ts-ignore name is always a key of parsed (booleans)
+              parsed[name] = false;
+            } else {
+              console.debug(
+                `envvar ${envname}=${value} is not boolean value, ignored`,
+              );
+            }
+          } else {
+            if (options.collect?.includes(name)) {
+              // @ts-ignore name is always a key of parsed (strings)
+              parsed[name] = [value]; // support only 1 item...
+            } else {
+              // @ts-ignore name is always a key of parsed (strings)
+              parsed[name] = value;
+            }
+          }
+        }
+      }
+    }
   }
 
   // check required options
   options?.required?.forEach((name) => {
     if (parsed[name as keyof typeof parsed] === undefined) {
       if (!options.supressHelp) {
-        console.log(buildHelp(options));
-        console.log("");
+        handler.showHelp({ ...options, envvar });
       }
-      console.error(`Missing required option: --${name}`);
-      Deno.exit(1);
+      handler.terminate({
+        message: `Missing required option: --${name}`,
+        code: 1,
+      });
     }
   });
   return parsed;

@@ -38,6 +38,9 @@ export type MoreOptions = {
 
   /** Descriptions for specific flags. */
   flagDescription?: Record<string, string>;
+
+  /** Environment variables to use for options. */
+  envvar?: Record<string, string>;
 };
 
 /** Combined options including both OriginalOptions and MoreOptions. */
@@ -50,28 +53,38 @@ function formatBooleanOptions(
   negatable: readonly string[],
   required: readonly string[],
   flagDescription: Record<string, string>,
+  envvar: Record<string, string>,
   maxLength: number,
 ): readonly string[] {
   return booleans.map((name) => {
+    const output = [];
     if (negatable.includes(name)) {
       const paddedName = name.padEnd(maxLength - _negatable_padding, " ");
       if (flagDescription[name] || flagDescription[`no-${name}`]) {
-        return `  --no-${paddedName} ${flagDescription[name]}`;
+        output.push(`  --no-${paddedName} ${flagDescription[name]}`);
       } else {
-        return `  --no-${paddedName}${
-          required.includes(name) ? " (required)" : ""
-        } (default: ${name}=true)`;
+        output.push(
+          `  --no-${paddedName}${
+            required.includes(name) ? " (required)" : ""
+          } (default: ${name}=true)`,
+        );
       }
     } else {
       const paddedName = name.padEnd(maxLength, " ");
       if (flagDescription[name]) {
-        return `  --${paddedName} ${flagDescription[name]}`;
+        output.push(`  --${paddedName} ${flagDescription[name]}`);
       } else {
-        return `  --${paddedName}${
-          required.includes(name) ? " (required)" : ""
-        } (default: ${name}=false)`;
+        output.push(
+          `  --${paddedName}${
+            required.includes(name) ? " (required)" : ""
+          } (default: ${name}=false)`,
+        );
       }
     }
+    if (envvar[name]) {
+      output.push(`    (env: ${envvar[name]})`);
+    }
+    return output.join("");
   });
 }
 
@@ -81,25 +94,35 @@ function formatStringOptions(
   defaults: Record<string, unknown>,
   required: readonly string[],
   flagDescription: Record<string, string>,
+  envvar: Record<string, string>,
   maxLength: number,
 ): readonly string[] {
   return strings.map((name) => {
+    const output = [];
     const paddedName = name.padEnd(maxLength, " ");
     if (flagDescription[name]) {
-      return `  --${paddedName} <string${
-        collectable.includes(name) ? "[]" : ""
-      }> ${flagDescription[name]}`;
+      output.push(
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}> ${
+          flagDescription[name]
+        }`,
+      );
     } else if (defaults[name] !== undefined) {
-      return `  --${paddedName} <string${
-        collectable.includes(name) ? "[]" : ""
-      }>${required.includes(name) ? " (required)" : ""} (default: ${name}=${
-        JSON.stringify(defaults[name])
-      })`;
+      output.push(
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${
+          required.includes(name) ? " (required)" : ""
+        } (default: ${name}=${JSON.stringify(defaults[name])})`,
+      );
     } else {
-      return `  --${paddedName} <string${
-        collectable.includes(name) ? "[]" : ""
-      }>${required.includes(name) ? " (required)" : ""}`;
+      output.push(
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${
+          required.includes(name) ? " (required)" : ""
+        }`,
+      );
     }
+    if (envvar[name]) {
+      output.push(`    (env: ${envvar[name]})`);
+    }
+    return output.join("");
   });
 }
 
@@ -118,6 +141,7 @@ export function buildHelp(options: Options): string {
     required,
     description,
     flagDescription,
+    envvar,
   } = options;
 
   const maxLength = Math.max(
@@ -136,6 +160,7 @@ export function buildHelp(options: Options): string {
       negatable || [],
       required || [],
       flagDescription || {},
+      envvar || {},
       maxLength,
     ),
     ...formatStringOptions(
@@ -144,6 +169,7 @@ export function buildHelp(options: Options): string {
       defaults || {},
       required || [],
       flagDescription || {},
+      envvar || {},
       maxLength,
     ),
   ];
