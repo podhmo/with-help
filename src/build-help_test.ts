@@ -151,7 +151,7 @@ Deno.test("override usageText", () => {
     "cli-example [Options]",
     "",
     "Options:",
-    "  --verbose    (default: verbose=false)"
+    "  --verbose    (default: verbose=false)",
   ].join("\n");
   assertEquals(got, want);
 });

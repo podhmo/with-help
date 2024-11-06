@@ -84,13 +84,6 @@ export function parseArgs<
   RequiredKeys extends readonly string[],
   NegatableKeys extends readonly string[],
   CollectKeys extends readonly string[],
-  TDefaults extends
-    & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
-    & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean },
-  TFlagDescriptions extends
-    & { [P in EnsureLiteralArray<StringKeys>[number]]?: string }
-    & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string }
-    & { help?: string },
 >(
   args: string[],
   options: {
@@ -100,7 +93,9 @@ export function parseArgs<
     collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
       : never;
     negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
-    default?: TDefaults;
+    default?:
+      & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
+      & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean };
     // "--": TDoubleDash;
     stopEarly?: boolean;
     alias?: Record<string, string | string[]>; // I don't like this...
@@ -113,7 +108,10 @@ export function parseArgs<
     ) ? RequiredKeys
       : never;
     description?: string;
-    flagDescription?: TFlagDescriptions;
+    flagDescription?:
+      & { [P in EnsureLiteralArray<StringKeys>[number]]?: string }
+      & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string }
+      & { help?: string };
     envvar?: { [P in EnsureLiteralArray<StringKeys>[number] | EnsureLiteralArray<BooleanKeys>[number]]?: string };
 
     helpText?: string; // override help text
@@ -129,7 +127,7 @@ export function parseArgs<
   EnsureLiteralArray<CollectKeys>[number]
 > {
   handler = handler ?? denoHandler;
-  const envvar = (options.envvar || {}) as Record<string, string>;
+  const envvar = (options.envvar ?? {}) as Record<string, string>;
   // add unknown option handler if not provided
   if (options?.unknown === undefined) {
     options = {
@@ -148,18 +146,19 @@ export function parseArgs<
   }
 
   // add help flag
-  const booleans: (BooleanKeys[number] | "help")[] = options.boolean || [];
+  const booleans: (BooleanKeys[number] | "help")[] = options.boolean ?? [];
   if (!booleans.includes("help")) {
     booleans.push("help");
-    const flagDescription = options.flagDescription || {} as TFlagDescriptions;
+    type TFlagDescription = { [P in EnsureLiteralArray<StringKeys>[number]]?: string } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string } & { help?: string };
+    const flagDescription: TFlagDescription = options.flagDescription ?? {};
     flagDescription["help"] = "show help";
     options = { ...options, flagDescription, boolean: booleans as EnsureLiteralArray<BooleanKeys> };
   }
 
   // add default value for boolean options
   if (options.boolean !== undefined) {
-    const defaults = options.default || ({} as TDefaults);
-    const negatable = options.negatable || [];
+    const defaults = options.default ?? {};
+    const negatable = options.negatable ?? [];
 
     options.boolean.forEach((name) => {
       if (defaults[name] === undefined) {
