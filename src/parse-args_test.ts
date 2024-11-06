@@ -3,10 +3,8 @@ import { parseArgs } from "./parse-args.ts";
 import type { Options } from "./build-help.ts";
 
 class _TerminateError extends Error {
-  code: number;
-  constructor(message: string, code: number) {
+  constructor(message: string, public code: number) {
     super(message);
-    this.code = code;
   }
 }
 
