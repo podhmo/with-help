@@ -1,12 +1,6 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp, type Options } from "./build-help.ts";
 
-// for enfoce as-const assertion
-type EnsureLiteralArray<T> = T extends ReadonlyArray<string> ? string[] extends T // if T is not a literal type, return never[]
-    ? never[]
-  : T
-  : never;
-
 interface Handler {
   // get environment variable
   getEnvVar(name: string): string | undefined;
