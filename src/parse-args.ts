@@ -140,27 +140,25 @@ export function parseArgs<
   }
 
   // add help flag
-  const booleans: (BooleanKeys[number] | "help")[] = options.boolean ?? [];
+  const booleans = (options.boolean ?? []) as (BooleanKeys[number] | "help")[];
   if (!booleans.includes("help")) {
     booleans.push("help");
-    type TFlagDescription = { [P in EnsureLiteralArray<StringKeys>[number]]?: string } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string } & { help?: string };
-    const flagDescription: TFlagDescription = options.flagDescription ?? {};
+    const flagDescription = (options.flagDescription ?? {}) as (typeof options.flagDescription & { "help": string });
     flagDescription["help"] = "show help";
-    options = { ...options, flagDescription, boolean: booleans as BooleanKeys };
+    options = { ...options, flagDescription, boolean: booleans as unknown as typeof options.boolean }; // hack: as unknown as <type>
   }
 
   // add default value for boolean options
   if (options.boolean !== undefined) {
-    const defaults = options.default ?? {};
-    const negatable = options.negatable ?? [];
+    const defaults = (options.default ?? {}) as Record<string, boolean | string | string[]>;
+    const negatable = (options.negatable ?? []) as NegatableKeys;
 
     options.boolean.forEach((name) => {
       if (defaults[name] === undefined) {
-        // @ts-ignore Since we are looping through BooleanKeys, name will always be BooleanKeys[number] and the value is always boolean
         defaults[name] = negatable.includes(name);
       }
     });
-    options = { ...options, default: defaults };
+    options = { ...options, default: defaults as unknown as typeof options.default }; // hack: as unknown as <type>
   }
 
   // calling the original parseArgs
