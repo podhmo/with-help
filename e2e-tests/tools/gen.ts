@@ -52,7 +52,8 @@ function main() {
         { title: "good-21stringU-boolean1-negatableU-collectU-required0", options: { boolean: [["color", "boolean"]], required: [] } },
         { title: "good-22stringU-boolean1-negatableU-collect0-required0", options: { boolean: [["color", "boolean"]], collect: [], required: [] } },
         { title: "good-23stringU-boolean1-negatable0-collect0-required0", options: { boolean: [["color", "boolean"]], negatable: [], collect: [], required: [] } },
-        { title: "good-24stringU-boolean1-negatableU-collectU-required1", options: { boolean: [["color", "boolean"]], required: ["color"] } },
+        // not good:
+        // { title: "good-24stringU-boolean1-negatableU-collectU-required1", options: { boolean: [["color", "boolean"]], required: ["color"] } },
         { title: "good-25stringU-boolean1-negatable1-collectU-requiredU", options: { boolean: [["color", "boolean"]], negatable: ["color"] } },
         { title: "good-26string0-boolean1-negatableU-collectU-requiredU", options: { string: [], boolean: [["color", "boolean"]] } },
         { title: "good-27string0-boolean1-negatableU-collectU-required0", options: { string: [], boolean: [["color", "boolean"]], required: [] } },
@@ -60,10 +61,12 @@ function main() {
         { title: "good-29string0-boolean1-negatable0-collect0-required0", options: { string: [], boolean: [["color", "boolean"]], negatable: [], collect: [], required: [] } },
         { title: "good-2astringU-boolean1-negatable1-collectU-requiredU", options: { boolean: [["color", "boolean"]], negatable: ["color"] } },
         { title: "good-2bstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: [] } },
-        { title: "good-2cstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
+        // not good:
+        // { title: "good-2cstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
         { title: "good-2dstring0-boolean1-negatable1-collectU-requiredU", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"] } },
         { title: "good-2estring0-boolean1-negatable1-collectU-required0", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: [] } },
-        { title: "good-2fstring0-boolean1-negatable1-collectU-required1", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
+        // not good:
+        // { title: "good-2fstring0-boolean1-negatable1-collectU-required1", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
 
         { title: "good-30string2-booleanU-negatableU-collectU-requiredU", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]] } },
         { title: "good-31string2-booleanU-negatableU-collectU-required0", options: { string: [["name", "string | undefined"], ["nickname", "string | undefined"]], required: [] } },
@@ -81,21 +84,21 @@ function main() {
         { title: "bad-00-stringU-booleanU--unexpected-negatable", options: { negatable: ["XXX"] } },
         { title: "bad-01-stringU-booleanU--unexpected-collect", options: { collect: ["XXX"] } },
         { title: "bad-02-stringU-booleanU--unexpected-required", options: { required: ["XXX"] } },
-        { title: "bad-03-stringU-booleanU--unexpected-default", options: { default: { XXX: "FOO" } } }, // 許容する？
+        { title: "bad-03-stringU-booleanU--unexpected-default", options: { default: { XXX: "FOO" } } },
         { title: "bad-04-string0-booleanU--unexpected-negatable", options: { string: [], negatable: ["XXX"] } },
         { title: "bad-05-string0-booleanU--unexpected-collect", options: { string: [], collect: ["XXX"] } },
         { title: "bad-06-string0-booleanU--unexpected-required", options: { string: [], required: ["XXX"] } },
-        { title: "bad-07-string0-booleanU--unexpected-default", options: { string: [], default: { XXX: "FOO" } } }, // 許容する？
+        { title: "bad-07-string0-booleanU--unexpected-default", options: { string: [], default: { XXX: "FOO" } } },
 
         { title: "bad-10-string1-booleanU--unexpected-negatable", options: { string: [["name", "string | undefined"]], negatable: ["XXX"] } },
         { title: "bad-11-string1-booleanU--unexpected-collect", options: { string: [["name", "string | undefined"]], collect: ["XXX"] } },
         { title: "bad-12-string1-booleanU--unexpected-required", options: { string: [["name", "string | undefined"]], required: ["XXX"] } },
-        { title: "bad-13-string1-booleanU--unexpected-default", options: { string: [["name", "string | undefined"]], default: { XXX: "FOO" } } }, // 許容する？
+        { title: "bad-13-string1-booleanU--unexpected-default", options: { string: [["name", "string | undefined"]], default: { XXX: "FOO" } } },
 
         { title: "bad-20-stringU-boolean1--unexpected-negatable", options: { boolean: [["color", "boolean"]], negatable: ["XXX"] } },
         { title: "bad-21-stringU-boolean1--unexpected-collect", options: { boolean: [["color", "boolean"]], collect: ["XXX"] } },
         { title: "bad-22-stringU-boolean1--unexpected-required", options: { boolean: [["color", "boolean"]], required: ["XXX"] } },
-        { title: "bad-23-stringU-boolean1--unexpected-default", options: { boolean: [["color", "boolean"]], default: { XXX: "FOO" } } }, // 許容する？
+        { title: "bad-23-stringU-boolean1--unexpected-default", options: { boolean: [["color", "boolean"]], default: { XXX: "FOO" } } },
 
         { title: "bad-30-string1-boolean1--unexpected-negatable", options: { string: [["name", "string | undefined"]], boolean: [["color", "boolean"]], negatable: ["name"] } },
         { title: "bad-31-string1-boolean1--unexpected-collect", options: { string: [["name", "string | undefined"]], boolean: [["color", "boolean"]], collect: ["color"] } },
@@ -103,7 +106,12 @@ function main() {
         { title: "bad-33-string1-boolean1--unexpected-default", options: { string: [["name", "string | undefined"]], boolean: [["color", "boolean"]], default: { XXX: "FOO" } } }, // 許容する？
 
         // conflict?
-        // { title: "bad-40-string1-boolean1--conflict", options: { string: [["name", "string | undefined"]], boolean: [["name", "boolean"]] } },
+        { title: "bad-40-string1-boolean1--conflict", options: { string: [["name", "string | undefined"]], boolean: [["name", "boolean"]] } },
+
+        // **not-good** are moved from good fixtures, but these are completly wrong.
+        { title: "not-good-24stringU-boolean1-negatableU-collectU-required1", options: { boolean: [["color", "boolean"]], required: ["color"] } },
+        { title: "not-good-2cstringU-boolean1-negatable1-collectU-required0", options: { boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
+        { title: "not-good-2fstring0-boolean1-negatable1-collectU-required1", options: { string: [], boolean: [["color", "boolean"]], negatable: ["color"], required: ["color"] } },
     ]
 
     for (const tc of successCases.concat(failureCases)) {
@@ -130,7 +138,7 @@ function main() {
             code.push(`  default: ${JSON.stringify(tc.options.default)},`);
         }
 
-        code.push(`} as const);`);
+        code.push(`});`);
         code.push(`const _args: string[] = parsed["_"]; // positional arguments;`);
 
         if (tc.options.string) {

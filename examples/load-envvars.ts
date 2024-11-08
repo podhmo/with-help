@@ -25,7 +25,7 @@ const args = parseArgs(
       verbose: "VERBOSE",
       item: "ITEM", // set args.item=ITEM (but only 1 value, so multiple values are not supported)
     },
-  } as const,
+  },
 );
 
 console.log(`name=${args.name}, envvar=${Deno.env.get("OVERRIDE_NAME")}`);

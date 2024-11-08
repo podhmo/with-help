@@ -14,7 +14,7 @@ const flags = parseArgs(
     required: ["version"],
     name: "cli-example",
     description: "this is cli-example",
-  } as const,
+  },
 );
 
 // ** success case **

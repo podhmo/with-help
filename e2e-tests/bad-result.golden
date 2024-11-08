@@ -18,45 +18,31 @@ Check file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts
 Check file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts
 Check file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts
 Check file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts
-error: TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+Check file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts
+error: TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   negatable: ["XXX"],
-  ~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-00-stringU-booleanU--unexpected-negatable.ts:3:3
-
-    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<...> | undefined; ... 8 more ...; supressHelp?: boolean | undefined; }'
-        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
-        ~~~~~~~~~
-        at file://ROOT/src/parse-args.ts:95:5
+              ~~~~~
+    at file://ROOT/e2e-tests/bad-00-stringU-booleanU--unexpected-negatable.ts:3:15
 
 TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-00-stringU-booleanU--unexpected-negatable.ts:6:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   collect: ["XXX"],
-  ~~~~~~~
-    at file://ROOT/e2e-tests/bad-01-stringU-booleanU--unexpected-collect.ts:3:3
-
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<...> | undefined; ... 8 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
-        ~~~~~~~
-        at file://ROOT/src/parse-args.ts:93:5
+            ~~~~~
+    at file://ROOT/e2e-tests/bad-01-stringU-booleanU--unexpected-collect.ts:3:13
 
 TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-01-stringU-booleanU--unexpected-collect.ts:6:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   required: ["XXX"],
-  ~~~~~~~~
-    at file://ROOT/e2e-tests/bad-02-stringU-booleanU--unexpected-required.ts:3:3
-
-    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; ... 9 more ...; supressHelp?: boolean | undefined; }'
-        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-        ~~~~~~~~
-        at file://ROOT/src/parse-args.ts:106:5
+             ~~~~~
+    at file://ROOT/e2e-tests/bad-02-stringU-booleanU--unexpected-required.ts:3:14
 
 TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
@@ -68,45 +54,30 @@ const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-03-stringU-booleanU--unexpected-default.ts:6:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   negatable: ["XXX"],
-  ~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-04-string0-booleanU--unexpected-negatable.ts:4:3
-
-    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<string, string | string[]> | undefined; ... 8 more ...; supressHelp?: boolean | undefined; }'
-        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
-        ~~~~~~~~~
-        at file://ROOT/src/parse-args.ts:95:5
+              ~~~~~
+    at file://ROOT/e2e-tests/bad-04-string0-booleanU--unexpected-negatable.ts:4:15
 
 TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-04-string0-booleanU--unexpected-negatable.ts:7:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   collect: ["XXX"],
-  ~~~~~~~
-    at file://ROOT/e2e-tests/bad-05-string0-booleanU--unexpected-collect.ts:4:3
-
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; alias?: Record<string, string | string[]> | undefined; ... 8 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
-        ~~~~~~~
-        at file://ROOT/src/parse-args.ts:93:5
+            ~~~~~
+    at file://ROOT/e2e-tests/bad-05-string0-booleanU--unexpected-collect.ts:4:13
 
 TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-05-string0-booleanU--unexpected-collect.ts:7:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   required: ["XXX"],
-  ~~~~~~~~
-    at file://ROOT/e2e-tests/bad-06-string0-booleanU--unexpected-required.ts:4:3
-
-    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: [] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & {}) | undefined; stopEarly?: boolean | undefined; ... 9 more ...; supressHelp?: boolean | undefined; }'
-        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-        ~~~~~~~~
-        at file://ROOT/src/parse-args.ts:106:5
+             ~~~~~
+    at file://ROOT/e2e-tests/bad-06-string0-booleanU--unexpected-required.ts:4:14
 
 TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
@@ -118,45 +89,30 @@ const _result :never = {};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-07-string0-booleanU--unexpected-default.ts:7:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   negatable: ["XXX"],
-  ~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-10-string1-booleanU--unexpected-negatable.ts:4:3
-
-    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
-        ~~~~~~~~~
-        at file://ROOT/src/parse-args.ts:95:5
+              ~~~~~
+    at file://ROOT/e2e-tests/bad-10-string1-booleanU--unexpected-negatable.ts:4:15
 
 TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-10-string1-booleanU--unexpected-negatable.ts:8:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type '"XXX"' is not assignable to type '"name"'.
   collect: ["XXX"],
-  ~~~~~~~
-    at file://ROOT/e2e-tests/bad-11-string1-booleanU--unexpected-collect.ts:4:3
-
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
-        ~~~~~~~
-        at file://ROOT/src/parse-args.ts:93:5
+            ~~~~~
+    at file://ROOT/e2e-tests/bad-11-string1-booleanU--unexpected-collect.ts:4:13
 
 TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-11-string1-booleanU--unexpected-collect.ts:8:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type '"XXX"' is not assignable to type '"name"'.
   required: ["XXX"],
-  ~~~~~~~~
-    at file://ROOT/e2e-tests/bad-12-string1-booleanU--unexpected-required.ts:4:3
-
-    The expected type comes from property 'required' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-        ~~~~~~~~
-        at file://ROOT/src/parse-args.ts:106:5
+             ~~~~~
+    at file://ROOT/e2e-tests/bad-12-string1-booleanU--unexpected-required.ts:4:14
 
 TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
@@ -168,55 +124,40 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
             ~~~~~
     at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:4:13
 
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: never[] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly string[] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
-        at file://ROOT/src/parse-args.ts:96:5
+        at file://ROOT/src/parse-args.ts:90:5
 
 TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:8:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type '"XXX"' is not assignable to type '"color"'.
   negatable: ["XXX"],
-  ~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:4:3
-
-    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; stopEarly?: boolean | undefined; ... 9 more ...; supressHelp?: boolean | undefined; }'
-        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
-        ~~~~~~~~~
-        at file://ROOT/src/parse-args.ts:95:5
+              ~~~~~
+    at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:4:15
 
 TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
 const _result :never = {color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-20-stringU-boolean1--unexpected-negatable.ts:7:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   collect: ["XXX"],
-  ~~~~~~~
-    at file://ROOT/e2e-tests/bad-21-stringU-boolean1--unexpected-collect.ts:4:3
-
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; stopEarly?: boolean | undefined; ... 9 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
-        ~~~~~~~
-        at file://ROOT/src/parse-args.ts:93:5
+            ~~~~~
+    at file://ROOT/e2e-tests/bad-21-stringU-boolean1--unexpected-collect.ts:4:13
 
 TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
 const _result :never = {color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-21-stringU-boolean1--unexpected-collect.ts:7:7
 
-TS2322 [ERROR]: Type 'readonly ["XXX"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   required: ["XXX"],
-  ~~~~~~~~
-    at file://ROOT/e2e-tests/bad-22-stringU-boolean1--unexpected-required.ts:4:3
-
-    The expected type comes from property 'required' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-        ~~~~~~~~
-        at file://ROOT/src/parse-args.ts:106:5
+             ~~~~~
+    at file://ROOT/e2e-tests/bad-22-stringU-boolean1--unexpected-required.ts:4:14
 
 TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
 const _result :never = {color: parsed.color};
@@ -228,55 +169,40 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
             ~~~~~
     at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:4:13
 
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: ["color"] | undefined; string?: never[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly string[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
-        at file://ROOT/src/parse-args.ts:96:5
+        at file://ROOT/src/parse-args.ts:90:5
 
 TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
 const _result :never = {color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:7:7
 
-TS2322 [ERROR]: Type 'readonly ["name"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type '"name"' is not assignable to type '"color"'.
   negatable: ["name"],
-  ~~~~~~~~~
-    at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:5:3
-
-    The expected type comes from property 'negatable' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: undefined; default?: ({ name?: string | string[] | undefined; } & { color?: boolean | undefined; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
-        ~~~~~~~~~
-        at file://ROOT/src/parse-args.ts:95:5
+              ~~~~~~
+    at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:5:15
 
 TS2322 [ERROR]: Type '{ name: string | undefined; color: boolean; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts:9:7
 
-TS2322 [ERROR]: Type 'readonly ["color"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type '"color"' is not assignable to type '"name"'.
   collect: ["color"],
-  ~~~~~~~
-    at file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts:5:3
-
-    The expected type comes from property 'collect' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { color?: boolean | undefined; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
-        ~~~~~~~
-        at file://ROOT/src/parse-args.ts:93:5
+            ~~~~~~~
+    at file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts:5:13
 
 TS2322 [ERROR]: Type '{ name: string | undefined; color: boolean; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts:9:7
 
-TS2322 [ERROR]: Type 'readonly ["xxxx"]' is not assignable to type 'undefined'.
+TS2322 [ERROR]: Type '"xxxx"' is not assignable to type '"name"'.
   required: ["xxxx"],
-  ~~~~~~~~
-    at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:5:3
-
-    The expected type comes from property 'required' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
-        required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-        ~~~~~~~~
-        at file://ROOT/src/parse-args.ts:106:5
+             ~~~~~~
+    at file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts:5:14
 
 TS2322 [ERROR]: Type '{ name: string | undefined; color: boolean; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, color: parsed.color};
@@ -288,14 +214,42 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
             ~~~~~
     at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:5:13
 
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: ["color"] | undefined; string?: ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
-        at file://ROOT/src/parse-args.ts:96:5
+        at file://ROOT/src/parse-args.ts:90:5
 
 TS2322 [ERROR]: Type '{ name: string | undefined; color: boolean; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:9:7
 
-Found 38 errors.
+TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
+  The intersection 'Parsed<"name", "name", never, never>' was reduced to 'never' because property 'name' has conflicting types in some constituents.
+const _name: string | undefined = parsed.name;
+                                         ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:7:42
+
+TS2322 [ERROR]: Type '{ name: any; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:7
+
+TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
+  The intersection 'Parsed<"name", "name", never, never>' was reduced to 'never' because property 'name' has conflicting types in some constituents.
+const _result :never = {name: parsed.name, name: parsed.name};
+                                     ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:38
+
+TS1117 [ERROR]: An object literal cannot have multiple properties with the same name.
+const _result :never = {name: parsed.name, name: parsed.name};
+                                           ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:44
+
+TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
+  The intersection 'Parsed<"name", "name", never, never>' was reduced to 'never' because property 'name' has conflicting types in some constituents.
+const _result :never = {name: parsed.name, name: parsed.name};
+                                                        ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:57
+
+Found 43 errors.

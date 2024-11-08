@@ -1,11 +1,6 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp, type Options } from "./build-help.ts";
-
-// for enfoce as-const assertion
-type EnsureLiteralArray<T> = T extends ReadonlyArray<string> ? string[] extends T // if T is not a literal type, return never[]
-    ? never[]
-  : T
-  : never;
+import type { ExtractLiteralUnion } from "./types.ts";
 
 interface Handler {
   // get environment variable
@@ -44,7 +39,7 @@ type Parsed<
     [K in StringKey]: K extends CollectKey ? string[] : (K extends RequiredKey ? string : (string | undefined));
   }
   & {
-    [K in BooleanKey]: K extends RequiredKey ? boolean : boolean; // boolean | undefined is not allowed
+    [K in BooleanKey]: boolean; // boolean | undefined is not allowed
   }
   & { help: boolean; _: string[] };
 
@@ -79,23 +74,22 @@ type Parsed<
  * ```
  */
 export function parseArgs<
-  StringKeys extends readonly string[],
-  BooleanKeys extends readonly string[],
-  RequiredKeys extends readonly string[],
-  NegatableKeys extends readonly string[],
-  CollectKeys extends readonly string[],
+  const StringKeys extends readonly string[],
+  const BooleanKeys extends readonly string[],
+  const RequiredKeys extends readonly string[],
+  const NegatableKeys extends readonly string[],
+  const CollectKeys extends readonly string[],
 >(
   args: string[],
   options: {
     // original options
-    boolean?: EnsureLiteralArray<BooleanKeys>;
-    string?: EnsureLiteralArray<StringKeys>;
-    collect?: EnsureLiteralArray<CollectKeys>[number] extends EnsureLiteralArray<StringKeys>[number] ? CollectKeys
-      : never;
-    negatable?: EnsureLiteralArray<NegatableKeys>[number] extends EnsureLiteralArray<BooleanKeys>[number] ? NegatableKeys : never;
+    boolean?: BooleanKeys;
+    string?: StringKeys;
+    collect?: ExtractLiteralUnion<CollectKeys> extends ExtractLiteralUnion<StringKeys> ? CollectKeys : ExtractLiteralUnion<StringKeys>[];
+    negatable?: ExtractLiteralUnion<NegatableKeys> extends ExtractLiteralUnion<BooleanKeys> ? NegatableKeys : ExtractLiteralUnion<BooleanKeys>[];
     default?:
-      & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
-      & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean };
+      & { [P in ExtractLiteralUnion<StringKeys>]?: string | string[] }
+      & { [P in ExtractLiteralUnion<BooleanKeys>]?: boolean };
     // "--": TDoubleDash;
     stopEarly?: boolean;
     alias?: Record<string, string | string[]>; // I don't like this...
@@ -103,16 +97,12 @@ export function parseArgs<
 
     // more options
     name?: string;
-    required?: EnsureLiteralArray<RequiredKeys>[number] extends (
-      EnsureLiteralArray<StringKeys>[number] | EnsureLiteralArray<BooleanKeys>[number]
-    ) ? RequiredKeys
-      : never;
+    required?: ExtractLiteralUnion<RequiredKeys> extends ExtractLiteralUnion<StringKeys> ? RequiredKeys : ExtractLiteralUnion<StringKeys>[];
     description?: string;
     flagDescription?:
-      & { [P in EnsureLiteralArray<StringKeys>[number]]?: string }
-      & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string }
+      & { [P in ExtractLiteralUnion<StringKeys> | ExtractLiteralUnion<BooleanKeys>]?: string }
       & { help?: string };
-    envvar?: { [P in EnsureLiteralArray<StringKeys>[number] | EnsureLiteralArray<BooleanKeys>[number]]?: string };
+    envvar?: { [P in ExtractLiteralUnion<StringKeys> | ExtractLiteralUnion<BooleanKeys>]?: string };
 
     helpText?: string; // override help text
     usageText?: string; // override usage text
@@ -121,10 +111,10 @@ export function parseArgs<
   // for debug or test
   handler?: Handler,
 ): Parsed<
-  EnsureLiteralArray<StringKeys>[number],
-  EnsureLiteralArray<BooleanKeys>[number],
-  EnsureLiteralArray<RequiredKeys>[number],
-  EnsureLiteralArray<CollectKeys>[number]
+  ExtractLiteralUnion<StringKeys>,
+  ExtractLiteralUnion<BooleanKeys>,
+  ExtractLiteralUnion<RequiredKeys>,
+  ExtractLiteralUnion<CollectKeys>
 > {
   handler = handler ?? denoHandler;
   const envvar = (options.envvar ?? {}) as Record<string, string>;
@@ -146,46 +136,39 @@ export function parseArgs<
   }
 
   // add help flag
-  const booleans: (BooleanKeys[number] | "help")[] = options.boolean ?? [];
+  const booleans = (options.boolean ?? []) as (BooleanKeys[number] | "help")[];
   if (!booleans.includes("help")) {
     booleans.push("help");
-    type TFlagDescription = { [P in EnsureLiteralArray<StringKeys>[number]]?: string } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: string } & { help?: string };
-    const flagDescription: TFlagDescription = options.flagDescription ?? {};
+    const flagDescription = (options.flagDescription ?? {}) as (typeof options.flagDescription & { "help": string });
     flagDescription["help"] = "show help";
-    options = { ...options, flagDescription, boolean: booleans as EnsureLiteralArray<BooleanKeys> };
+    options = { ...options, flagDescription, boolean: booleans as unknown as typeof options.boolean }; // hack: as unknown as <type>
   }
 
   // add default value for boolean options
   if (options.boolean !== undefined) {
-    const defaults = options.default ?? {};
-    const negatable = options.negatable ?? [];
+    const defaults = (options.default ?? {}) as Record<string, boolean | string | string[]>;
+    const negatable = (options.negatable ?? []) as NegatableKeys;
 
     options.boolean.forEach((name) => {
       if (defaults[name] === undefined) {
-        // @ts-ignore Since we are looping through BooleanKeys, name will always be BooleanKeys[number] and the value is always boolean
         defaults[name] = negatable.includes(name);
       }
     });
-    options = { ...options, default: defaults };
+    options = { ...options, default: defaults as unknown as typeof options.default }; // hack: as unknown as <type>
   }
 
-  // calling the original parseArgs
-  // @ts-ignore skipping it with an unknown hack because the type checking is too complex, maybe...
-  //
-  // [ERROR] Argument of type '{ boolean?: EnsureLiteralArray<BooleanKeys> | undefined; string?: EnsureLiteralArray<StringKeys> | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }' is not assignable to parameter of type 'ParseOptions<never, never, string, string, TDefaults, Record<string, string | string[]>, undefined>'.
-  // Types of property 'default' are incompatible.
-  //   Type 'TDefaults | undefined' is not assignable to type 'undefined'.
-  //     Type 'TDefaults' is not assignable to type 'undefined'.
-  //       Type '{ [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] | undefined; } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean | undefined; }' is not assignable to type 'undefined'.
+  // calling original parseArgs
+  // @ts-ignore I was not happy with the default type calculation, so I overwrote it.
   const parsed = originalParseArgs(args, options) as Parsed<
-    StringKeys[number],
-    BooleanKeys[number],
-    RequiredKeys[number],
-    CollectKeys[number]
+    ExtractLiteralUnion<StringKeys>,
+    ExtractLiteralUnion<BooleanKeys>,
+    ExtractLiteralUnion<RequiredKeys>,
+    ExtractLiteralUnion<CollectKeys>
   >;
 
   // show help
-  if (parsed["help"]) {
+  // @ts-ignore help is always a key of parsed (booleans)
+  if (parsed.help) {
     handler.showHelp({ ...options, envvar });
     handler.terminate({ message: "", code: 0 });
   }
@@ -207,7 +190,7 @@ export function parseArgs<
               console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
             }
           } else {
-            if (options.collect?.includes(name)) {
+            if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
               // @ts-ignore name is always a key of parsed (strings)
               parsed[name] = [value]; // support only 1 item...
             } else {
