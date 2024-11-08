@@ -39,7 +39,7 @@ type Parsed<
     [K in StringKey]: K extends CollectKey ? string[] : (K extends RequiredKey ? string : (string | undefined));
   }
   & {
-    [K in BooleanKey]: K extends RequiredKey ? boolean : boolean; // boolean | undefined is not allowed
+    [K in BooleanKey]: boolean; // boolean | undefined is not allowed
   }
   & { help: boolean; _: string[] };
 
