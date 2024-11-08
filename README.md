@@ -65,7 +65,7 @@ const args = parseArgs(
       name: "OVERRIDE_NAME",
       color: "COLOR", // if COLOR=1 set args.color=true, if COLOR=0 set args.color=false (even if --no-color is set)
     },
-  } as const,
+  },
 );
 
 console.log(`name=${args.name}, envvar=${Deno.env.get("OVERRIDE_NAME")}`);
