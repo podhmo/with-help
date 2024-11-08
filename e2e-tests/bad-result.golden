@@ -124,7 +124,7 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
             ~~~~~
     at file://ROOT/e2e-tests/bad-13-string1-booleanU--unexpected-default.ts:4:13
 
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly string[] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly string[] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 11 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
         at file://ROOT/src/parse-args.ts:90:5
@@ -169,7 +169,7 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
             ~~~~~
     at file://ROOT/e2e-tests/bad-23-stringU-boolean1--unexpected-default.ts:4:13
 
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly string[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly string[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 11 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
         at file://ROOT/src/parse-args.ts:90:5
@@ -214,7 +214,7 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
             ~~~~~
     at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:5:13
 
-    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }'
+    The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 11 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
         at file://ROOT/src/parse-args.ts:90:5
