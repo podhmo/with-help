@@ -18,6 +18,7 @@ Check file://ROOT/e2e-tests/bad-30-string1-boolean1--unexpected-negatable.ts
 Check file://ROOT/e2e-tests/bad-31-string1-boolean1--unexpected-collect.ts
 Check file://ROOT/e2e-tests/bad-32-string1-boolean1--unexpected-required.ts
 Check file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts
+Check file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts
 error: TS2322 [ERROR]: Type 'string' is not assignable to type 'never'.
   negatable: ["XXX"],
               ~~~~~
@@ -223,4 +224,32 @@ const _result :never = {name: parsed.name, color: parsed.color};
       ~~~~~~~
     at file://ROOT/e2e-tests/bad-33-string1-boolean1--unexpected-default.ts:9:7
 
-Found 38 errors.
+TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
+  The intersection 'Parsed<"name", "name", never, never>' was reduced to 'never' because property 'name' has conflicting types in some constituents.
+const _name: string | undefined = parsed.name;
+                                         ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:7:42
+
+TS2322 [ERROR]: Type '{ name: any; }' is not assignable to type 'never'.
+const _result :never = {name: parsed.name, name: parsed.name};
+      ~~~~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:7
+
+TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
+  The intersection 'Parsed<"name", "name", never, never>' was reduced to 'never' because property 'name' has conflicting types in some constituents.
+const _result :never = {name: parsed.name, name: parsed.name};
+                                     ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:38
+
+TS1117 [ERROR]: An object literal cannot have multiple properties with the same name.
+const _result :never = {name: parsed.name, name: parsed.name};
+                                           ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:44
+
+TS2339 [ERROR]: Property 'name' does not exist on type 'never'.
+  The intersection 'Parsed<"name", "name", never, never>' was reduced to 'never' because property 'name' has conflicting types in some constituents.
+const _result :never = {name: parsed.name, name: parsed.name};
+                                                        ~~~~
+    at file://ROOT/e2e-tests/bad-40-string1-boolean1--conflict.ts:8:57
+
+Found 43 errors.

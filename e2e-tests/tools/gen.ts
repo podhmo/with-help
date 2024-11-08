@@ -106,7 +106,7 @@ function main() {
         { title: "bad-33-string1-boolean1--unexpected-default", options: { string: [["name", "string | undefined"]], boolean: [["color", "boolean"]], default: { XXX: "FOO" } } }, // 許容する？
 
         // conflict?
-        // { title: "bad-40-string1-boolean1--conflict", options: { string: [["name", "string | undefined"]], boolean: [["name", "boolean"]] } },
+        { title: "bad-40-string1-boolean1--conflict", options: { string: [["name", "string | undefined"]], boolean: [["name", "boolean"]] } },
 
         // **not-good** are moved from good fixtures, but these are completly wrong.
         { title: "not-good-24stringU-boolean1-negatableU-collectU-required1", options: { boolean: [["color", "boolean"]], required: ["color"] } },
