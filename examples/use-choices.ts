@@ -15,15 +15,21 @@ const options = {
   },
 } as const;
 
-// args is of type { name: string, direction: string }
-const args = parseArgs(Deno.args, options);
-if (!directions.includes(args.direction as DirectionType)) {
-  console.log(buildHelp(options));
-  console.error(`Invalid direction: "${args.direction}" is not one of ${JSON.stringify(directions)}`);
-  Deno.exit(1);
+function main() {
+  // args is of type { name: string, direction: string }
+  const args = parseArgs(Deno.args, options);
+  if (!directions.includes(args.direction as DirectionType)) {
+    console.log(buildHelp(options));
+    console.error(`Invalid direction: "${args.direction}" is not one of ${JSON.stringify(directions)}`);
+    Deno.exit(1);
+  }
+
+  // args2 is of type { name: string, direction: DirectionType }
+  const args2 = { ...args, direction: args.direction as DirectionType };
+
+  console.dir(args2, { depth: null });
 }
 
-// args2 is of type { name: string, direction: DirectionType }
-const args2 = { ...args, direction: args.direction as DirectionType };
-
-console.dir(args2, { depth: null });
+if (import.meta.main) {
+  main();
+}
