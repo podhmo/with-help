@@ -90,7 +90,7 @@ export function parseArgs<
     default?:
       & { [P in ExtractLiteralUnion<StringKeys>]?: string | string[] }
       & { [P in ExtractLiteralUnion<BooleanKeys>]?: boolean };
-    // "--": TDoubleDash;
+    "--"?: boolean;
     stopEarly?: boolean;
     alias?: Record<string, string | string[]>; // I don't like this...
     unknown?: (name: string) => void;
@@ -158,8 +158,8 @@ export function parseArgs<
   }
 
   // calling original parseArgs
-  // @ts-ignore I was not happy with the default type calculation, so I overwrote it.
-  const parsed = originalParseArgs(args, options) as Parsed<
+  const parsed = originalParseArgs(args, options) as unknown as Parsed<
+    // hack: as unknown as <type>
     ExtractLiteralUnion<StringKeys>,
     ExtractLiteralUnion<BooleanKeys>,
     ExtractLiteralUnion<RequiredKeys>,
@@ -167,7 +167,6 @@ export function parseArgs<
   >;
 
   // show help
-  // @ts-ignore help is always a key of parsed (booleans)
   if (parsed.help) {
     handler.showHelp({ ...options, envvar });
     handler.terminate({ message: "", code: 0 });
@@ -176,27 +175,26 @@ export function parseArgs<
   // loading environment variables
   if (options.envvar !== undefined) {
     for (const [name, envname] of Object.entries(envvar)) {
-      if (envname !== undefined) {
-        const value = handler.getEnvVar(envname) ?? "";
-        if (value !== "") {
-          if (booleans.includes(name)) {
-            if (value === "1" || value.toUpperCase() === "TRUE") {
-              // @ts-ignore name is always a key of parsed (booleans)
-              parsed[name] = true;
-            } else if (value === "0" || value.toUpperCase() === "FALSE") {
-              // @ts-ignore name is always a key of parsed (booleans)
-              parsed[name] = false;
-            } else {
-              console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
-            }
+      if (envname === undefined) {
+        continue;
+      }
+
+      const data = parsed as Record<string, unknown>;
+      const value = handler.getEnvVar(envname) ?? "";
+      if (value !== "") {
+        if (booleans.includes(name)) {
+          if (value === "1" || value.toUpperCase() === "TRUE") {
+            data[name] = true;
+          } else if (value === "0" || value.toUpperCase() === "FALSE") {
+            data[name] = false;
           } else {
-            if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
-              // @ts-ignore name is always a key of parsed (strings)
-              parsed[name] = [value]; // support only 1 item...
-            } else {
-              // @ts-ignore name is always a key of parsed (strings)
-              parsed[name] = value;
-            }
+            console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
+          }
+        } else {
+          if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
+            data[name] = [value]; // support only 1 item...
+          } else {
+            data[name] = value;
           }
         }
       }
