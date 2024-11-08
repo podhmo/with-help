@@ -1,5 +1,6 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp, type Options } from "./build-help.ts";
+import type { EnsureLiteralArray, ExtractLiteralUnion } from "./types.ts";
 
 interface Handler {
   // get environment variable
@@ -88,8 +89,8 @@ export function parseArgs<
       : never;
     negatable?: NegatableKeys[number] extends BooleanKeys[number] ? NegatableKeys : never;
     default?:
-      & { [P in StringKeys[number]]?: string | string[] }
-      & { [P in BooleanKeys[number]]?: boolean };
+      & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
+      & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean };
     // "--": TDoubleDash;
     stopEarly?: boolean;
     alias?: Record<string, string | string[]>; // I don't like this...
@@ -115,10 +116,10 @@ export function parseArgs<
   // for debug or test
   handler?: Handler,
 ): Parsed<
-  StringKeys[number],
-  BooleanKeys[number],
-  RequiredKeys[number],
-  CollectKeys[number]
+  ExtractLiteralUnion<StringKeys>,
+  ExtractLiteralUnion<BooleanKeys>,
+  ExtractLiteralUnion<RequiredKeys>,
+  ExtractLiteralUnion<CollectKeys>
 > {
   handler = handler ?? denoHandler;
   const envvar = (options.envvar ?? {}) as Record<string, string>;
@@ -161,23 +162,18 @@ export function parseArgs<
     options = { ...options, default: defaults as unknown as typeof options.default }; // hack: as unknown as <type>
   }
 
-  // calling the original parseArgs
-  // @ts-ignore skipping it with an unknown hack because the type checking is too complex, maybe...
-  //
-  // [ERROR] Argument of type '{ boolean?: EnsureLiteralArray<BooleanKeys> | undefined; string?: EnsureLiteralArray<StringKeys> | undefined; ... 10 more ...; supressHelp?: boolean | undefined; }' is not assignable to parameter of type 'ParseOptions<never, never, string, string, TDefaults, Record<string, string | string[]>, undefined>'.
-  // Types of property 'default' are incompatible.
-  //   Type 'TDefaults | undefined' is not assignable to type 'undefined'.
-  //     Type 'TDefaults' is not assignable to type 'undefined'.
-  //       Type '{ [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] | undefined; } & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean | undefined; }' is not assignable to type 'undefined'.
+  // calling original parseArgs
+  // @ts-ignore I was not happy with the default type calculation, so I overwrote it.
   const parsed = originalParseArgs(args, options) as Parsed<
-    StringKeys[number],
-    BooleanKeys[number],
-    RequiredKeys[number],
-    CollectKeys[number]
+    ExtractLiteralUnion<StringKeys>,
+    ExtractLiteralUnion<BooleanKeys>,
+    ExtractLiteralUnion<RequiredKeys>,
+    ExtractLiteralUnion<CollectKeys>
   >;
 
   // show help
-  if (parsed["help"]) {
+  // @ts-ignore help is always a key of parsed (booleans)
+  if (parsed.help) {
     handler.showHelp({ ...options, envvar });
     handler.terminate({ message: "", code: 0 });
   }
