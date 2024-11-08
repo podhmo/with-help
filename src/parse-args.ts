@@ -90,7 +90,7 @@ export function parseArgs<
     default?:
       & { [P in ExtractLiteralUnion<StringKeys>]?: string | string[] }
       & { [P in ExtractLiteralUnion<BooleanKeys>]?: boolean };
-    // "--": TDoubleDash;
+    "--"?: boolean;
     stopEarly?: boolean;
     alias?: Record<string, string | string[]>; // I don't like this...
     unknown?: (name: string) => void;
@@ -158,8 +158,8 @@ export function parseArgs<
   }
 
   // calling original parseArgs
-  // @ts-ignore I was not happy with the default type calculation, so I overwrote it.
-  const parsed = originalParseArgs(args, options) as Parsed<
+  const parsed = originalParseArgs(args, options) as unknown as Parsed<
+    // hack: as unknown as <type>
     ExtractLiteralUnion<StringKeys>,
     ExtractLiteralUnion<BooleanKeys>,
     ExtractLiteralUnion<RequiredKeys>,
