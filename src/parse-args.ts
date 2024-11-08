@@ -1,6 +1,6 @@
 import { parseArgs as originalParseArgs } from "@std/cli/parse-args";
 import { buildHelp, type Options } from "./build-help.ts";
-import type { EnsureLiteralArray, ExtractLiteralUnion } from "./types.ts";
+import type { ExtractLiteralUnion } from "./types.ts";
 
 interface Handler {
   // get environment variable
@@ -85,12 +85,11 @@ export function parseArgs<
     // original options
     boolean?: BooleanKeys;
     string?: StringKeys;
-    collect?: CollectKeys[number] extends StringKeys[number] ? CollectKeys
-      : never;
-    negatable?: NegatableKeys[number] extends BooleanKeys[number] ? NegatableKeys : never;
+    collect?: ExtractLiteralUnion<CollectKeys> extends ExtractLiteralUnion<StringKeys> ? CollectKeys : ExtractLiteralUnion<StringKeys>[];
+    negatable?: ExtractLiteralUnion<NegatableKeys> extends ExtractLiteralUnion<BooleanKeys> ? NegatableKeys : ExtractLiteralUnion<BooleanKeys>[];
     default?:
-      & { [P in EnsureLiteralArray<StringKeys>[number]]?: string | string[] }
-      & { [P in EnsureLiteralArray<BooleanKeys>[number]]?: boolean };
+      & { [P in ExtractLiteralUnion<StringKeys>]?: string | string[] }
+      & { [P in ExtractLiteralUnion<BooleanKeys>]?: boolean };
     // "--": TDoubleDash;
     stopEarly?: boolean;
     alias?: Record<string, string | string[]>; // I don't like this...
@@ -98,16 +97,12 @@ export function parseArgs<
 
     // more options
     name?: string;
-    required?: RequiredKeys[number] extends (
-      StringKeys[number] | BooleanKeys[number]
-    ) ? RequiredKeys
-      : never;
+    required?: ExtractLiteralUnion<RequiredKeys> extends ExtractLiteralUnion<StringKeys> ? RequiredKeys : ExtractLiteralUnion<StringKeys>[];
     description?: string;
     flagDescription?:
-      & { [P in StringKeys[number]]?: string }
-      & { [P in BooleanKeys[number]]?: string }
+      & { [P in ExtractLiteralUnion<StringKeys> | ExtractLiteralUnion<BooleanKeys>]?: string }
       & { help?: string };
-    envvar?: { [P in StringKeys[number] | BooleanKeys[number]]?: string };
+    envvar?: { [P in ExtractLiteralUnion<StringKeys> | ExtractLiteralUnion<BooleanKeys>]?: string };
 
     helpText?: string; // override help text
     usageText?: string; // override usage text
@@ -195,7 +190,7 @@ export function parseArgs<
               console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
             }
           } else {
-            if (options.collect?.includes(name)) {
+            if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
               // @ts-ignore name is always a key of parsed (strings)
               parsed[name] = [value]; // support only 1 item...
             } else {
