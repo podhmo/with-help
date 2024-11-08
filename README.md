@@ -53,7 +53,7 @@ Options:
 ### with environment variables
 
 ```ts
-import { parseArgs } from "../src/parse-args.ts";
+import { parseArgs } from "../parse-args.ts";
 
 const args = parseArgs(
   Deno.args,

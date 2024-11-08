@@ -127,7 +127,7 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
     The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly string[] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & {}) | undefined; ... 11 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
-        at file://ROOT/src/parse-args.ts:90:5
+        at file://ROOT/parse-args.ts:90:5
 
 TS2322 [ERROR]: Type '{ name: string | undefined; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name};
@@ -172,7 +172,7 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
     The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly string[] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({} & { color?: boolean | undefined; }) | undefined; ... 11 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
-        at file://ROOT/src/parse-args.ts:90:5
+        at file://ROOT/parse-args.ts:90:5
 
 TS2322 [ERROR]: Type '{ color: boolean; }' is not assignable to type 'never'.
 const _result :never = {color: parsed.color};
@@ -217,7 +217,7 @@ TS2353 [ERROR]: Object literal may only specify known properties, and '"XXX"' do
     The expected type comes from property 'default' which is declared here on type '{ boolean?: readonly ["color"] | undefined; string?: readonly ["name"] | undefined; collect?: readonly string[] | undefined; negatable?: readonly string[] | undefined; default?: ({ name?: string | string[] | undefined; } & { ...; }) | undefined; ... 11 more ...; supressHelp?: boolean | undefined; }'
         default?:
         ~~~~~~~
-        at file://ROOT/src/parse-args.ts:90:5
+        at file://ROOT/parse-args.ts:90:5
 
 TS2322 [ERROR]: Type '{ name: string | undefined; color: boolean; }' is not assignable to type 'never'.
 const _result :never = {name: parsed.name, color: parsed.color};

@@ -54,7 +54,7 @@ Options:
 `with-help` also supports setting options via environment variables, which is particularly useful for configurations that may change between environments. In this example, `name` and `color` can be set via environment variables `OVERRIDE_NAME` and `COLOR`, respectively.
 
 ```ts
-import { parseArgs } from "../src/parse-args.ts";
+import { parseArgs } from "../parse-args.ts";
 
 const args = parseArgs(
   Deno.args,

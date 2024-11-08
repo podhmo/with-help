@@ -1,4 +1,4 @@
-import { buildUsage, parseArgs } from "../src/mod.ts";
+import { buildUsage, parseArgs } from "../mod.ts";
 
 const name = "override-usage-example";
 const args = parseArgs(

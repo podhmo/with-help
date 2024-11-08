@@ -3,8 +3,8 @@
   "version": "0.3.0",
   "license": "MIT",
   "exports": {
-    ".": "./src/mod.ts",
-    "./parse-args": "./src/parse-args.ts"
+    ".": "./mod.ts",
+    "./parse-args": "./parse-args.ts"
   },
   "tasks": {
     "check": "deno check src/**/*.ts examples/**/*.ts",
