@@ -9,6 +9,9 @@ const args = parseArgs(Deno.args, {
     string: ["name", "direction"],
     required: ["name", "direction"],
     default: { name: "world" },
+    flagDescription: {
+        direction: `(required) choose one of: ${JSON.stringify(directions)}`,
+    },
 });
 
 if(!directions.includes(args.direction as DirectionType)) {
