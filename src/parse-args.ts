@@ -167,8 +167,7 @@ export function parseArgs<
   >;
 
   // show help
-  // @ts-ignore help is always a key of parsed (booleans)
-  if (parsed.help) {
+    if (parsed.help) {
     handler.showHelp({ ...options, envvar });
     handler.terminate({ message: "", code: 0 });
   }
