@@ -167,7 +167,7 @@ export function parseArgs<
   >;
 
   // show help
-    if (parsed.help) {
+  if (parsed.help) {
     handler.showHelp({ ...options, envvar });
     handler.terminate({ message: "", code: 0 });
   }
@@ -175,27 +175,26 @@ export function parseArgs<
   // loading environment variables
   if (options.envvar !== undefined) {
     for (const [name, envname] of Object.entries(envvar)) {
-      if (envname !== undefined) {
-        const value = handler.getEnvVar(envname) ?? "";
-        if (value !== "") {
-          if (booleans.includes(name)) {
-            if (value === "1" || value.toUpperCase() === "TRUE") {
-              // @ts-ignore name is always a key of parsed (booleans)
-              parsed[name] = true;
-            } else if (value === "0" || value.toUpperCase() === "FALSE") {
-              // @ts-ignore name is always a key of parsed (booleans)
-              parsed[name] = false;
-            } else {
-              console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
-            }
+      if (envname === undefined) {
+        continue;
+      }
+
+      const data = parsed as Record<string, unknown>;
+      const value = handler.getEnvVar(envname) ?? "";
+      if (value !== "") {
+        if (booleans.includes(name)) {
+          if (value === "1" || value.toUpperCase() === "TRUE") {
+            data[name] = true;
+          } else if (value === "0" || value.toUpperCase() === "FALSE") {
+            data[name] = false;
           } else {
-            if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
-              // @ts-ignore name is always a key of parsed (strings)
-              parsed[name] = [value]; // support only 1 item...
-            } else {
-              // @ts-ignore name is always a key of parsed (strings)
-              parsed[name] = value;
-            }
+            console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
+          }
+        } else {
+          if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
+            data[name] = [value]; // support only 1 item...
+          } else {
+            data[name] = value;
           }
         }
       }
