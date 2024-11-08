@@ -138,7 +138,7 @@ function main() {
             code.push(`  default: ${JSON.stringify(tc.options.default)},`);
         }
 
-        code.push(`} as const);`);
+        code.push(`});`);
         code.push(`const _args: string[] = parsed["_"]; // positional arguments;`);
 
         if (tc.options.string) {

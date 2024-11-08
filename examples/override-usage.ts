@@ -7,7 +7,7 @@ const args = parseArgs(
     usageText: `${buildUsage({ name })} [file]...`,
     boolean: ["list"],
     alias: { l: "list" },
-  } as const,
+  },
 );
 
 if (args.list) {
