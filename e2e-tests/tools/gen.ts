@@ -1,4 +1,4 @@
-import { parseArgs } from "../../src/parse-args.ts";
+import { parseArgs } from "../../parse-args.ts";
 
 
 interface TestCase {
@@ -116,7 +116,7 @@ function main() {
 
     for (const tc of successCases.concat(failureCases)) {
         const code = [];
-        code.push(`import { parseArgs } from "../src/parse-args.ts"`);
+        code.push(`import { parseArgs } from "../parse-args.ts"`);
         code.push(`const parsed = parseArgs(Deno.args,  {`);
 
         if (tc.options.string) {

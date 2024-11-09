@@ -1,4 +1,4 @@
-import { parseArgs } from "../src/parse-args.ts";
+import { parseArgs } from "../parse-args.ts";
 
 // deno run --allow-env ./examples/load-envvars.ts --name foo
 // OVERRIDE_NAME=bar deno run --allow-env ./examples/load-envvars.ts

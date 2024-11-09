@@ -1,5 +1,5 @@
 // import { parseArgs } from "jsr:@podhmo/with-help"
-import { parseArgs } from "../src/parse-args.ts";
+import { parseArgs } from "../parse-args.ts";
 
 const flags = parseArgs(
   Deno.args,

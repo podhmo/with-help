@@ -1,5 +1,5 @@
-import { parseArgs } from "../src/parse-args.ts";
-import { buildHelp } from "../src/build-help.ts";
+import { parseArgs } from "../parse-args.ts";
+import { buildHelp } from "../build-help.ts";
 
 const directions = ["north", "south", "east", "west"] as const;
 type DirectionType = typeof directions[number];
