@@ -7,12 +7,12 @@
     "./parse-args": "./parse-args.ts"
   },
   "tasks": {
-    "check": "deno check src/**/*.ts examples/**/*.ts",
+    "check": "deno check *.ts examples/**/*.ts",
     "ok": "deno fmt --check && deno lint && deno task check && deno test"
   },
   "publish": {
-    "include": ["src/**", "examples/**", "deno.json", "README.md", "LICENSE"],
-    "exclude": ["**/*_test.*", "e2e-tests/*.ts"]
+    "include": ["*.ts", "examples/**/*.ts", "deno.json", "README.md", "LICENSE"],
+    "exclude": ["*_test.*", "e2e-tests/*.ts"]
   },
   "imports": {
     "@std/cli": "jsr:@std/cli@1",
@@ -21,14 +21,14 @@
   "fmt": {
     "include": [
       "*.json",
-      "src/**/*.ts",
+      "*.ts",
       "examples/**/*.ts"
     ],
     "lineWidth": 200
   },
   "lint": {
     "include": [
-      "src/**/*.ts",
+      "*.ts",
       "examples/**/*.ts"
     ]
   }
