@@ -27,7 +27,7 @@ const flags = parseArgs(
     negatable: ["color"],
     collect: ["item"], // as `string[]`
 
-    // more options
+    // additional options
     required: ["version"], // the version's type is `string` instead of `string | undefined`
     name: "cli-example",
     description: "this is cli-example",

@@ -10,7 +10,7 @@ const flags = parseArgs(
     negatable: ["color"],
     collect: ["item"],
 
-    // more options
+    // additional options
     required: ["version"],
     name: "cli-example",
     description: "this is cli-example",

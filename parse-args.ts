@@ -66,7 +66,7 @@ type Parsed<
  *     negatable: ["color"],
  *     collect: ["item"], // as `string[]`
  *
- *     // more options
+ *     // additional options
  *     required: ["version"], // the version's type is `string` instead of `string | undefined`
  *     name: "cli-example",
  *     description: "this is cli-example",
@@ -95,7 +95,7 @@ export function parseArgs<
     alias?: Record<string, string | string[]>; // I don't like this...
     unknown?: (name: string) => void;
 
-    // more options
+    // additional options
     name?: string;
     required?: ExtractLiteralUnion<RequiredKeys> extends ExtractLiteralUnion<StringKeys> ? RequiredKeys : ExtractLiteralUnion<StringKeys>[];
     description?: string;
