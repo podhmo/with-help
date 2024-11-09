@@ -24,7 +24,7 @@ function main() {
         string: ["dir"],
         required: ["dir"],
         description: "generate testdata",
-    } as const)
+    })
 
     // success case
 

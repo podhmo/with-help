@@ -70,7 +70,7 @@ type Parsed<
  *     required: ["version"], // the version's type is `string` instead of `string | undefined`
  *     name: "cli-example",
  *     description: "this is cli-example",
- * } as const);
+ * });
  * ```
  */
 export function parseArgs<
