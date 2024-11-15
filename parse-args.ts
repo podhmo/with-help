@@ -213,6 +213,7 @@ export function parseArgs<
   return parsed;
 }
 
+/** Restriction class for type checking */
 export class Restriction {
   constructor(
     private readonly options: Options,
