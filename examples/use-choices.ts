@@ -1,13 +1,10 @@
-import { parseArgs } from "../parse-args.ts";
-import { buildHelp } from "../build-help.ts";
+import { parseArgs, Restriction } from "../parse-args.ts";
 
 const directions = ["north", "south", "east", "west"] as const;
-type DirectionType = typeof directions[number];
 
 const options = {
+  description: "use choices",
   string: ["name", "direction"],
-  boolean: ["color"],
-  negatable: ["color"],
   required: ["name", "direction"],
   default: { name: "world" },
   flagDescription: {
@@ -16,16 +13,16 @@ const options = {
 } as const;
 
 function main() {
-  // args is of type { name: string, direction: string }
-  const args = parseArgs(Deno.args, options);
-  if (!directions.includes(args.direction as DirectionType)) {
-    console.log(buildHelp(options));
-    console.error(`Invalid direction: "${args.direction}" is not one of ${JSON.stringify(directions)}`);
-    Deno.exit(1);
-  }
+  // In actual code, you don't need to write such types, you can leave it to inference.
+  type WantType = { name: string; direction: "north" | "south" | "east" | "west" };
+  type GotType = { name: string; direction: string };
 
-  // args2 is of type { name: string, direction: DirectionType }
-  const args2 = { ...args, direction: args.direction as DirectionType };
+  // parse arguments
+  const args: GotType = parseArgs(Deno.args, options);
+
+  // restrict to desired type
+  const restriction = new Restriction(options);
+  const args2: WantType = { ...args, direction: restriction.choices(args.direction, directions) };
 
   console.dir(args2, { depth: null });
 }
