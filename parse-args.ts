@@ -212,3 +212,17 @@ export function parseArgs<
   });
   return parsed;
 }
+
+export class Restriction {
+  constructor(
+    private readonly options: Options,
+    private readonly handler: Handler = denoHandler,
+  ) {}
+
+  choices<const KS extends readonly string[]>(value: string, candidates: KS): string[] extends KS ? never : KS[number] {
+    if (!candidates.includes(value)) {
+      this.handler.terminate({ message: `${value} is not one of ${JSON.stringify(candidates)}`, code: 1 });
+    }
+    return value as string[] extends KS ? never : KS[number];
+  }
+}
