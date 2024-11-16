@@ -36,6 +36,7 @@ Check file://ROOT/e2e-tests/good-34string2-booleanU-negatableU-collectU-required
 Check file://ROOT/e2e-tests/good-35string2-booleanU-negatableU-collectU-requiredU-default1.ts
 Check file://ROOT/e2e-tests/good-36string2-booleanU-negatableU-collectU-requiredU-default1U.ts
 Check file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts
+Check file://ROOT/e2e-tests/good-extra-00-use-choices.ts
 error: TS2322 [ERROR]: Type '{}' is not assignable to type 'never'.
 const _result :never = {};
       ~~~~~~~
@@ -226,4 +227,9 @@ const _result :never = {name: parsed.name, nickname: parsed.nickname, color: par
       ~~~~~~~
     at file://ROOT/e2e-tests/good-40string2-boolean1-negatableU-collectU-required1.ts:10:7
 
-Found 38 errors.
+TS2322 [ERROR]: Type '{ name: string; direction: "north" | "south" | "east" | "west"; }' is not assignable to type 'never'.
+const _result: never = { name: _name, direction: _direction };
+      ~~~~~~~
+    at file://ROOT/e2e-tests/good-extra-00-use-choices.ts:18:7
+
+Found 39 errors.

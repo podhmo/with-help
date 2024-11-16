@@ -157,7 +157,34 @@ function main() {
     }
 }
 
+// hand-written extra test
+function extra(){
+    const code = `
+import { parseArgs } from "../parse-args.ts";
+import { Restriction} from "../parse-args.ts";
+
+const directions = ["north", "south", "east", "west"] as const;
+
+const options = {
+    string: ["name", "direction"],
+    required: ["name", "direction"],
+} as const;
+
+const args = parseArgs(Deno.args, options);
+const restriction = new Restriction(options);
+const args2 = { ...args, direction: restriction.choices(args.direction, directions) };
+
+const _name: string = args2.name;
+const _direction: "north" | "south" | "east" | "west" = args2.direction;
+const _result: never = { name: _name, direction: _direction };
+`;
+
+    console.log(`Emitting use-choices.ts`);
+    Deno.writeTextFileSync(`e2e-tests/good-extra-00-use-choices.ts`, code);
+}
+
 if (import.meta.main) {
     main();
+    extra();
 }
 
