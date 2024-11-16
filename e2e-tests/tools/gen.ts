@@ -14,7 +14,7 @@ interface TestCase {
 }
 
 function emitFile({ tc, code, dir }: { tc: TestCase, code: string[], dir: string }) {
-    console.log(`Emitting ${tc.title}.ts`);
+    console.error(`Emitting ${tc.title}.ts`);
     Deno.writeTextFileSync(`${dir}/${tc.title}.ts`, code.join("\n"));
 }
 
@@ -179,8 +179,7 @@ const _direction: "north" | "south" | "east" | "west" = args2.direction;
 const _result: never = { name: _name, direction: _direction };
 `;
 
-    console.log(`Emitting use-choices.ts`);
-    Deno.writeTextFileSync(`e2e-tests/good-extra-00-use-choices.ts`, code);
+    emitFile({ tc: { title: "good-extra-00-use-choices", options: {} }, code: code.split("\n"), dir: "e2e-tests" });
 }
 
 if (import.meta.main) {
