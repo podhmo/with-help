@@ -144,9 +144,9 @@ export function parseArgs<
     options = { ...options, flagDescription, boolean: booleans as unknown as typeof options.boolean }; // hack: as unknown as <type>
   }
 
+  const defaults = (options.default ?? {}) as Record<string, boolean | string | string[]>;
   // add default value for boolean options
   if (options.boolean !== undefined) {
-    const defaults = (options.default ?? {}) as Record<string, boolean | string | string[]>;
     const negatable = (options.negatable ?? []) as NegatableKeys;
 
     options.boolean.forEach((name) => {
@@ -154,8 +154,36 @@ export function parseArgs<
         defaults[name] = negatable.includes(name);
       }
     });
-    options = { ...options, default: defaults as unknown as typeof options.default }; // hack: as unknown as <type>
   }
+
+  // loading environment variables
+  if (options.envvar !== undefined) {
+    for (const [name, envname] of Object.entries(envvar)) {
+      if (envname === undefined) {
+        continue;
+      }
+
+      const value = handler.getEnvVar(envname) ?? "";
+      if (value !== "") {
+        if (booleans.includes(name)) {
+          if (value === "1" || value.toUpperCase() === "TRUE") {
+            defaults[name] = true;
+          } else if (value === "0" || value.toUpperCase() === "FALSE") {
+            defaults[name] = false;
+          } else {
+            console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
+          }
+        } else {
+          if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
+            defaults[name] = [value]; // support only 1 item...
+          } else {
+            defaults[name] = value;
+          }
+        }
+      }
+    }
+  }
+  options = { ...options, default: defaults as unknown as typeof options.default }; // hack: as unknown as <type>
 
   // calling original parseArgs
   const parsed = originalParseArgs(args, options) as unknown as Parsed<
@@ -170,35 +198,6 @@ export function parseArgs<
   if (parsed.help) {
     handler.showHelp({ ...options, envvar });
     handler.terminate({ message: "", code: 0 });
-  }
-
-  // loading environment variables
-  if (options.envvar !== undefined) {
-    for (const [name, envname] of Object.entries(envvar)) {
-      if (envname === undefined) {
-        continue;
-      }
-
-      const data = parsed as Record<string, unknown>;
-      const value = handler.getEnvVar(envname) ?? "";
-      if (value !== "") {
-        if (booleans.includes(name)) {
-          if (value === "1" || value.toUpperCase() === "TRUE") {
-            data[name] = true;
-          } else if (value === "0" || value.toUpperCase() === "FALSE") {
-            data[name] = false;
-          } else {
-            console.debug(`envvar ${envname}=${value} is not boolean value, ignored`);
-          }
-        } else {
-          if (options.collect?.includes(name as ExtractLiteralUnion<StringKeys>)) {
-            data[name] = [value]; // support only 1 item...
-          } else {
-            data[name] = value;
-          }
-        }
-      }
-    }
   }
 
   // check required options
