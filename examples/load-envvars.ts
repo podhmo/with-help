@@ -21,7 +21,7 @@ const args = parseArgs(
     default: { item: ["default-item"] },
     envvar: {
       name: "OVERRIDE_NAME",
-      color: "COLOR", // if COLOR=1 set args.color=true, if COLOR=0 set args.color=false (even if --no-color is set)
+      color: "COLOR", // if COLOR=1 set args.color=true, if COLOR=0 set args.color=false
       verbose: "VERBOSE",
       item: "ITEM", // set args.item=ITEM (but only 1 value, so multiple values are not supported)
     },
