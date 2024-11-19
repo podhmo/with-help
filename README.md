@@ -76,7 +76,7 @@ Output example is here.
 
 ```console
 $ COLOR=0 OVERRIDE_NAME=bar deno run --allow-env load-envvars.ts --name foo 
-name=bar, envvar=bar
+name=foo, envvar=bar
 color=false, envvar=0
 
 $ deno run load-envvars.ts --help
