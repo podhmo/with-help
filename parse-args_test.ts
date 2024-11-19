@@ -168,7 +168,7 @@ Deno.test("parseArgs: loadEnv, string", () => {
   }
   {
     const args = parseArgs(["--name", "foo"], options, handler);
-    assertEquals(args.name, "bar");
+    assertEquals(args.name, "foo");
   }
 });
 
@@ -190,7 +190,7 @@ Deno.test("parseArgs: loadEnv, string with collect", () => {
   }
   {
     const args = parseArgs(["--item", "a", "--item", "b"], options, handler);
-    assertEquals(args.item, ["x"]);
+    assertEquals(args.item, ["a", "b"]);
   }
 });
 
@@ -234,10 +234,10 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
   }
   {
     const args = parseArgs(["--no-color"], options, new _FakeGetEnvHandler({ COLOR: "1" }));
-    assertEquals(args.color, true);
+    assertEquals(args.color, false);
   }
   {
     const args = parseArgs(["--color"], options, new _FakeGetEnvHandler({ COLOR: "0" }));
-    assertEquals(args.color, false);
+    assertEquals(args.color, true);
   }
 });
