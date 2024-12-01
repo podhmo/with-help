@@ -241,3 +241,32 @@ Deno.test("parseArgs: loadEnv, boolean with negatable", () => {
     assertEquals(args.color, true);
   }
 });
+
+// for subcommands
+
+Deno.test("parseArgs: skip required check if subcommands's --help is given", () => {
+  const options = {
+    name: "subcommand-example",
+    string: ["apiKey"],
+    required: ["apiKey"],
+    stopEarly: true,
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+  { // without --help
+    try {
+      parseArgs([], options, handler);
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        "Missing required option: --apiKey",
+      );
+    }
+  }
+
+  { // with --help
+    const args = parseArgs(["foo", "--help"], options, handler);
+    assertEquals(args._, ["foo", "--help"]);
+  }
+});

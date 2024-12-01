@@ -1,8 +1,8 @@
 import { parseArgs } from "../parse-args.ts";
 
 // deno run -A examples/build-subcommands.ts --help
-// API_KEY=foo deno run -A examples/build-subcommands.ts post --help
-// API_KEY=foo deno run -A examples/build-subcommands.ts list-models --help
+// deno run -A examples/build-subcommands.ts post --help
+// deno run -A examples/build-subcommands.ts list-models --help
 //
 // deno run -A examples/build-subcommands.ts --apiKey=world post --title hello
 // API_KEY=foo deno run -A examples/build-subcommands.ts list-models --format json

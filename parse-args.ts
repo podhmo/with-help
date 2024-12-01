@@ -205,14 +205,16 @@ export function parseArgs<
   }
 
   // check required options
-  options?.required?.forEach((name) => {
-    if (parsed[name as keyof typeof parsed] === undefined) {
-      if (!options.supressHelp) {
-        handler.showHelp({ ...options, envvar });
+  if (!(options.stopEarly && parsed._.includes("--help"))) { // skip if --help is given in rest arguments
+    options?.required?.forEach((name) => {
+      if (parsed[name as keyof typeof parsed] === undefined) {
+        if (!options.supressHelp) {
+          handler.showHelp({ ...options, envvar });
+        }
+        handler.terminate({ message: `Missing required option: --${name}`, code: 1 });
       }
-      handler.terminate({ message: `Missing required option: --${name}`, code: 1 });
-    }
-  });
+    });
+  }
 
   return {
     ...parsed,
