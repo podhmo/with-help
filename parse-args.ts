@@ -41,7 +41,7 @@ type Parsed<
   & {
     [K in BooleanKey]: boolean; // boolean | undefined is not allowed
   }
-  & { help: boolean; _: string[] };
+  & { help: boolean; _: string[]; [injectRestrictionSymbol]: Restriction };
 
 /**
  * Command line arguments parser wrapper for parseArgs of {@link https://jsr.io/@std/cli/doc/parse-args}
@@ -209,7 +209,23 @@ export function parseArgs<
       handler.terminate({ message: `Missing required option: --${name}`, code: 1 });
     }
   });
-  return parsed;
+
+  return {
+    ...parsed,
+
+    // this is hacky way to inject restriction
+    [injectRestrictionSymbol]: new Restriction(
+      { ...options, envvar: options.envvar as Record<string, string> },
+      options.supressHelp,
+      handler,
+    ),
+  };
+}
+
+const injectRestrictionSymbol = Symbol("restriction");
+
+interface HasRestriction {
+  [injectRestrictionSymbol]: Restriction;
 }
 
 /** Restriction class for type checking */
@@ -229,4 +245,9 @@ export class Restriction {
     }
     return value as string[] extends KS ? never : KS[number];
   }
+}
+
+/** Get restriction object for more strict typing */
+export function moreStrict(parsed: HasRestriction): Restriction {
+  return parsed[injectRestrictionSymbol];
 }
