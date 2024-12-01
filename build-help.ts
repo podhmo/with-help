@@ -47,6 +47,12 @@ export type MoreOptions = {
 
   /** Usage text (overwrite) */
   usageText?: string;
+
+  /** Header text to display before the options. */
+  header?: string;
+
+  /** Footer text to display after the options. */
+  footer?: string;
 };
 
 /** Combined options including both OriginalOptions and MoreOptions. */
@@ -172,5 +178,11 @@ export function buildHelp(options: Options): string {
     ),
   ];
 
+  if (options.header) {
+    help.unshift(options.header);
+  }
+  if (options.footer) {
+    help.push(options.footer);
+  }
   return help.join("\n");
 }

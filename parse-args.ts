@@ -106,7 +106,11 @@ export function parseArgs<
 
     helpText?: string; // override help text
     usageText?: string; // override usage text
+
     supressHelp?: boolean; // supress help message if error
+
+    header?: string; // header text
+    footer?: string; // footer text
   },
   // for debug or test
   handler?: Handler,
