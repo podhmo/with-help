@@ -41,7 +41,8 @@ type Parsed<
   & {
     [K in BooleanKey]: boolean; // boolean | undefined is not allowed
   }
-  & { help: boolean; _: string[]; [injectRestrictionSymbol]: Restriction };
+  & { help: boolean; _: string[] }
+  & HasCallback;
 
 /**
  * Command line arguments parser wrapper for parseArgs of {@link https://jsr.io/@std/cli/doc/parse-args}
@@ -220,18 +221,16 @@ export function parseArgs<
     ...parsed,
 
     // this is hacky way to inject restriction
-    [injectRestrictionSymbol]: new Restriction(
-      { ...options, envvar: options.envvar as Record<string, string> },
-      options.supressHelp,
-      handler,
-    ),
+    [injectCallbackSymbol]: (reaciton: (options: Options, suppressHelp: boolean, handler: Handler) => void) => {
+      reaciton({ ...options, envvar: options.envvar as Record<string, string> }, options.supressHelp ?? false, handler);
+    },
   };
 }
 
-const injectRestrictionSymbol = Symbol("restriction");
+const injectCallbackSymbol = Symbol("callback for something");
 
-interface HasRestriction {
-  [injectRestrictionSymbol]: Restriction;
+interface HasCallback {
+  [injectCallbackSymbol]: (reaction: (options: Options, suppressHelp: boolean, handler: Handler) => void) => void;
 }
 
 /** Restriction class for type checking */
@@ -254,6 +253,10 @@ export class Restriction {
 }
 
 /** Get restriction object for more strict typing */
-export function moreStrict(parsed: HasRestriction): Restriction {
-  return parsed[injectRestrictionSymbol];
+export function moreStrict(parsed: HasCallback): Restriction {
+  let restriction: Restriction | undefined;
+  parsed[injectCallbackSymbol]((options, suppressHelp, handler) => {
+    restriction = new Restriction(options, suppressHelp, handler);
+  });
+  return restriction as Restriction;
 }
