@@ -234,7 +234,10 @@ export class Restriction {
     private readonly options: Options,
     private readonly supressHelp: boolean = false, // supress help message if error
     private readonly _handler: Handler = denoHandler,
-  ) {}
+  ) {
+    // prevent error in runtime (e.g. `const choices = moreStrict(args).choices; and choices("foo", ["bar"]);`)
+    this.choices = this.choices.bind(this);
+  }
 
   choices<const KS extends readonly string[]>(value: string, candidates: KS): string[] extends KS ? never : KS[number] {
     if (!candidates.includes(value)) {
