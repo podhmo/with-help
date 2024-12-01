@@ -161,3 +161,12 @@ Deno.test("override helpText", () => {
   const want = "this is help";
   assertEquals(got, want);
 });
+
+Deno.test("header,footer", () => {
+  const got = buildHelp({
+    header: "header",
+    footer: "footer",
+  });
+  const want = ["header", "Usage: cli [options]", "", "Options:", "footer"].join("\n");
+  assertEquals(got, want);
+});

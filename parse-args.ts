@@ -41,7 +41,8 @@ type Parsed<
   & {
     [K in BooleanKey]: boolean; // boolean | undefined is not allowed
   }
-  & { help: boolean; _: string[]; [injectRestrictionSymbol]: Restriction };
+  & { help: boolean; _: string[] }
+  & HasCallback;
 
 /**
  * Command line arguments parser wrapper for parseArgs of {@link https://jsr.io/@std/cli/doc/parse-args}
@@ -106,7 +107,11 @@ export function parseArgs<
 
     helpText?: string; // override help text
     usageText?: string; // override usage text
+
     supressHelp?: boolean; // supress help message if error
+
+    header?: string; // header text
+    footer?: string; // footer text
   },
   // for debug or test
   handler?: Handler,
@@ -201,31 +206,31 @@ export function parseArgs<
   }
 
   // check required options
-  options?.required?.forEach((name) => {
-    if (parsed[name as keyof typeof parsed] === undefined) {
-      if (!options.supressHelp) {
-        handler.showHelp({ ...options, envvar });
+  if (!(options.stopEarly && (parsed._.length === 0 || parsed._.includes("--help")))) { // skip if --help is given in rest arguments
+    options?.required?.forEach((name) => {
+      if (parsed[name as keyof typeof parsed] === undefined) {
+        if (!options.supressHelp) {
+          handler.showHelp({ ...options, envvar });
+        }
+        handler.terminate({ message: `Missing required option: --${name}`, code: 1 });
       }
-      handler.terminate({ message: `Missing required option: --${name}`, code: 1 });
-    }
-  });
+    });
+  }
 
   return {
     ...parsed,
 
     // this is hacky way to inject restriction
-    [injectRestrictionSymbol]: new Restriction(
-      { ...options, envvar: options.envvar as Record<string, string> },
-      options.supressHelp,
-      handler,
-    ),
+    [injectCallbackSymbol]: (reaciton: (options: Options, suppressHelp: boolean, handler: Handler) => void) => {
+      reaciton({ ...options, envvar: options.envvar as Record<string, string> }, options.supressHelp ?? false, handler);
+    },
   };
 }
 
-const injectRestrictionSymbol = Symbol("restriction");
+const injectCallbackSymbol = Symbol("callback for something");
 
-interface HasRestriction {
-  [injectRestrictionSymbol]: Restriction;
+interface HasCallback {
+  [injectCallbackSymbol]: (reaction: (options: Options, suppressHelp: boolean, handler: Handler) => void) => void;
 }
 
 /** Restriction class for type checking */
@@ -251,6 +256,16 @@ export class Restriction {
 }
 
 /** Get restriction object for more strict typing */
-export function moreStrict(parsed: HasRestriction): Restriction {
-  return parsed[injectRestrictionSymbol];
+export function moreStrict(parsed: HasCallback): Restriction {
+  let restriction: Restriction | undefined;
+  parsed[injectCallbackSymbol]((options, suppressHelp, handler) => {
+    restriction = new Restriction(options, suppressHelp, handler);
+  });
+  return restriction as Restriction;
+}
+
+export function printHelp(parsed: HasCallback): void {
+  parsed[injectCallbackSymbol]((options, _, handler) => {
+    handler.showHelp(options);
+  });
 }
