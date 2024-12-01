@@ -260,3 +260,9 @@ export function moreStrict(parsed: HasCallback): Restriction {
   });
   return restriction as Restriction;
 }
+
+export function printHelp(parsed: HasCallback): void {
+  parsed[injectCallbackSymbol]((options, _, handler) => {
+    handler.showHelp(options);
+  });
+}

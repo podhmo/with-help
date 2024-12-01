@@ -1,4 +1,4 @@
-import { parseArgs } from "../parse-args.ts";
+import { parseArgs, printHelp } from "../parse-args.ts";
 
 // deno run -A examples/build-subcommands.ts --help
 // deno run -A examples/build-subcommands.ts post --help
@@ -28,8 +28,8 @@ Available subcommands:
   });
 
   if (baseOptions._.length === 0) {
+    printHelp(baseOptions);
     console.error("subcommand is required");
-    // TODO: print help
     Deno.exit(1);
   }
 
@@ -55,7 +55,7 @@ function post(args: string[], baseOptions: BaseOptions) {
     },
   });
 
-  console.log(JSON.stringify({ name: "post", options, baseOptions }, null, 2));
+  console.dir({ name: "post", options, baseOptions }, { depth: null });
 }
 
 function listModels(args: string[], baseOptions: BaseOptions) {
@@ -67,7 +67,7 @@ function listModels(args: string[], baseOptions: BaseOptions) {
     },
   });
 
-  console.log(JSON.stringify({ name: "list-models", options, baseOptions }, null, 2));
+  console.dir({ name: "list-models", options, baseOptions }, { depth: null });
 }
 
 if (import.meta.main) {
