@@ -206,7 +206,7 @@ export function parseArgs<
   }
 
   // check required options
-  if (!(options.stopEarly && parsed._.includes("--help"))) { // skip if --help is given in rest arguments
+  if (!(options.stopEarly && (parsed._.length === 0 || parsed._.includes("--help")))) { // skip if --help is given in rest arguments
     options?.required?.forEach((name) => {
       if (parsed[name as keyof typeof parsed] === undefined) {
         if (!options.supressHelp) {
