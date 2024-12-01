@@ -41,7 +41,7 @@ type Parsed<
   & {
     [K in BooleanKey]: boolean; // boolean | undefined is not allowed
   }
-  & { help: boolean; _: string[]; [injectRestrictionSymbol]: Restriction};
+  & { help: boolean; _: string[]; [injectRestrictionSymbol]: Restriction };
 
 /**
  * Command line arguments parser wrapper for parseArgs of {@link https://jsr.io/@std/cli/doc/parse-args}
@@ -247,6 +247,7 @@ export class Restriction {
   }
 }
 
+/** Get restriction object for more strict typing */
 export function moreStrict(parsed: HasRestriction): Restriction {
   return parsed[injectRestrictionSymbol];
 }
