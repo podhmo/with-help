@@ -170,3 +170,29 @@ Deno.test("header,footer", () => {
   const want = ["header", "Usage: cli [options]", "", "Options:", "footer"].join("\n");
   assertEquals(got, want);
 });
+
+// mask
+Deno.test("mask,short", () => {
+  const got = buildHelp({ string: ["password"], mask: ["password"], default: { password: "xyz" } });
+  const want = [
+    "Usage: cli [options]",
+    "",
+    "Options:",
+    `  --password    <string> (default: password="*yz")`,
+  ].join("\n");
+  assertEquals(got, want);
+});
+Deno.test("mask,long", () => {
+  const got = buildHelp({
+    string: ["password"],
+    mask: ["password"],
+    default: { password: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" },
+  });
+  const want = [
+    "Usage: cli [options]",
+    "",
+    "Options:",
+    `  --password    <string> (default: password="**********...length=155...5c")`,
+  ].join("\n");
+  assertEquals(got, want);
+});
