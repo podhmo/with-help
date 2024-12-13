@@ -33,6 +33,9 @@ export type MoreOptions = {
   /** Options that are required. */
   required?: readonly string[];
 
+  /** Options that are required and should be masked. */
+  mask?: readonly string[];
+
   /** A general description of the CLI tool. */
   description?: string;
 
@@ -98,6 +101,7 @@ function formatStringOptions(
   collectable: readonly string[],
   defaults: Record<string, unknown>,
   required: readonly string[],
+  masks: readonly string[],
   flagDescription: Record<string, string>,
   envvar: Record<string, string>,
   maxLength: number,
@@ -110,8 +114,12 @@ function formatStringOptions(
         `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}> ${flagDescription[name]}`,
       );
     } else if (defaults[name] !== undefined) {
+      let defaultValue = `${defaults[name]}`;
+      if (masks.includes(name)) {
+        defaultValue = defaultValue.replaceAll(/./g, "*");
+      }
       output.push(
-        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""} (default: ${name}=${JSON.stringify(defaults[name])})`,
+        `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""} (default: ${name}=${JSON.stringify(defaultValue)})`,
       );
     } else {
       output.push(
@@ -142,6 +150,7 @@ export function buildHelp(options: Options): string {
     collect,
     default: defaults,
     required,
+    mask,
     description,
     flagDescription,
     envvar,
@@ -165,6 +174,7 @@ export function buildHelp(options: Options): string {
       collect || [],
       defaults || {},
       required || [],
+      mask || [],
       flagDescription || {},
       envvar || {},
       maxLength,

@@ -99,6 +99,7 @@ export function parseArgs<
     // additional options
     name?: string;
     required?: ExtractLiteralUnion<RequiredKeys> extends ExtractLiteralUnion<StringKeys> ? RequiredKeys : ExtractLiteralUnion<StringKeys>[];
+    mask?: ExtractLiteralUnion<RequiredKeys> extends ExtractLiteralUnion<StringKeys> ? RequiredKeys : ExtractLiteralUnion<StringKeys>[];
     description?: string;
     flagDescription?:
       & { [P in ExtractLiteralUnion<StringKeys> | ExtractLiteralUnion<BooleanKeys>]?: string }
