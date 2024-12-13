@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert/equals";
-import { parseArgs } from "./parse-args.ts";
+import { moreStrict, parseArgs } from "./parse-args.ts";
 import type { Options } from "./build-help.ts";
 
 class _TerminateError extends Error {
@@ -268,5 +268,69 @@ Deno.test("parseArgs: skip required check if subcommands's --help is given", () 
   { // with --help
     const args = parseArgs(["foo", "--help"], options, handler);
     assertEquals(args._, ["foo", "--help"]);
+  }
+});
+
+// for more strict type checking
+Deno.test("parseArgs: strict type checking, integer", () => {
+  const options = {
+    name: "subcommand-example",
+    string: ["value"],
+    required: ["value"],
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+
+  { // ok
+    const args = parseArgs(["--value", "123"], options, handler);
+    const coerce = moreStrict(args).integer;
+    const args_ = { ...args, value: coerce(args.value) };
+    assertEquals(args_.value, 123);
+  }
+
+  { // type error
+    const args = parseArgs(["--value", "xxx"], options, handler);
+    const coerce = moreStrict(args).integer;
+
+    try {
+      const _ = { ...args, value: coerce(args.value) };
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        `"xxx" is not an integer`,
+      );
+    }
+  }
+});
+Deno.test("parseArgs: strict type checking, float", () => {
+  const options = {
+    name: "subcommand-example",
+    string: ["value"],
+    required: ["value"],
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+
+  { // ok
+    const args = parseArgs(["--value", "123"], options, handler);
+    const coerce = moreStrict(args).float;
+    const args_ = { ...args, value: coerce(args.value) };
+    assertEquals(args_.value, 123);
+  }
+
+  { // type error
+    const args = parseArgs(["--value", "xxx"], options, handler);
+    const coerce = moreStrict(args).float;
+
+    try {
+      const _ = { ...args, value: coerce(args.value) };
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        `"xxx" is not a float`,
+      );
+    }
   }
 });
