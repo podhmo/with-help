@@ -170,3 +170,15 @@ Deno.test("header,footer", () => {
   const want = ["header", "Usage: cli [options]", "", "Options:", "footer"].join("\n");
   assertEquals(got, want);
 });
+
+// mask
+Deno.test("mask", () => {
+  const got = buildHelp({ string: ["password"], mask: ["password"], default: { password: "xxx" } });
+  const want = [
+    "Usage: cli [options]",
+    "",
+    "Options:",
+    `  --password    <string> (default: password="***")`,
+  ].join("\n");
+  assertEquals(got, want);
+});
