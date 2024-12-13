@@ -63,6 +63,7 @@ const _negatable_padding = 3; // for "--no-" prefix
 function formatBooleanOptions(
   booleans: readonly string[],
   negatable: readonly string[],
+  defaults: Record<string, unknown>,
   required: readonly string[],
   flagDescription: Record<string, string>,
   envvar: Record<string, string>,
@@ -75,14 +76,14 @@ function formatBooleanOptions(
       if (flagDescription[name] || flagDescription[`no-${name}`]) {
         output.push(`  --no-${paddedName} <boolean> ${flagDescription[name]}`);
       } else {
-        output.push(`  --no-${paddedName} <boolean>${required.includes(name) ? " (required)" : ""} (default: ${name}=true)`);
+        output.push(`  --no-${paddedName} <boolean>${required.includes(name) ? " (required)" : ""} (default: ${name}=${defaults[name] ?? true})`);
       }
     } else {
       const paddedName = name.padEnd(maxLength, " ");
       if (flagDescription[name]) {
         output.push(`  --${paddedName} <boolean> ${flagDescription[name]}`);
       } else {
-        output.push(`  --${paddedName} <boolean>${required.includes(name) ? " (required)" : ""} (default: ${name}=false)`);
+        output.push(`  --${paddedName} <boolean>${required.includes(name) ? " (required)" : ""} (default: ${name}=${defaults[name] ?? false})`);
       }
     }
     if (envvar[name]) {
@@ -171,6 +172,7 @@ export function buildHelp(options: Options): string {
     ...formatBooleanOptions(
       boolean || [],
       negatable || [],
+      defaults || {},
       required || [],
       flagDescription || {},
       envvar || {},
