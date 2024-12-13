@@ -1,7 +1,8 @@
 import { assertEquals } from "@std/assert/equals";
+import { assertFalse } from "@std/assert/false";
+
 import { moreStrict, parseArgs } from "./parse-args.ts";
 import type { Options } from "./build-help.ts";
-import { assertFalse } from "@std/assert/false";
 
 class _TerminateError extends Error {
   constructor(message: string, public code: number) {
