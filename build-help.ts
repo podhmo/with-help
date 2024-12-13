@@ -116,7 +116,11 @@ function formatStringOptions(
     } else if (defaults[name] !== undefined) {
       let defaultValue = `${defaults[name]}`;
       if (masks.includes(name)) {
-        defaultValue = defaultValue.replaceAll(/./g, "*");
+        if (defaultValue.length <= 10) {
+          defaultValue = defaultValue.substring(0, defaultValue.length - 2).replaceAll(/./g, "*") + defaultValue.substring(defaultValue.length - 2);
+        } else {
+          defaultValue = `${defaultValue.substring(0, 10).replaceAll(/./g, "*")}...length=${defaultValue.length}...${defaultValue.substring(defaultValue.length - 2)}`;
+        }
       }
       output.push(
         `  --${paddedName} <string${collectable.includes(name) ? "[]" : ""}>${required.includes(name) ? " (required)" : ""} (default: ${name}=${JSON.stringify(defaultValue)})`,
