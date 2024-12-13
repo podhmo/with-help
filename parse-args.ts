@@ -260,19 +260,19 @@ export class Restriction {
       if (!this.supressHelp) {
         this._handler.showHelp(this.options);
       }
-      this._handler.terminate({ message: `"${value}" is not float`, code: 1 });
+      this._handler.terminate({ message: `"${value}" is not a float`, code: 1 });
     }
     return parseFloat(value);
   };
 
   /** check if the value is integer */
-  int = (value: string): number => {
+  integer = (value: string): number => {
     // e.g. -1, 1, +1
     if (!/^[+\-]?\d+$/.test(value.trim())) {
       if (!this.supressHelp) {
         this._handler.showHelp(this.options);
       }
-      this._handler.terminate({ message: `"${value}" is not integer`, code: 1 });
+      this._handler.terminate({ message: `"${value}" is not an integer`, code: 1 });
     }
     return parseInt(value, 10);
   };
