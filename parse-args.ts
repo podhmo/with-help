@@ -253,7 +253,7 @@ export class Restriction {
     return value as string[] extends KS ? never : KS[number];
   };
 
-  /** check if the value is float */
+  /** Check if the value is a float */
   float = (value: string): number => {
     // e.g. -1.0, 1., .1, +1
     if (!/^[+\-]?(\d*\.\d+|\d+\.?\d*)$/.test(value.trim())) {
@@ -265,7 +265,7 @@ export class Restriction {
     return parseFloat(value);
   };
 
-  /** check if the value is integer */
+  /** Check if the value is an integer */
   integer = (value: string): number => {
     // e.g. -1, 1, +1
     if (!/^[+\-]?\d+$/.test(value.trim())) {
