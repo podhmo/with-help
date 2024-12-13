@@ -1,6 +1,7 @@
 import { assertEquals } from "@std/assert/equals";
 import { moreStrict, parseArgs } from "./parse-args.ts";
 import type { Options } from "./build-help.ts";
+import { assertFalse } from "@std/assert/false";
 
 class _TerminateError extends Error {
   constructor(message: string, public code: number) {
@@ -272,6 +273,39 @@ Deno.test("parseArgs: skip required check if subcommands's --help is given", () 
 });
 
 // for more strict type checking
+Deno.test("parseArgs: strict type checking, choices", () => {
+  const abc = ["a", "b", "c"] as const;
+  const options = {
+    name: "subcommand-example",
+    string: ["value"],
+    required: ["value"],
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+
+  { // ok
+    const args = parseArgs(["--value", "a"], options, handler);
+    const coerce = moreStrict(args).choices;
+    const args_ = { ...args, value: coerce(args.value, abc) };
+
+    // @ts-ignore "d" is not in "a" | "b" | "c"
+    assertFalse(args_.value === "d");
+  }
+
+  { // passing invalid value
+    const args = parseArgs(["--value", "d"], options, handler);
+    const coerce = moreStrict(args).choices;
+    try {
+      const _ = { ...args, value: coerce(args.value, abc) };
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        `"d" is not one of ["a","b","c"]`,
+      );
+    }
+  }
+});
 Deno.test("parseArgs: strict type checking, integer", () => {
   const options = {
     name: "subcommand-example",
@@ -285,10 +319,12 @@ Deno.test("parseArgs: strict type checking, integer", () => {
     const args = parseArgs(["--value", "123"], options, handler);
     const coerce = moreStrict(args).integer;
     const args_ = { ...args, value: coerce(args.value) };
-    assertEquals(args_.value, 123);
+
+    // @ts-ignore "foo" is not an integer
+    assertFalse(args_.value === "foo");
   }
 
-  { // type error
+  { // passing invalid value
     const args = parseArgs(["--value", "xxx"], options, handler);
     const coerce = moreStrict(args).integer;
 
@@ -316,10 +352,12 @@ Deno.test("parseArgs: strict type checking, float", () => {
     const args = parseArgs(["--value", "123"], options, handler);
     const coerce = moreStrict(args).float;
     const args_ = { ...args, value: coerce(args.value) };
-    assertEquals(args_.value, 123);
+
+    // @ts-ignore "foo" is not a float
+    assertFalse(args_.value === "foo");
   }
 
-  { // type error
+  { // passing invalid value
     const args = parseArgs(["--value", "xxx"], options, handler);
     const coerce = moreStrict(args).float;
 
