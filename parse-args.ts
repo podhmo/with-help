@@ -242,6 +242,7 @@ export class Restriction {
     private readonly _handler: Handler = denoHandler,
   ) {}
 
+  /** Check if the value is one of the candidates */
   choices = <const KS extends readonly string[]>(value: string, candidates: KS): string[] extends KS ? never : KS[number] => {
     if (!candidates.includes(value)) {
       if (!this.supressHelp) {
@@ -250,6 +251,30 @@ export class Restriction {
       this._handler.terminate({ message: `"${value}" is not one of ${JSON.stringify(candidates)}`, code: 1 });
     }
     return value as string[] extends KS ? never : KS[number];
+  };
+
+  /** Check if the value is a float */
+  float = (value: string): number => {
+    // e.g. -1.0, 1., .1, +1
+    if (!/^[+\-]?(\d*\.\d+|\d+\.?\d*)$/.test(value.trim())) {
+      if (!this.supressHelp) {
+        this._handler.showHelp(this.options);
+      }
+      this._handler.terminate({ message: `"${value}" is not a float`, code: 1 });
+    }
+    return parseFloat(value);
+  };
+
+  /** Check if the value is an integer */
+  integer = (value: string): number => {
+    // e.g. -1, 1, +1
+    if (!/^[+\-]?\d+$/.test(value.trim())) {
+      if (!this.supressHelp) {
+        this._handler.showHelp(this.options);
+      }
+      this._handler.terminate({ message: `"${value}" is not an integer`, code: 1 });
+    }
+    return parseInt(value, 10);
   };
 }
 

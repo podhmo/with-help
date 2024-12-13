@@ -1,5 +1,7 @@
 import { assertEquals } from "@std/assert/equals";
-import { parseArgs } from "./parse-args.ts";
+import { assertFalse } from "@std/assert/false";
+
+import { moreStrict, parseArgs } from "./parse-args.ts";
 import type { Options } from "./build-help.ts";
 
 class _TerminateError extends Error {
@@ -268,5 +270,106 @@ Deno.test("parseArgs: skip required check if subcommands's --help is given", () 
   { // with --help
     const args = parseArgs(["foo", "--help"], options, handler);
     assertEquals(args._, ["foo", "--help"]);
+  }
+});
+
+// for more strict type checking
+Deno.test("parseArgs: strict type checking, choices", () => {
+  const abc = ["a", "b", "c"] as const;
+  const options = {
+    name: "subcommand-example",
+    string: ["value"],
+    required: ["value"],
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+
+  { // ok
+    const args = parseArgs(["--value", "a"], options, handler);
+    const coerce = moreStrict(args).choices;
+    const args_ = { ...args, value: coerce(args.value, abc) };
+
+    // @ts-expect-error "d" is not in "a" | "b" | "c"
+    assertFalse(args_.value === "d");
+  }
+
+  { // passing invalid value
+    const args = parseArgs(["--value", "d"], options, handler);
+    const coerce = moreStrict(args).choices;
+    try {
+      const _ = { ...args, value: coerce(args.value, abc) };
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        `"d" is not one of ["a","b","c"]`,
+      );
+    }
+  }
+});
+Deno.test("parseArgs: strict type checking, integer", () => {
+  const options = {
+    name: "subcommand-example",
+    string: ["value"],
+    required: ["value"],
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+
+  { // ok
+    const args = parseArgs(["--value", "123"], options, handler);
+    const coerce = moreStrict(args).integer;
+    const args_ = { ...args, value: coerce(args.value) };
+
+    // @ts-expect-error "foo" is not an integer
+    assertFalse(args_.value === "foo");
+  }
+
+  { // passing invalid value
+    const args = parseArgs(["--value", "xxx"], options, handler);
+    const coerce = moreStrict(args).integer;
+
+    try {
+      const _ = { ...args, value: coerce(args.value) };
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        `"xxx" is not an integer`,
+      );
+    }
+  }
+});
+Deno.test("parseArgs: strict type checking, float", () => {
+  const options = {
+    name: "subcommand-example",
+    string: ["value"],
+    required: ["value"],
+  } as const;
+
+  const handler = new _FakeGetEnvHandler({});
+
+  { // ok
+    const args = parseArgs(["--value", "123"], options, handler);
+    const coerce = moreStrict(args).float;
+    const args_ = { ...args, value: coerce(args.value) };
+
+    // @ts-expect-error "foo" is not a float
+    assertFalse(args_.value === "foo");
+  }
+
+  { // passing invalid value
+    const args = parseArgs(["--value", "xxx"], options, handler);
+    const coerce = moreStrict(args).float;
+
+    try {
+      const _ = { ...args, value: coerce(args.value) };
+    } catch (e: unknown) {
+      assertEquals(e instanceof _TerminateError, true);
+      assertEquals(
+        (e as _TerminateError).message,
+        `"xxx" is not a float`,
+      );
+    }
   }
 });
