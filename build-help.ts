@@ -73,16 +73,16 @@ function formatBooleanOptions(
     if (negatable.includes(name)) {
       const paddedName = name.padEnd(maxLength - _negatable_padding, " ");
       if (flagDescription[name] || flagDescription[`no-${name}`]) {
-        output.push(`  --no-${paddedName} ${flagDescription[name]}`);
+        output.push(`  --no-${paddedName} <boolean> ${flagDescription[name]}`);
       } else {
-        output.push(`  --no-${paddedName}${required.includes(name) ? " (required)" : ""} (default: ${name}=true)`);
+        output.push(`  --no-${paddedName} <boolean>${required.includes(name) ? " (required)" : ""} (default: ${name}=true)`);
       }
     } else {
       const paddedName = name.padEnd(maxLength, " ");
       if (flagDescription[name]) {
-        output.push(`  --${paddedName} ${flagDescription[name]}`);
+        output.push(`  --${paddedName} <boolean> ${flagDescription[name]}`);
       } else {
-        output.push(`  --${paddedName}${required.includes(name) ? " (required)" : ""} (default: ${name}=false)`);
+        output.push(`  --${paddedName} <boolean>${required.includes(name) ? " (required)" : ""} (default: ${name}=false)`);
       }
     }
     if (envvar[name]) {
