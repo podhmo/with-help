@@ -27,7 +27,7 @@ Deno.test("boolean", () => {
     "Usage: cli [options]",
     "",
     "Options:",
-    "  --verbose    (default: verbose=false)",
+    "  --verbose    <boolean> (default: verbose=false)",
   ].join("\n");
   assertEquals(got, want);
 });
@@ -37,7 +37,7 @@ Deno.test("boolean,required", () => {
     "Usage: cli [options]",
     "",
     "Options:",
-    "  --verbose    (required) (default: verbose=false)",
+    "  --verbose    <boolean> (required) (default: verbose=false)",
   ].join("\n");
   assertEquals(got, want);
 });
@@ -47,7 +47,7 @@ Deno.test("boolean,negatable", () => {
     "Usage: cli [options]",
     "",
     "Options:",
-    "  --no-color    (default: color=true)",
+    "  --no-color    <boolean> (default: color=true)",
   ].join("\n");
   assertEquals(got, want);
 });
@@ -88,7 +88,7 @@ Deno.test("boolean,flagDescription", () => {
     boolean: ["help"],
     flagDescription: { help: "show help" },
   });
-  const want = ["Usage: cli [options]", "", "Options:", "  --help    show help"]
+  const want = ["Usage: cli [options]", "", "Options:", "  --help    <boolean> show help"]
     .join("\n");
   assertEquals(got, want);
 });
@@ -102,7 +102,7 @@ Deno.test("boolean,negatable,flagDescription", () => {
     "Usage: cli [options]",
     "",
     "Options:",
-    "  --no-color    without color",
+    "  --no-color    <boolean> without color",
   ].join("\n");
   assertEquals(got, want);
 });
@@ -138,8 +138,8 @@ Deno.test("string,boolean,envvar", () => {
     "Options:",
     "  --version     <string> (required)    (env: CLI_VERSION)",
     "  --config      <string>",
-    "  --verbose     (default: verbose=false)    (env: CLI_VERBOSE)",
-    "  --no-color    (default: color=true)    (env: CLI_COLOR)",
+    "  --verbose     <boolean> (default: verbose=false)    (env: CLI_VERBOSE)",
+    "  --no-color    <boolean> (default: color=true)    (env: CLI_COLOR)",
   ].join("\n");
   assertEquals(got, want);
 });
@@ -151,7 +151,7 @@ Deno.test("override usageText", () => {
     "cli-example [Options]",
     "",
     "Options:",
-    "  --verbose    (default: verbose=false)",
+    "  --verbose    <boolean> (default: verbose=false)",
   ].join("\n");
   assertEquals(got, want);
 });
