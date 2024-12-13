@@ -288,7 +288,7 @@ Deno.test("parseArgs: strict type checking, choices", () => {
     const coerce = moreStrict(args).choices;
     const args_ = { ...args, value: coerce(args.value, abc) };
 
-    // @ts-ignore "d" is not in "a" | "b" | "c"
+    // @ts-expect-error "d" is not in "a" | "b" | "c"
     assertFalse(args_.value === "d");
   }
 
@@ -320,7 +320,7 @@ Deno.test("parseArgs: strict type checking, integer", () => {
     const coerce = moreStrict(args).integer;
     const args_ = { ...args, value: coerce(args.value) };
 
-    // @ts-ignore "foo" is not an integer
+    // @ts-expect-error "foo" is not an integer
     assertFalse(args_.value === "foo");
   }
 
@@ -353,7 +353,7 @@ Deno.test("parseArgs: strict type checking, float", () => {
     const coerce = moreStrict(args).float;
     const args_ = { ...args, value: coerce(args.value) };
 
-    // @ts-ignore "foo" is not a float
+    // @ts-expect-error "foo" is not a float
     assertFalse(args_.value === "foo");
   }
 
